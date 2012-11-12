@@ -1,10 +1,8 @@
 package ru.spbau.WhereIsMyMoney.storage;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import ru.spbau.WhereIsMyMoney.Transaction;
 import android.content.ContentValues;
@@ -114,4 +112,35 @@ public class TransactionLogSource extends BaseDataSource {
 			}
 		});
 	}
+
+    /**
+     * Return total costs for each cards
+     *
+     * @param start start date for report
+     * @param end end date for report
+     * @return map costs_report to total costs from start to end
+     */
+    public Map<String, Double> getCostsForPeriodPerCards(final Date start, final Date end) {
+        HashMap<String, Double> costs = new HashMap<String, Double>();
+
+        List<Transaction> transactions = getTransactions(new IFilter<Transaction>() {
+            public boolean match(Transaction transaction) {
+                return transaction.getDate().compareTo(start) >= 0 && transaction.getDate().compareTo(end) <= 0;
+            }
+        });
+
+        for (Transaction transaction : transactions) {
+            final Pattern moneyMatcher = Pattern.compile("^(\\d+(?:\\.\\d+)?)\\s*(.*)");
+            Matcher matcher = moneyMatcher.matcher(transaction.getDelta());
+            if (matcher.matches()) {
+                Double value = costs.get(transaction.getCard());
+                if (value == null)
+                    value = 0.0;
+
+                value += Double.valueOf(matcher.group(1));
+                costs.put(transaction.getCard(), value);
+            }
+        }
+        return costs;
+    }
 }
