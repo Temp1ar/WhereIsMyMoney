@@ -1,37 +1,37 @@
 package ru.spbau.WhereIsMyMoney.Service;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import android.os.*;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import ru.spbau.WhereIsMyMoney.SmsEvent;
 
 public class SmsReceiver extends BroadcastReceiver {
-    private static final String TAG = "WhereIsMyMoney.Service.SmsReceiver";
+    private static final String TAG = SmsReceiver.class.getCanonicalName();
+
+    public SmsReceiver() {
+        super();
+        Log.d(TAG, "SmsReceiver()");
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive");
-        Intent service = new Intent(context, WatcherService.class);
-        IBinder binder = peekService(context, service);
+        Intent serviceIntent = new Intent(context, WatcherService.class);
+        IBinder binder = peekService(context, serviceIntent);
+        String message = buildMessage(context, intent);
         if (binder == null) {
             Log.d(TAG, "WatcherService isn't running. Trying to start.");
-            service.setAction(WatcherService.class.getName());
-            if (context.startService(service) == null) {
+            serviceIntent.putExtra(WatcherService.SMS_EVENT, message);
+            if (context.startService(serviceIntent) == null) {
                 Log.d(TAG, "Can't start service");
-                return;
+            } else {
+                Log.d(TAG, "Service started and successfully receive message: " + message);
             }
-            binder = peekService(context, service);
-            if (binder == null) {
-                Log.d(TAG, "Can't bind to started service");
-                return;
-            }
+        } else {
+            sendMessage(message, binder);
+            Log.d(TAG, "Sending message to running service: " + message);
         }
-        String message = buildMessage(context, intent);
-        sendMessage(message, binder);
-        Log.d(TAG, "Sending message to service: " + message);
     }
 
     private static void sendMessage(String msg, IBinder binder) {

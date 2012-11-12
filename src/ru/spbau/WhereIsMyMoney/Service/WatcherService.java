@@ -9,21 +9,22 @@ import android.os.Messenger;
 import android.util.Log;
 
 public class WatcherService extends Service {
-    private static final String TAG = Service.class.getName();
+    private static final String TAG = WatcherService.class.getCanonicalName();
 
     public static final int MSG_SMS_RECEIVED = 1;
+    public static final String SMS_EVENT = "SmsEvent";
 
-    /**
-     * Handles incoming Intents (Messages)
-     */
+    void processMessage(String message) {
+        Log.d(TAG, "processMessage: " + message);
+    }
+
     private class IncomingHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_SMS_RECEIVED:
                     Log.d(TAG, "MSG_SMS_RECEIVED received");
-                    String line = msg.getData().getString(null);
-                    Log.d(TAG, "Received message: " + line);
+                    processMessage(msg.getData().getString(null));
                     break;
                 default:
                     Log.d(TAG, "Unknown type of message");
@@ -38,5 +39,12 @@ public class WatcherService extends Service {
     public IBinder onBind(Intent intent) {
         Log.d(TAG, "Service binded");
         return mMessenger.getBinder();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "onStartCommand");
+        processMessage(intent.getStringExtra(SMS_EVENT));
+        return START_STICKY;
     }
 }

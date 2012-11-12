@@ -13,11 +13,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <service android:name=".Service.WatcherService" android:process=":remote"></service>
+        <receiver android:name=".Service.SmsReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
     </application>
-    <service android:name="Service.WatcherService" android:process=":remote"></service>
-    <receiver android:name="Service.SmsReceiver">
-        <intent-filter>
-            <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
-        </intent-filter>
-    </receiver>
 </manifest>
