@@ -1,12 +1,13 @@
 package ru.spbau.WhereIsMyMoney;
 
 import java.util.Date;
+import java.util.regex.Pattern;
 
 public class SmsEvent {
     private final String source;
     private final String body;
     private final Date date;
-    private static final char DELIMITER = 0;
+    private static final String DELIMITER = "\0";
 
     public SmsEvent(String source, String body, long date) {
         this.source = source;
@@ -16,13 +17,8 @@ public class SmsEvent {
     }
 
     public static SmsEvent parse(String message) {
-        int delimiterPosition = message.indexOf(DELIMITER);
-        int delimiterPosition2 = message.indexOf(DELIMITER, delimiterPosition + 1);
-        return new SmsEvent(
-            message.substring(0, delimiterPosition),
-            message.substring(delimiterPosition + 1, delimiterPosition2),
-            Long.parseLong(message.substring(delimiterPosition2 + 1, message.length()))
-        );
+        String[] parts = Pattern.compile(DELIMITER, Pattern.LITERAL).split(message);
+        return new SmsEvent(parts[0], parts[1], Long.parseLong(parts[2]));
     }
 
     public String getSource() {
