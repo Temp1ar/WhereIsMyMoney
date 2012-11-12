@@ -67,7 +67,7 @@ public class TransactionsListActivity extends Activity {
         String message = intent.getStringExtra(CardListActivity.id_param);
         setContentView(ru.spbau.WhereIsMyMoney.R.layout.transactions);
         db = new TransactionLogSource(getApplicationContext());
-        db.open(TransactionLogSource.FOR_WRITE);
+        db.open();
         TextView card = (TextView) findViewById(ru.spbau.WhereIsMyMoney.R.id.card_id);
         card.setText(message);
         createListView(message);
