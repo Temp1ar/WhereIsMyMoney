@@ -17,27 +17,21 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 	public static final String TABLE_TRANSACTION = "transactions";
 	
 	public static final String COLUMN_ID = "_id";
-	public static final int COLUMN_ID_NUM = 0;
 	private static final String COLUMN_ID_TYPE = "integer primary key autoincrement";
 	
 	public static final String COLUMN_CARD = "card";
-	public static final int COLUMN_CARD_NUM = 1;
 	private static final String COLUMN_CARD_TYPE = "text not null";
 	
 	public static final String COLUMN_DELTA = "delta";
-	public static final int COLUMN_DELTA_NUM = 2;
 	private static final String COLUMN_DELTA_TYPE = "text";
 	
 	public static final String COLUMN_DATE = "date";
-	public static final int COLUMN_DATE_NUM = 3;
 	private static final String COLUMN_DATE_TYPE = "integer not null";
 	
 	public static final String COLUMN_BALANCE = "balance";
-	public static final int COLUMN_BALANCE_NUM = 4;
 	private static final String COLUMN_BALANCE_TYPE = "real no null";
 	
 	public static final String COLUMN_PLACE = "place";
-	public static final int COLUMN_PLACE_NUM = 5;
 	private static final String COLUMN_PLACE_TYPE = "text";
 	
 	private static final String CREATE_TABLE = "create table " + TABLE_TRANSACTION + "("
