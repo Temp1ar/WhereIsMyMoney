@@ -10,13 +10,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import ru.spbau.WhereIsMyMoney.Transaction;
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
+
+import java.util.List;
 
 /**
  * Shows list of transactions from specified card.
  */
 public class TransactionsListActivity extends Activity {
-    final String[] values = new String[] { "12", "13", "14", "15"};
     final String OK = "Ok";
+    final String TRANSACTION = "Transaction description";
+    TransactionLogSource db;
 
     private void createTransactionsDialog(String title, String message) {
         AlertDialog.Builder ad = new AlertDialog.Builder(TransactionsListActivity.this);
@@ -30,8 +35,17 @@ public class TransactionsListActivity extends Activity {
         ad.show();
     }
 
-    private void createListView() {
+    private void createListView(final String card) {
         ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.transactions);
+
+        final List<Transaction> transactions = db.getTransactionsPerCard(card);
+        final String[] values = new String[transactions.size()];
+        final String[] messages = new String[transactions.size()];
+        for (int i = 0; i < transactions.size(); ++i) {
+            values[i] = transactions.get(i).getDate().toString() + "\n   " + transactions.get(i).getDelta();
+            messages[i] = transactions.get(i).getDate().toString() + " " + transactions.get(i).getDelta() + "\n" +
+                          transactions.get(i).getPlace();
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
@@ -41,19 +55,27 @@ public class TransactionsListActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                createTransactionsDialog(values[position], "Message " + values[position]);
+                createTransactionsDialog(TRANSACTION, messages[position]);
             }
         });
     }
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         String message = intent.getStringExtra(CardListActivity.id_param);
         setContentView(ru.spbau.WhereIsMyMoney.R.layout.transactions);
+        db = new TransactionLogSource(getApplicationContext());
+        db.open(TransactionLogSource.FOR_WRITE);
         TextView card = (TextView) findViewById(ru.spbau.WhereIsMyMoney.R.id.card_id);
         card.setText(message);
-        createListView();
+        createListView(message);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        db.close();
+    }
 }

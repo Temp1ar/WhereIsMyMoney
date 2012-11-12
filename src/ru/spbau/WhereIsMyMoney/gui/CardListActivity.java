@@ -8,16 +8,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
-
-import java.util.Date;
 
 /**
  * Shows list of cards.
  */
 public class CardListActivity extends Activity {
-    final String[] cards = new String[] { "Raiffeisen", "Sberbank", "BaltBank", "Alfabank"};
     final static String id_param = "id";
 
     TransactionLogSource db;
@@ -45,9 +41,7 @@ public class CardListActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new TransactionLogSource(getApplicationContext());
-        db.open(TransactionLogSource.FOR_WRITE);
-        db.addTransaction(new Transaction(new Date(), "Sber", "*2111", "2000RUR", 1000));
-        db.addTransaction(new Transaction(new Date(),"Balt", "*3141", "1000RUR", 1000));
+        db.open();
         setContentView(ru.spbau.WhereIsMyMoney.R.layout.cards);
         createCardsListView();
     }
