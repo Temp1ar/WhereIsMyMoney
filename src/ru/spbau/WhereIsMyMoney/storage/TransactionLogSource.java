@@ -47,13 +47,16 @@ public class TransactionLogSource implements Closeable {
 	public void open(int mode) {
 		if (mode == FOR_READ) {
 			myDatabase = myLogHelper.getReadableDatabase();
+			Log.d(getClass().getCanonicalName(), "database opened for read");
 		} else if (mode == FOR_WRITE) {
 			myDatabase = myLogHelper.getWritableDatabase();
+			Log.d(getClass().getCanonicalName(), "database opened for write");
 		}
 	}
 	
 	public void close() {
 		myLogHelper.close();
+		Log.d(getClass().getCanonicalName(), "database closed");
 	}
 	
 	/**
@@ -125,6 +128,7 @@ public class TransactionLogSource implements Closeable {
 		Set<String> cards = new HashSet<String>();
 		Cursor cursor = myDatabase.query(TransactionLogHelper.TABLE_TRANSACTION,
 				TransactionLogHelper.ALL_COLUMNS, null, null, null, null, null);
+		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			String card = cursor.getString(TransactionLogHelper.COLUMN_CARD_NUM);
 			cards.add(card);

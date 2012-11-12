@@ -61,13 +61,13 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		Log.d(this.getClass().getCanonicalName(), "create " + DATABASE_NAME);
+		Log.d(getClass().getCanonicalName(), "create " + DATABASE_NAME);
 		db.execSQL(CREATE_TABLE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		Log.d(this.getClass().getCanonicalName(), "update database from "
+		Log.d(getClass().getCanonicalName(), "update database from "
 				+ oldVersion + " to " + newVersion);
 		db.execSQL(DROP_TABLE);
 		onCreate(db);
