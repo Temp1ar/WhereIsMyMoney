@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
+import ru.spbau.WhereIsMyMoney.SmsEvent;
 
 public class WatcherService extends Service {
     private static final String TAG = WatcherService.class.getCanonicalName();
@@ -16,8 +17,15 @@ public class WatcherService extends Service {
 
     void processMessage(String message) {
         Log.d(TAG, "processMessage: " + message);
+        SmsEvent event = SmsEvent.parse(message);
+        Log.d(TAG, "message source: " + event.getSource());
+        Log.d(TAG, "message body: "   + event.getBody());
+        Log.d(TAG, "message date: "   + event.getDate());
     }
 
+    /**
+     * This probably never called
+     */
     private class IncomingHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {

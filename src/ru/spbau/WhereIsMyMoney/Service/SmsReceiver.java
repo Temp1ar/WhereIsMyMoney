@@ -56,10 +56,11 @@ public class SmsReceiver extends BroadcastReceiver {
      * @return Message
      */
     protected String buildMessage(Context context, Intent intent) {
-        Bundle pudsBundle = intent.getExtras();
-        Object[] pdus = (Object[]) pudsBundle.get("pdus");
+        Bundle pdusBundle = intent.getExtras();
+        Object[] pdus = (Object[]) pdusBundle.get("pdus");
         SmsMessage message = SmsMessage.createFromPdu((byte[]) pdus[0]);
-        SmsEvent smsEvent = new SmsEvent(message.getOriginatingAddress(), message.getDisplayMessageBody());
+
+        SmsEvent smsEvent = new SmsEvent(message.getOriginatingAddress(), message.getDisplayMessageBody(), message.getTimestampMillis());
         return smsEvent.toString();
     }
 }
