@@ -4,6 +4,7 @@
           android:versionCode="1"
           android:versionName="1.0">
     <uses-sdk android:minSdkVersion="10"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <application android:label="@string/app_name">
         <activity android:name="MainActivity"
                   android:label="@string/app_name">
@@ -13,4 +14,10 @@
             </intent-filter>
         </activity>
     </application>
-</manifest> 
+    <service android:name="Service.WatcherService" android:process=":remote"></service>
+    <receiver android:name="Service.SmsReceiver">
+        <intent-filter>
+            <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+        </intent-filter>
+    </receiver>
+</manifest>
