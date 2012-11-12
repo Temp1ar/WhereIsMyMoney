@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <ParserGroup
+        name="Baltisky Bank"
+        source="+79052168692">
+        <ParserRegex
+            description="some optional description here"
+            regex="sms regex here"
+            card="1"
+            balance="2"
+            date="3"
+            delta="4"
+            place="5">
+        </ParserRegex>
+    </ParserGroup>
+</resources>

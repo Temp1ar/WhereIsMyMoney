@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import ru.spbau.WhereIsMyMoney.Transaction;
+import ru.spbau.WhereIsMyMoney.storage.RegexesStorageSource;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
 import java.util.Date;
@@ -45,7 +46,7 @@ public class CardListActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new TransactionLogSource(getApplicationContext());
-        db.open(TransactionLogSource.FOR_WRITE);
+        db.open();
         db.addTransaction(new Transaction(new Date(), "Sber", "*2111", "2000RUR", 1000));
         db.addTransaction(new Transaction(new Date(),"Balt", "*3141", "1000RUR", 1000));
         setContentView(ru.spbau.WhereIsMyMoney.R.layout.cards);
