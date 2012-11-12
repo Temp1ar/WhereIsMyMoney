@@ -1,4 +1,4 @@
-package ru.spbau.WhereIsMyMoney.Service;
+package ru.spbau.WhereIsMyMoney.service;
 
 import android.app.Service;
 import android.content.Intent;
