@@ -27,16 +27,41 @@
             android:textAppearance="?android:attr/textAppearanceLarge">
         </TextView>
 	</LinearLayout>
-	<TextView
-        android:id="@+id/transaction_new_balance"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall">
-	</TextView>
-	<TextView
-        android:id="@+id/transaction_date"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall">
-	</TextView>
+        android:orientation="horizontal"
+        android:weightSum="1.0">
+        <ImageView
+                android:layout_marginRight="3dp"
+                android:layout_height="20dp"
+                android:layout_width="20dp"
+                android:src="@drawable/balance_icon" />
+        <TextView
+            android:id="@+id/transaction_new_balance"
+            android:layout_width="0dp"
+            android:layout_weight=".45"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceSmall">
+        </TextView>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight=".55"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right">
+        <ImageView
+                android:layout_marginRight="3dp"
+                android:layout_height="16dp"
+                android:layout_width="16dp"
+                android:src="@drawable/date_icon" />
+        <TextView
+            android:id="@+id/transaction_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall">
+        </TextView>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

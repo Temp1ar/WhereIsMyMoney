@@ -46,7 +46,7 @@ public class TransactionListAdapter extends ArrayAdapter<Transaction> {
 			place.setText(trans.getPlace());
 		}
 		TextView balance = (TextView) rowView.findViewById(R.id.transaction_new_balance);
-		balance.setText(myContext.getString(R.string.balance) + ": " + trans.getBalance());
+		balance.setText(trans.getBalance() + "");
 		TextView date = (TextView) rowView.findViewById(R.id.transaction_date);
 		date.setText(DATE_FORMATTER.format(trans.getDate()));
 		

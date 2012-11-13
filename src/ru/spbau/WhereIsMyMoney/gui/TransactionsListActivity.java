@@ -47,9 +47,9 @@ public class TransactionsListActivity extends Activity {
         listView.setAdapter(adapter);
         Button addTransaction = (Button)findViewById(R.id.add_tr);
         if (cardId.equals(TransactionLogHelper.CASH)) {
-            addTransaction.setEnabled(true);
+            addTransaction.setVisibility(View.VISIBLE);
         } else {
-            addTransaction.setEnabled(false);
+            addTransaction.setVisibility(View.GONE);
         }
     }
 
