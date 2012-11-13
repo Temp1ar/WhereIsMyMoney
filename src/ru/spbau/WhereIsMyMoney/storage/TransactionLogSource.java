@@ -146,13 +146,15 @@ public class TransactionLogSource extends BaseDataSource {
     public List<Transaction> getTransactionsPerPlaceForPeriod(final String place, final Date start, final Date end) {
         return getTransactions(new IFilter<Transaction>() {
             public boolean match(Transaction transaction) {
-                String trPlace = transaction.getPlace();
-                if (trPlace == null || trPlace.isEmpty())
+                if (transaction.getDate().compareTo(start) < 0 || transaction.getDate().compareTo(end) > 0)
                     return false;
 
-                return trPlace.equals(place)
-                        && transaction.getDate().compareTo(start) >= 0
-                        && transaction.getDate().compareTo(end) <= 0;
+                String trPlace = transaction.getPlace();
+                if (trPlace == null || trPlace.isEmpty())
+                    return place == null || place.isEmpty();
+
+                return trPlace.equals(place);
+
             }
         });
     }
@@ -200,12 +202,14 @@ public class TransactionLogSource extends BaseDataSource {
         Map<String, Float> sums = new HashMap<String, Float>();
 
         for(Transaction transaction : transactions) {
+            if (transaction.getType() != Transaction.WITHDRAW)
+                continue;
             String id = prefix + transaction.getCurrency();
             Float sum = sums.get(id);
             if (sum == null)
                 sum = 0f;
             sum += transaction.getAmount();
-            sums.put(id, transaction.getAmount());
+            sums.put(id, sum);
         }
 
         return sums;

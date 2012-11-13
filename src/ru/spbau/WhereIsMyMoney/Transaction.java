@@ -32,7 +32,7 @@ public class Transaction {
     
     public Transaction(Date date, String place, String card, String delta, float balance, int type) {
         this.date = date;
-        this.place = place;
+        this.place = place == null ? "" : place;
         this.card = card;
         this.delta = delta;
         this.balance = balance;
@@ -42,7 +42,8 @@ public class Transaction {
 
         if (matcher.matches()) {
             this.amount = Float.valueOf(matcher.group(AMOUNT_GROUP));
-            this.currency = matcher.group(CURRENCY_GROUP);
+            String currency = matcher.group(CURRENCY_GROUP);
+            this.currency = currency == null ? "" : currency;
         }
     }
 
