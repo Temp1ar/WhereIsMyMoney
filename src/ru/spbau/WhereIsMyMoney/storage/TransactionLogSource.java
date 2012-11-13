@@ -1,12 +1,6 @@
 package ru.spbau.WhereIsMyMoney.storage;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import ru.spbau.WhereIsMyMoney.Transaction;
 import android.content.Context;
@@ -176,8 +170,9 @@ public class TransactionLogSource extends BaseDataSource {
 
         for (String card : cards) {
             List<Transaction> transactions = getTransactionsPerCardForPeriod(card, start, end);
-            if (!transactions.isEmpty())
-                costs.put(card, Math.abs(transactions.get(0).getBalance() - transactions.get(transactions.size() - 1).getBalance()));
+            if (!transactions.isEmpty()) {
+                costs.putAll(sum(transactions, card + " "));
+            }
         }
        return costs;
     }
@@ -196,8 +191,23 @@ public class TransactionLogSource extends BaseDataSource {
         for (String place : places) {
             List<Transaction> transactions = getTransactionsPerPlaceForPeriod(place, start, end);
             if (!transactions.isEmpty())
-                costs.put(place, Math.abs(transactions.get(0).getBalance() - transactions.get(transactions.size() - 1).getBalance()));
+                costs.putAll(sum(transactions, place + " "));
         }
         return costs;
+    }
+
+    protected Map<String, Float> sum(Collection<Transaction> transactions, String prefix) {
+        Map<String, Float> sums = new HashMap<String, Float>();
+
+        for(Transaction transaction : transactions) {
+            String id = prefix + transaction.getCurrency();
+            Float sum = sums.get(id);
+            if (sum == null)
+                sum = 0f;
+            sum += transaction.getAmount();
+            sums.put(id, transaction.getAmount());
+        }
+
+        return sums;
     }
 }

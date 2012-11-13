@@ -1,6 +1,8 @@
 package ru.spbau.WhereIsMyMoney;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * User: Alexander Opeykin alexander.opeykin@gmail.com
@@ -11,13 +13,19 @@ public class Transaction {
 	public static final int WITHDRAW = 0;
 	public static final int DEPOSIT = 1;
 	public static final int NONE = 2;
-	
+
     private Date date;
     private String place;
     private String card;
     private String delta;
     private float balance;
     private int type;
+    private String currency = null;
+    private float amount = 0;
+
+    Pattern currencyPattern = Pattern.compile("(\\d+(?:\\.\\d+)?)\\s*(.*)\\s*");
+    private static final int AMOUNT_GROUP = 1;
+    private static final int CURRENCY_GROUP = 2;
 
     public Transaction() {
     }
@@ -29,6 +37,13 @@ public class Transaction {
         this.delta = delta;
         this.balance = balance;
         this.type = type;
+
+        Matcher matcher = currencyPattern.matcher(delta);
+
+        if (matcher.matches()) {
+            this.amount = Float.valueOf(matcher.group(AMOUNT_GROUP));
+            this.currency = matcher.group(CURRENCY_GROUP);
+        }
     }
 
     public Date getDate() {
@@ -45,6 +60,13 @@ public class Transaction {
 
     public String getDelta() {
         return delta;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+    public String getCurrency() {
+        return currency;
     }
 
     public float getBalance() {
