@@ -6,4 +6,5 @@
     <string name="place">Place</string>
     <string name="ok">Save</string>
     <string name="add">Add</string>
+    <string name="unknown_place">unknown</string>
 </resources>
