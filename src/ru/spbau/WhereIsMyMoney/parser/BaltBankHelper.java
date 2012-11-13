@@ -1,9 +1,7 @@
 package ru.spbau.WhereIsMyMoney.parser;
 
-import android.util.Log;
 import ru.spbau.WhereIsMyMoney.Transaction;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +21,7 @@ public class BaltBankHelper {
         withPlace.put(1, new DateParser(new SimpleDateFormat("d-M-y k:m")));
         withPlace.put(2, new CardParser());
         withPlace.put(3, new DeltaParser());
-        withPlace.put(4, new PlaceParser());
+        withPlace.put(4, new CapslockedPlaceParser());
         withPlace.put(5, new BalanceParser("", '.'));
 
         Map<Integer, Parser> withoutPlace = new HashMap<Integer, Parser>();
