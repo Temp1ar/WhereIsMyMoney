@@ -84,46 +84,19 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 	}
 
     private void insertExistingSms(SQLiteDatabase db) {
-        Log.d(getClass().getCanonicalName(), "inserting existing sms");
-        ArrayList<SmsEvent> array = ExistingSmsReader.getAll(context, null);
-
-        String bankCashout = "([^\\s]*\\s+[^\\s]*)\\s+([^:]*?):\\s+Списание\\s+средств\\s+со\\s+счета\\s+([^\\s]*\\s+[^\\s]*)\\s+код\\s+[^\\s]*?\\s+([^;]*?);Доступно:(.*)";
-        String bankCashoutEn = "([^\\s]*\\s+[^\\s]*)\\s+([^:]*?):\\s+Spisanie\\s+sredstv\\s+so\\s+scheta\\s+([^\\s]*\\s+[^\\s]*)\\s+kod\\s+[^\\s]*?\\s+([^;]*?);Dostupno:(.*)";
-        String atmCashout = "([^\\s]*\\s+[^\\s]*)\\s+([^:]*?):\\s+Получение\\s+наличных\\s+в\\s+банкомате\\s+([^\\s]*\\s+[^\\s]*)\\s+код\\s+[^\\s]*?\\s+([^;]*?);Доступно:(.*)";
-        String atmCashoutEn = "([^\\s]*\\s+[^\\s]*)\\s+([^:]*?):\\s+Poluchenie\\s+nalichnykh\\s+v\\s+bankomate\\s+([^\\s]*\\s+[^\\s]*)\\s+kod\\s+[^\\s]*?\\s+([^;]*?);Dostupno:(.*)";
-        String salaryDeposit = "([^\\s]*\\s+[^\\s]*)\\s+([^:]*?):\\s+Поступление\\s+зарплаты\\s+([^\\s]*\\s+[^;]*);Доступно:(.*)";
-        String salaryDepositEn = "([^\\s]*\\s+[^\\s]*)\\s+([^:]*?):\\s+Postuplenie\\s+zarplaty\\s+([^\\s]*\\s+[^;]*);Dostupno:(.*)";
-        String goodsWithdraw = "([^\\s]*\\s+[^\\s]*)\\s+([^:]*?):\\s+Оплата\\s+товаров/услуг\\s+([^\\s]*\\s+[^\\s]*)\\s+код\\s+[^\\s]*?\\s+([^;]*?);Доступно:(.*)";
-        String goodsWithdrawEn = "([^\\s]*\\s+[^\\s]*)\\s+([^:]*?):\\s+Oplata\\s+tovarov/uslug\\s+([^\\s]*\\s+[^\\s]*)\\s+kod\\s+[^\\s]*?\\s+([^;]*?);Dostupno:(.*)";
-        String smsComission = "([^\\s]*\\s+[^\\s]*)\\s+([^:]*?):\\s+Списание\\s+комиссии\\s+за\\s+пользование\\s+услугой\\s+SMS-Информирование\\s+([^\\s]*\\s+[^\\s]*)\\s+код\\s+[^\\s]*?\\s+([^;]*?);Доступно:(.*)";
-        String smsComissionEn = "([^\\s]*\\s+[^\\s]*)\\s+([^:]*?):\\s+Spisanie\\s+komissii\\s+za\\s+pol'zovanie\\s+uslugoi\\s+SMS-Informirovanie\\s+([^\\s]*\\s+[^\\s]*)\\s+kod\\s+[^\\s]*?\\s+([^;]*?);Dostupno:(.*)";
-
-        Map<Integer, Parser> small = new HashMap<Integer, Parser>();
-        small.put(1, new DateParser(new SimpleDateFormat("d-M-y k:m")));
-        small.put(2, new CardParser());
-        small.put(3, new DeltaParser());
-        small.put(4, new PlaceParser());
-        small.put(5, new BalanceParser("", '.'));
-
-        REParser parser = new REParser(small, goodsWithdraw, Transaction.WITHDRAW);
-
-
-        for (int i = 0; i < array.size(); ++i) {
-            Pattern pattern;
-            pattern = Pattern.compile(goodsWithdraw);
-            Matcher m = pattern.matcher(array.get(i).getBody());
-            m.find();
-            if (m.matches()) {
-                Log.d(getClass().getCanonicalName(), "Matched: " + array.get(i).getBody());
-            }
-            Transaction transaction = new Transaction();
-            if (parser.parse(array.get(i).getBody(), transaction)) {
-                Log.d(getClass().getCanonicalName(), "Parsed: " + array.get(i).getBody());
-                addTransaction(transaction, db);
-            } else {
+            Log.d(getClass().getCanonicalName(), "inserting existing sms");
+            ArrayList<SmsEvent> array = ExistingSmsReader.getAll(context, null);
+    
+            BaltBankHelper baltBankHelper = new BaltBankHelper();
+            Transaction transaction;
+            for (int i = 0; i < array.size(); ++i) {
+                if ((transaction = baltBankHelper.tryParse(array.get(i).getBody())) != null) {
+                    Log.d(getClass().getCanonicalName(), "Parsed: " + array.get(i).getBody());
+                    addTransaction(transaction, db);
+                    continue;
+                }
             }
         }
-    }
 
     private void insertCash(SQLiteDatabase db) {
 		ContentValues cash = new ContentValues();
