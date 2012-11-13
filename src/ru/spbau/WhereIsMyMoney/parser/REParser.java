@@ -15,12 +15,14 @@ public class REParser implements Parser {
     private Pattern pattern;
     private Map<Integer, Parser> parsers;
     private String re;
+    int type;
 
 
-    public REParser(Map<Integer, Parser> parsers, String re) {
+    public REParser(Map<Integer, Parser> parsers, String re, int type) {
         this.parsers = parsers;
         this.re = re;
         pattern = Pattern.compile(re);
+        this.type = type;
     }
 
     public boolean parse(String string, Transaction result) {
@@ -36,6 +38,7 @@ public class REParser implements Parser {
                 return false;
             }
         }
+        result.setType(type);
         return true;
     }
 
