@@ -166,14 +166,14 @@ public class TransactionLogSource extends BaseDataSource {
      * @param end end date for report
      * @return map card to total costs from start to end
      */
-    public Map<String, Float> getCostsPerCardsForPeriod(Date start, Date end) {
+    public Map<String, Map<String, Float>> getCostsPerCardsForPeriod(Date start, Date end) {
         Set<String> cards = getCards();
-        HashMap<String, Float> costs = new HashMap<String, Float>();
+        HashMap<String, Map<String, Float>> costs = new HashMap<String, Map<String, Float>>();
 
         for (String card : cards) {
             List<Transaction> transactions = getTransactionsPerCardForPeriod(card, start, end);
             if (!transactions.isEmpty()) {
-                costs.putAll(sum(transactions, card + " "));
+                costs.put(card, sum(transactions));
             }
         }
        return costs;
@@ -185,31 +185,33 @@ public class TransactionLogSource extends BaseDataSource {
      * @param end end date for report
      * @return map place to total costs from start to end
      */
-    public Map<String, Float> getCostsPerPlacesForPeriod(Date start, Date end) {
+    public Map<String, Map<String,Float>> getCostsPerPlacesForPeriod(Date start, Date end) {
 
         Set<String> places = getPlaces();
-        HashMap<String, Float> costs = new HashMap<String, Float>();
+        HashMap<String, Map<String,Float>> costs = new HashMap<String, Map<String, Float>>();
 
         for (String place : places) {
+            if (place == null)
+                place = "";
             List<Transaction> transactions = getTransactionsPerPlaceForPeriod(place, start, end);
             if (!transactions.isEmpty())
-                costs.putAll(sum(transactions, place + " "));
+                costs.put(place, sum(transactions));
         }
         return costs;
     }
 
-    protected Map<String, Float> sum(Collection<Transaction> transactions, String prefix) {
+    protected Map<String, Float> sum(Collection<Transaction> transactions) {
         Map<String, Float> sums = new HashMap<String, Float>();
 
         for(Transaction transaction : transactions) {
             if (transaction.getType() != Transaction.WITHDRAW)
                 continue;
-            String id = prefix + transaction.getCurrency();
-            Float sum = sums.get(id);
+
+            Float sum = sums.get(transaction.getCurrency());
             if (sum == null)
                 sum = 0f;
             sum += transaction.getAmount();
-            sums.put(id, sum);
+            sums.put(transaction.getCurrency(), sum);
         }
 
         return sums;
