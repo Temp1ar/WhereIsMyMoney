@@ -6,6 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Base class for database adapters
+ * @author kmu
+ */
 public class BaseDataSource implements Closeable {
 	public static final int FOR_READ = 1;
 	public static final int FOR_WRITE = 2;

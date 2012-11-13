@@ -16,6 +16,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+/**
+ * Parsers database adapter
+ * 
+ * @author kmu
+ */
 public class RegexesStorageSource extends BaseDataSource {
 	public RegexesStorageSource(Context context) {
 		super(new RegexesStorageHelper(context));
