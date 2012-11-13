@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".gui.AddTransactionActivity"/>
         <service android:name=".service.WatcherService" android:process=":remote"></service>
         <receiver android:name=".service.SmsReceiver">
             <intent-filter>
