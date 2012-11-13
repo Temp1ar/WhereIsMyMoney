@@ -1,5 +1,6 @@
 package ru.spbau.WhereIsMyMoney.parser;
 
+import android.util.Log;
 import ru.spbau.WhereIsMyMoney.Transaction;
 
 import java.io.Serializable;
@@ -28,6 +29,7 @@ public class BalanceParser implements Parser {
             result.setBalance(new Float(filteredString));
             return true;
         } catch (NumberFormatException e) {
+            Log.e(this.getClass().getCanonicalName(), "Can't parse: " + string + " with " + this);
             return false;
         }
     }

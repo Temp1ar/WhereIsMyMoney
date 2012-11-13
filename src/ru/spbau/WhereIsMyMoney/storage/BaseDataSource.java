@@ -35,7 +35,6 @@ public class BaseDataSource implements Closeable {
 			myDatabase = myHelper.getWritableDatabase();
 			Log.d(getClass().getCanonicalName(), "database " + myDatabase.getPath() + " opened for write");
 		}
-            myHelper.onUpgrade(myDatabase, 1, 1);
 	}
 
 	/**
