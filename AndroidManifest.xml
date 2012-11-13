@@ -19,6 +19,7 @@
         <activity android:name=".gui.CostsReportByPlacesActivity"/>
         <activity android:name=".gui.CostsReportSetupActivity"/>
         <activity android:name=".gui.AddTransactionActivity"/>
+        <activity android:name="org.achartengine.GraphicalActivity"/>
 
         <service android:name=".service.WatcherService" android:process=":remote"></service>
         <receiver android:name=".service.SmsReceiver">
