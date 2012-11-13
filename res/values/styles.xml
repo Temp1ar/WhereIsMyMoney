@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transaction_none">#ffffff</color>
+    <color name="transaction_withdraw">#FF0000</color>
+    <color name="transaction_deposit">#3CB371</color>
+</resources>
