@@ -15,5 +15,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
     </ListView>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/makeReport"
+            android:id="@+id/makeReport"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 </LinearLayout>
 

@@ -1,5 +1,6 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
+import android.widget.Button;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 import android.R;
 import android.app.Activity;
@@ -18,6 +19,15 @@ public class CardListActivity extends Activity {
 
     private void createCardsListView() {
         ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.cards);
+        Button makeReport = (Button) findViewById(ru.spbau.WhereIsMyMoney.R.id.makeReport);
+
+        makeReport.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(CardListActivity.this, CostsReportSetupActivity.class);
+                startActivity(intent);
+            }
+        });
+
         final String[] cards = db.getCards().toArray(new String[db.getCards().size()]);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -42,7 +52,6 @@ public class CardListActivity extends Activity {
         db.open();
         setContentView(ru.spbau.WhereIsMyMoney.R.layout.cards);
         createCardsListView();
-
     }
 
     @Override

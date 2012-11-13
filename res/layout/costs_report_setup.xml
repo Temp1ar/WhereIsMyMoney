@@ -30,12 +30,12 @@
         <Button
                 android:layout_width="114dp"
                 android:layout_height="wrap_content"
-                android:text="by Places"
+                android:text="@string/reportByPlace"
                 android:id="@+id/showReportByPlaces" android:layout_weight="1"/>
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="by Cards"
+                android:text="@string/reportByCards"
                 android:id="@+id/showReportByCards" android:layout_weight="1"/>
     </LinearLayout>
 </LinearLayout>
