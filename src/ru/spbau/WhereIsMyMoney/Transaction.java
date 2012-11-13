@@ -24,7 +24,7 @@ public class Transaction {
     public Transaction(Date date, String place, String card, String delta, float balance) {
         this.date = date;
         this.place = place;
-        this.card = card;
+            this.card = card;
         this.delta = delta;
         this.balance = balance;
     }
@@ -80,6 +80,10 @@ public class Transaction {
         if (getPlace() != null) {
             sb.append("Place: ").append(getPlace()).append("\n");
         }
+        if (getCard() != null) {
+            sb.append("Card: ").append(getCard()).append("\n");
+        }
+
         return sb.toString();
     }
 }

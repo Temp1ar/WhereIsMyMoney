@@ -7,11 +7,12 @@ import ru.spbau.WhereIsMyMoney.Transaction;
  * Date: 11/13/12
  * Time: 11:27 AM
  */
-public class MoneyParser implements Parser {
+public class BalanceParser implements Parser {
     private String ignoreSymbols;
     private char decimalDelimiter;
+    float koef;
 
-    public MoneyParser(String ignoreSymbols, char decimalDelimiter) {
+    public BalanceParser(String ignoreSymbols, char decimalDelimiter) {
         this.ignoreSymbols = ignoreSymbols;
         this.decimalDelimiter = decimalDelimiter;
     }
@@ -36,9 +37,33 @@ public class MoneyParser implements Parser {
 
     @Override
     public String toString() {
-        return "MoneyParser{" +
+        return "BalanceParser{" +
                 "ignoreSymbols='" + ignoreSymbols + '\'' +
                 ", decimalDelimiter=" + decimalDelimiter +
                 '}';
+    }
+
+    public String getIgnoreSymbols() {
+        return ignoreSymbols;
+    }
+
+    public char getDecimalDelimiter() {
+        return decimalDelimiter;
+    }
+
+    public float getKoef() {
+        return koef;
+    }
+
+    public void setIgnoreSymbols(String ignoreSymbols) {
+        this.ignoreSymbols = ignoreSymbols;
+    }
+
+    public void setDecimalDelimiter(char decimalDelimiter) {
+        this.decimalDelimiter = decimalDelimiter;
+    }
+
+    public void setKoef(float koef) {
+        this.koef = koef;
     }
 }
