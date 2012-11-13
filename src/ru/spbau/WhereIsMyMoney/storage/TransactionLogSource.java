@@ -97,6 +97,24 @@ public class TransactionLogSource extends BaseDataSource {
 		}
 		return cards;
 	}
+
+    /**
+     * All known places in database
+     *
+     * @return set of places from database
+     */
+    public Set<String> getPlaces() {
+        Set<String> places = new HashSet<String>();
+        Cursor cursor = getDatabase().query(TransactionLogHelper.TABLE_TRANSACTION,
+                TransactionLogHelper.ALL_COLUMNS, null, null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String place = cursor.getString(cursor.getColumnIndex(TransactionLogHelper.COLUMN_PLACE));
+            places.add(place);
+            cursor.moveToNext();
+        }
+        return places;
+    }
 	
 	/**
 	 * All transactions for specified card
@@ -113,7 +131,7 @@ public class TransactionLogSource extends BaseDataSource {
 	}
 
     /**
-     * All transactions for specified card for period
+     * All transactions for specified card of period
      *
      * @param card target card
      * @param start start date of period
@@ -131,14 +149,30 @@ public class TransactionLogSource extends BaseDataSource {
     }
 
     /**
+     * All transactions for specified place of period
+     *
+     * @param start start date of period
+     * @param end end date of period
+     * @return list of transactions
+     */
+    public List<Transaction> getTransactionsPerPlaceForPeriod(final String place, final Date start, final Date end) {
+        return getTransactions(new IFilter<Transaction>() {
+            public boolean match(Transaction transaction) {
+                return transaction.getPlace().equals(place)
+                        && transaction.getDate().compareTo(start) >= 0
+                        && transaction.getDate().compareTo(end) <= 0;
+            }
+        });
+    }
+
+    /**
      * Return total costs for each cards
      *
      * @param start start date for report
      * @param end end date for report
-     * @return map costs_report to total costs from start to end
+     * @return map card to total costs from start to end
      */
     public Map<String, Float> getCostsPerCardsForPeriod(Date start, Date end) {
-
         Set<String> cards = getCards();
         HashMap<String, Float> costs = new HashMap<String, Float>();
 
@@ -148,5 +182,24 @@ public class TransactionLogSource extends BaseDataSource {
                 costs.put(card, Math.abs(transactions.get(0).getBalance() - transactions.get(transactions.size() - 1).getBalance()));
         }
        return costs;
+    }
+    /**
+     * Return total costs for each places
+     *
+     * @param start start date for report
+     * @param end end date for report
+     * @return map place to total costs from start to end
+     */
+    public Map<String, Float> getCostsPerPlacesForPeriod(Date start, Date end) {
+
+        Set<String> places = getPlaces();
+        HashMap<String, Float> costs = new HashMap<String, Float>();
+
+        for (String place : places) {
+            List<Transaction> transactions = getTransactionsPerPlaceForPeriod(place, start, end);
+            if (!transactions.isEmpty())
+                costs.put(place, Math.abs(transactions.get(0).getBalance() - transactions.get(transactions.size() - 1).getBalance()));
+        }
+        return costs;
     }
 }
