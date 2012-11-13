@@ -1,5 +1,8 @@
 package ru.spbau.WhereIsMyMoney.storage;
 
+import java.util.Date;
+
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -13,6 +16,8 @@ import android.util.Log;
 public class TransactionLogHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "transaction_log.db";
 	private static final int DATABASE_VERSION = 1;
+	
+	public static final String CASH = "CASH";
 	
 	public static final String TABLE_TRANSACTION = "transactions";
 	
@@ -57,6 +62,16 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		Log.d(getClass().getCanonicalName(), "create " + DATABASE_NAME);
 		db.execSQL(CREATE_TABLE);
+		insertCash(db);
+	}
+	
+	private void insertCash(SQLiteDatabase db) {
+		ContentValues cash = new ContentValues();
+		cash.put(COLUMN_CARD, CASH);
+		cash.put(COLUMN_DELTA, "0");
+		cash.put(COLUMN_DATE, (new Date()).getTime());
+		cash.put(COLUMN_BALANCE, 0);
+		db.insert(TABLE_TRANSACTION, null, cash);
 	}
 
 	@Override
