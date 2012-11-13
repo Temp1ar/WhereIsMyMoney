@@ -9,8 +9,7 @@ import ru.spbau.WhereIsMyMoney.Transaction;
 
 import java.io.Serializable;
 
-public interface Parser extends Serializable {
+public interface Parser {
     public boolean parse(String string, Transaction result);
-    public String getRE();
     public String getDescription();
 }

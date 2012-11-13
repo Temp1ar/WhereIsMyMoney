@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,10 +22,18 @@ public class TransactionsListActivity extends Activity {
 	private static final String FORMAT = "yyyy.MM.dd HH:mm:ss";
 	private static final SimpleDateFormat FORMATTER = new SimpleDateFormat(FORMAT);
 	
-    static final String ID_PARAM = "id";
-    final String OK = "Ok";
-    final String TRANSACTION = "Transaction description";
+    final static String ID_PARAM = "id";
+    final static  String OK = "Ok";
+    final static String TRANSACTION = "Transaction description";
+
     TransactionLogSource db;
+    private String cardId;
+
+    public void saveTransaction(View view) {
+        Intent intent = new Intent(this, AddTransactionActivity.class);
+        intent.putExtra(TransactionsListActivity.ID_PARAM, cardId);
+        startActivity(intent);
+    }
 
     private void createTransactionsDialog(String title, String message) {
         AlertDialog.Builder ad = new AlertDialog.Builder(TransactionsListActivity.this);
@@ -77,16 +84,17 @@ public class TransactionsListActivity extends Activity {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onResume() {
+        super.onResume();
         Intent intent = getIntent();
-        String message = intent.getStringExtra(ID_PARAM);
+        cardId = intent.getStringExtra(ID_PARAM);
         setContentView(ru.spbau.WhereIsMyMoney.R.layout.transactions);
         db = new TransactionLogSource(getApplicationContext());
         db.open();
         TextView card = (TextView) findViewById(ru.spbau.WhereIsMyMoney.R.id.card_id);
-        card.setText(message);
-        createListView(message);
+        card.setText(cardId);
+        createListView(cardId);
+
     }
 
     @Override
