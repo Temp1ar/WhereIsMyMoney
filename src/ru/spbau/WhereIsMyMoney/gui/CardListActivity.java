@@ -14,8 +14,6 @@ import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
  * Shows list of cards.
  */
 public class CardListActivity extends Activity {
-    final static String id_param = "id";
-
     TransactionLogSource db;
 
     private void createCardsListView() {
@@ -32,7 +30,7 @@ public class CardListActivity extends Activity {
                                     int position, long id) {
                 Intent intent = new Intent(CardListActivity.this, TransactionsListActivity.class);
                 String message = cards[position];
-                intent.putExtra(id_param, message);
+                intent.putExtra(TransactionsListActivity.ID_PARAM, message);
                 startActivity(intent);
             }
         });

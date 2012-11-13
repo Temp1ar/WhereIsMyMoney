@@ -19,6 +19,7 @@ import java.util.List;
  * Shows list of transactions from specified card.
  */
 public class TransactionsListActivity extends Activity {
+    static final String ID_PARAM = "id";
     final String OK = "Ok";
     final String TRANSACTION = "Transaction description";
     TransactionLogSource db;
@@ -64,7 +65,7 @@ public class TransactionsListActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        String message = intent.getStringExtra(CardListActivity.id_param);
+        String message = intent.getStringExtra(ID_PARAM);
         setContentView(ru.spbau.WhereIsMyMoney.R.layout.transactions);
         db = new TransactionLogSource(getApplicationContext());
         db.open();

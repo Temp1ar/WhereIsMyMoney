@@ -2,8 +2,11 @@ package ru.spbau.WhereIsMyMoney.gui;
 
 import android.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,16 +38,33 @@ public class CostsReportActivity extends Activity {
         }
         Date start = new Date(startTime);
         Date end = new Date(endTime);
-        final Map<String, Double> costs = db.getCostsForPeriodPerCards(start,  end);
+        final Map<String, Double> cards2costs = db.getCostsForPeriodPerCards(start,  end);
+        final List<String> cards = new ArrayList<String>(cards2costs.keySet());
+//        final List<Double> costs = new ArrayList<Double>();
+        final List<String> dataForAdapter = new ArrayList<String>();
 
-        ArrayAdapter<Double> adapter = new ArrayAdapter<Double>(this,
-                R.layout.simple_list_item_2, R.id.text1, new ArrayList<Double>(costs.values()));
+        for (String key : cards) {
+            dataForAdapter.add(key + "\n" + cards2costs.get(key));
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.simple_list_item_2, R.id.text1, dataForAdapter);
 
         ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.places);
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Intent intent = new Intent(CostsReportActivity.this, TransactionsListActivity.class);
+                String card = cards.get(position);
+                intent.putExtra(TransactionsListActivity.ID_PARAM, card);
+                startActivity(intent);
+            }
+        });
+
         TextView totalVal = (TextView) findViewById(ru.spbau.WhereIsMyMoney.R.id.totalVal);
-        totalVal.setText(sum(costs.values()).toString());
+        totalVal.setText(sum(cards2costs.values()).toString());
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
