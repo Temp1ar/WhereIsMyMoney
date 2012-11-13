@@ -76,6 +76,10 @@ public class Transaction {
         this.balance = balance;
     }
 
+    public void setType(int type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
     	String FORMAT = "yyyy.MM.dd HH:mm:ss";

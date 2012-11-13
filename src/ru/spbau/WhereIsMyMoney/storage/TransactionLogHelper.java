@@ -105,7 +105,7 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
         small.put(4, new PlaceParser());
         small.put(5, new BalanceParser("", '.'));
 
-        REParser parser = new REParser(small, goodsWithdraw);
+        REParser parser = new REParser(small, goodsWithdraw, Transaction.WITHDRAW);
 
 
         for (int i = 0; i < array.size(); ++i) {
