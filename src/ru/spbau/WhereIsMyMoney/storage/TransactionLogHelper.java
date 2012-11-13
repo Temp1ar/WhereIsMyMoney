@@ -2,6 +2,8 @@ package ru.spbau.WhereIsMyMoney.storage;
 
 import java.util.Date;
 
+import ru.spbau.WhereIsMyMoney.Transaction;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,14 +29,17 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_CARD = "card";
 	private static final String COLUMN_CARD_TYPE = "text not null";
 	
-	public static final String COLUMN_DELTA = "delta";
-	private static final String COLUMN_DELTA_TYPE = "text";
-	
 	public static final String COLUMN_DATE = "date";
 	private static final String COLUMN_DATE_TYPE = "integer not null";
 	
 	public static final String COLUMN_BALANCE = "balance";
-	private static final String COLUMN_BALANCE_TYPE = "real no null";
+	private static final String COLUMN_BALANCE_TYPE = "real not null";
+	
+	public static final String COLUMN_TYPE = "type";
+	private static final String COLUMN_TYPE_TYPE = "integer not null";
+	
+	public static final String COLUMN_DELTA = "delta";
+	private static final String COLUMN_DELTA_TYPE = "text";
 	
 	public static final String COLUMN_PLACE = "place";
 	private static final String COLUMN_PLACE_TYPE = "text";
@@ -42,16 +47,17 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 	private static final String CREATE_TABLE = "create table " + TABLE_TRANSACTION + "("
 			+ COLUMN_ID      + " " + COLUMN_ID_TYPE      + ", "
 			+ COLUMN_CARD    + " " + COLUMN_CARD_TYPE    + ", "
-			+ COLUMN_DELTA   + " " + COLUMN_DELTA_TYPE   + ", "
 			+ COLUMN_DATE    + " " + COLUMN_DATE_TYPE    + ", "
 			+ COLUMN_BALANCE + " " + COLUMN_BALANCE_TYPE + ", "
+			+ COLUMN_TYPE    + " " + COLUMN_TYPE_TYPE    + ", "
+			+ COLUMN_DELTA   + " " + COLUMN_DELTA_TYPE   + ", "
 			+ COLUMN_PLACE   + " " + COLUMN_PLACE_TYPE   + ");";
 	
 	private static final String DROP_TABLE = "drop table if exists " + TABLE_TRANSACTION;
 	
 	public static final String[] ALL_COLUMNS = {
-		COLUMN_ID, COLUMN_CARD, COLUMN_DELTA,
-		COLUMN_DATE, COLUMN_BALANCE, COLUMN_PLACE
+		COLUMN_ID, COLUMN_CARD, COLUMN_DATE, COLUMN_TYPE,
+		COLUMN_BALANCE, COLUMN_DELTA, COLUMN_PLACE
 	};
 	
 	public TransactionLogHelper(Context context) {
@@ -71,6 +77,7 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 		cash.put(COLUMN_DELTA, "0");
 		cash.put(COLUMN_DATE, (new Date()).getTime());
 		cash.put(COLUMN_BALANCE, 0);
+		cash.put(COLUMN_TYPE, Transaction.DEPOSIT);
 		db.insert(TABLE_TRANSACTION, null, cash);
 	}
 

@@ -31,6 +31,7 @@ public class TransactionLogSource extends BaseDataSource {
 		dbTransaction.put(TransactionLogHelper.COLUMN_DELTA, transaction.getDelta());
 		dbTransaction.put(TransactionLogHelper.COLUMN_DATE, transaction.getDate().getTime());
 		dbTransaction.put(TransactionLogHelper.COLUMN_BALANCE, transaction.getBalance());
+		dbTransaction.put(TransactionLogHelper.COLUMN_TYPE, transaction.getType());
 		dbTransaction.put(TransactionLogHelper.COLUMN_PLACE, transaction.getPlace());
 		
 		long insertId = getDatabase().insert(TransactionLogHelper.TABLE_TRANSACTION, null, dbTransaction);
@@ -76,8 +77,9 @@ public class TransactionLogSource extends BaseDataSource {
 		float balance = cursor.getFloat(cursor.getColumnIndex(TransactionLogHelper.COLUMN_BALANCE));
 		String delta = cursor.getString(cursor.getColumnIndex(TransactionLogHelper.COLUMN_DELTA));
 		String place = cursor.getString(cursor.getColumnIndex(TransactionLogHelper.COLUMN_PLACE));
+		int type = cursor.getInt(cursor.getColumnIndex(TransactionLogHelper.COLUMN_TYPE));
 		
-		return new Transaction(date, place, card, delta, balance);
+		return new Transaction(date, place, card, delta, balance, type);
 	}
 	
 	/**
