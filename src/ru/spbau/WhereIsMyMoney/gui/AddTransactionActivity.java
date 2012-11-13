@@ -24,9 +24,15 @@ public class AddTransactionActivity extends Activity {
 
         final List<Transaction> transactions = db.getTransactionsPerCard(cardId);
 
+        int type = Transaction.DEPOSIT;
+        if (delta.charAt(0) == '-') {
+            type = Transaction.WITHDRAW;
+            delta = delta.substring(1);
+        }
+
         db.addTransaction(new Transaction(new Date(), place, cardId, delta,
                 transactions.get(transactions.size() - 1).getBalance(),
-                delta.charAt(0) == '-' ? Transaction.WITHDRAW : Transaction.DEPOSIT));
+                type));
         finish();
     }
 

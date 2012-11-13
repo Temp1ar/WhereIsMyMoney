@@ -25,7 +25,7 @@ public class REParser implements Parser {
 
     public boolean parse(String string, Transaction result) {
         Matcher matcher = pattern.matcher(string);
-        if (!matcher.find() || matcher.groupCount() != parsers.size()) {
+        if (!matcher.find()) {
             return false;
         }
         for (Map.Entry<Integer, Parser> entry : parsers.entrySet()) {
