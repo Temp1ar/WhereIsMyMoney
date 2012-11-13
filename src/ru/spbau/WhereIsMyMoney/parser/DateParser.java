@@ -13,7 +13,7 @@ import java.util.Date;
  * Date: 11/13/12
  * Time: 11:29 AM
  */
-public class DateParser implements Parser, Serializable {
+public class DateParser implements Parser {
     DateFormat dateFormat;
 
     public DateParser(DateFormat dateFormat) {
@@ -32,20 +32,5 @@ public class DateParser implements Parser, Serializable {
 
     public String getDescription() {
         return this.toString();
-    }
-
-    @Override
-    public String toString() {
-        return "DateParser{" +
-                "dateFormat=" + dateFormat +
-                '}';
-    }
-
-    public DateFormat getDateFormat() {
-        return dateFormat;
-    }
-
-    public void setDateFormat(DateFormat dateFormat) {
-        this.dateFormat = dateFormat;
     }
 }

@@ -49,28 +49,4 @@ public class REParser implements Parser {
                 "re='" + re + '\'' +
                 '}';
     }
-
-    public Pattern getPattern() {
-        return pattern;
-    }
-
-    public Map<Integer, Parser> getParsers() {
-        return parsers;
-    }
-
-    public String getRe() {
-        return re;
-    }
-
-    public void setPattern(Pattern pattern) {
-        this.pattern = pattern;
-    }
-
-    public void setParsers(Map<Integer, Parser> parsers) {
-        this.parsers = parsers;
-    }
-
-    public void setRe(String re) {
-        this.re = re;
-    }
 }
