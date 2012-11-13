@@ -154,7 +154,11 @@ public class TransactionLogSource extends BaseDataSource {
     public List<Transaction> getTransactionsPerPlaceForPeriod(final String place, final Date start, final Date end) {
         return getTransactions(new IFilter<Transaction>() {
             public boolean match(Transaction transaction) {
-                return transaction.getPlace().equals(place)
+                String trPlace = transaction.getPlace();
+                if (trPlace == null || trPlace.isEmpty())
+                    return false;
+
+                return trPlace.equals(place)
                         && transaction.getDate().compareTo(start) >= 0
                         && transaction.getDate().compareTo(end) <= 0;
             }
