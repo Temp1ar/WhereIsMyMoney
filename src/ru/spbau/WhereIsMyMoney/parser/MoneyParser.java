@@ -17,11 +17,17 @@ public class MoneyParser implements Parser {
     }
 
     public boolean parse(String string, Transaction result) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        String filteredString = new String(string);
+        for (char c : ignoreSymbols.toCharArray()) {
+            filteredString = filteredString.replaceAll(Character.toString(c), "");
+        }
+        filteredString = filteredString.replace(decimalDelimiter,'.');
+        result.setBalance(new Float(filteredString));
+        return true;
     }
 
     public String getRE() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return "[\\d" + ignoreSymbols + decimalDelimiter + "]*";
     }
 
     public String getDescription() {

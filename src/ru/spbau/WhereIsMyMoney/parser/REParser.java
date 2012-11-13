@@ -3,6 +3,7 @@ package ru.spbau.WhereIsMyMoney.parser;
 import ru.spbau.WhereIsMyMoney.Transaction;
 
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -23,11 +24,19 @@ public class REParser implements Parser {
     }
 
     public boolean parse(String string, Transaction result) {
-        return false;
-    }
-
-    public String getRE() {
-        return re;
+        Matcher matcher = pattern.matcher(string);
+        if (!matcher.find() || matcher.groupCount() != parsers.size()) {
+            return false;
+        }
+        for (Map.Entry<Integer, Parser> entry : parsers.entrySet()) {
+            Parser parser = entry.getValue();
+            Integer groupN = entry.getKey();
+            String subString = matcher.group(groupN);
+            if (!parser.parse(subString, result)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getDescription() {
