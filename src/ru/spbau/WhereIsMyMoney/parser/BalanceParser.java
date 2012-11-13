@@ -1,5 +1,6 @@
 package ru.spbau.WhereIsMyMoney.parser;
 
+import android.util.Log;
 import ru.spbau.WhereIsMyMoney.Transaction;
 
 import java.io.Serializable;
@@ -24,8 +25,13 @@ public class BalanceParser implements Parser {
             filteredString = filteredString.replaceAll(Character.toString(c), "");
         }
         filteredString = filteredString.replace(decimalDelimiter,'.');
-        result.setBalance(new Float(filteredString));
-        return true;
+        try {
+            result.setBalance(new Float(filteredString));
+            return true;
+        } catch (NumberFormatException e) {
+            Log.e(this.getClass().getCanonicalName(), "Can't parse: " + string + " with " + this);
+            return false;
+        }
     }
 
     public String getDescription() {

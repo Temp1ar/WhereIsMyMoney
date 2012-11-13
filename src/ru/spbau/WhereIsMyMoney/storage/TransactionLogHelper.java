@@ -85,7 +85,6 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
             Transaction transaction;
             for (int i = 0; i < array.size(); ++i) {
                 if ((transaction = baltBankHelper.tryParse(array.get(i).getBody())) != null) {
-                    Log.d(getClass().getCanonicalName(), "Parsed: " + array.get(i).getBody());
                     addTransaction(transaction, db);
                     continue;
                 }
