@@ -1,23 +1,17 @@
 package ru.spbau.WhereIsMyMoney.storage;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import ru.spbau.WhereIsMyMoney.ExistingSmsReader;
 import ru.spbau.WhereIsMyMoney.SmsEvent;
 import ru.spbau.WhereIsMyMoney.Transaction;
-
+import ru.spbau.WhereIsMyMoney.parser.BaltBankHelper;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import ru.spbau.WhereIsMyMoney.parser.*;
 
 /**
  * Helper creates (updates schema) database
