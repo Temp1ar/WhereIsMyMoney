@@ -38,11 +38,17 @@
                 android:layout_width="114dp"
                 android:layout_height="wrap_content"
                 android:text="@string/reportByPlace"
-                android:id="@+id/showReportByPlaces" android:layout_weight="1"/>
+                android:id="@+id/showReportByPlaces" android:layout_weight="1"
+                android:background="@drawable/nice_button"
+                style="@style/ShadowedText"
+                />
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reportByCards"
-                android:id="@+id/showReportByCards" android:layout_weight="1"/>
+                android:id="@+id/showReportByCards" android:layout_weight="1"
+                android:background="@drawable/nice_button"
+                style="@style/ShadowedText"
+                />
     </LinearLayout>
 </LinearLayout>

@@ -22,12 +22,13 @@
         android:layout_height="fill_parent"
         android:gravity="bottom">
         <Button
+            android:background="@drawable/nice_button"
+            style="@style/ShadowedText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/makeReport"
-            android:id="@+id/makeReport"
-            android:layout_weight="1"/>
-
+            android:id="@+id/makeReport"/>
     </LinearLayout>
 </LinearLayout>
 

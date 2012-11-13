@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="#0a0a0a">
+    android:background="#0a0a0a"
+    android:padding="3dp">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -35,7 +36,7 @@
         android:orientation="horizontal"
         android:weightSum="1.0">
         <ImageView
-                android:layout_marginRight="3dp"
+                android:layout_marginRight="2dp"
                 android:layout_height="20dp"
                 android:layout_width="20dp"
                 android:src="@drawable/balance_icon" />
@@ -61,8 +62,7 @@
             android:id="@+id/transaction_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_marginRight="3dp">
+            android:textAppearance="?android:attr/textAppearanceSmall">
         </TextView>
         </LinearLayout>
     </LinearLayout>
