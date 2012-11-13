@@ -14,7 +14,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".gui.TransactionsListActivity"/>
-        <activity android:name=".gui.CostsReportActivity"
+        <activity android:name=".gui.CostsReportActivity"/>
+        <activity android:name=".gui.CostsReportSetupActivity"
                   android:label="report">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

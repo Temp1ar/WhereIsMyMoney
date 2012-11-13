@@ -7,13 +7,12 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
 import java.util.*;
 
 /**
- * Show report grouped by places
+ * Show report grouped by cards
  */
 public class CostsReportActivity extends Activity {
     private static final String TAG = CostsReportActivity.class.getCanonicalName();
@@ -22,8 +21,8 @@ public class CostsReportActivity extends Activity {
 
     TransactionLogSource db;
 
-    private void createCardsListView() {
-        Log.d(TAG, "createCardsListView()");
+    private void createListView() {
+        Log.d(TAG, "createListView()");
         final Long startTime = this.getIntent().getLongExtra(START_DATE, -1);
         final Long endTime = this.getIntent().getLongExtra(END_DATE, -1);
         if (startTime == 0) {
@@ -36,9 +35,7 @@ public class CostsReportActivity extends Activity {
         }
         Date start = new Date(startTime);
         Date end = new Date(endTime);
-//        final Map<String, Double> costs = db.getCostsForPeriodPerCards(start,  end);
-        //todo uncomment prev line and drop next line
-        final Map<String, Double> costs = db.getCostsForPeriodPerCards(new Date(2012, 10, 12),  new Date(2012, 11, 13));
+        final Map<String, Double> costs = db.getCostsForPeriodPerCards(start,  end);
 
         ArrayAdapter<Double> adapter = new ArrayAdapter<Double>(this,
                 R.layout.simple_list_item_2, R.id.text1, new ArrayList<Double>(costs.values()));
@@ -56,7 +53,7 @@ public class CostsReportActivity extends Activity {
         db = new TransactionLogSource(getApplicationContext());
         db.open();
         setContentView(ru.spbau.WhereIsMyMoney.R.layout.costs_report);
-        createCardsListView();
+        createListView();
     }
 
     @Override
