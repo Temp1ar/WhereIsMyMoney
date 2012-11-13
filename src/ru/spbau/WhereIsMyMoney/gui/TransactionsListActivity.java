@@ -13,12 +13,16 @@ import android.widget.TextView;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
  * Shows list of transactions from specified card.
  */
 public class TransactionsListActivity extends Activity {
+	private static final String FORMAT = "yyyy.MM.dd HH:mm:ss";
+	private static final SimpleDateFormat FORMATTER = new SimpleDateFormat(FORMAT);
+	
     static final String ID_PARAM = "id";
     final String OK = "Ok";
     final String TRANSACTION = "Transaction description";
@@ -35,6 +39,17 @@ public class TransactionsListActivity extends Activity {
         });
         ad.show();
     }
+    
+    private String shortDescription(Transaction trans) {
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(FORMATTER.format(trans.getDate()));
+    	if (trans.getDelta() != null) {
+    		sb.append(", delta: ").append(trans.getDelta());
+    	} else {
+    		sb.append(", balance: ").append(trans.getBalance());
+    	}
+    	return sb.toString();
+    }
 
     private void createListView(final String card) {
         ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.transactions);
@@ -43,9 +58,9 @@ public class TransactionsListActivity extends Activity {
         final String[] values = new String[transactions.size()];
         final String[] messages = new String[transactions.size()];
         for (int i = 0; i < transactions.size(); ++i) {
-            values[i] = transactions.get(i).getDate().toString() + "\n   " + transactions.get(i).getDelta();
-            messages[i] = transactions.get(i).getDate().toString() + " " + transactions.get(i).getDelta() + "\n" +
-                          transactions.get(i).getPlace();
+        	Transaction trans = transactions.get(i);
+            values[i] = shortDescription(trans);
+            messages[i] = trans.toString();
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
