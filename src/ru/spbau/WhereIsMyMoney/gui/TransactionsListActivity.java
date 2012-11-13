@@ -5,11 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
+import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.Transaction;
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogHelper;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
 import java.text.SimpleDateFormat;
@@ -94,7 +93,12 @@ public class TransactionsListActivity extends Activity {
         TextView card = (TextView) findViewById(ru.spbau.WhereIsMyMoney.R.id.card_id);
         card.setText(cardId);
         createListView(cardId);
-
+        Button addTransaction = (Button)findViewById(R.id.add_tr);
+        if (cardId.equals(TransactionLogHelper.CASH)) {
+            addTransaction.setEnabled(true);
+        } else {
+            addTransaction.setEnabled(false);
+        }
     }
 
     @Override
