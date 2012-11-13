@@ -18,6 +18,9 @@ public class Transaction {
     private String delta;
     private float balance;
 
+    public Transaction() {
+    }
+
     public Transaction(Date date, String place, String card, String delta, float balance) {
         this.date = date;
         this.place = place;
@@ -45,18 +48,38 @@ public class Transaction {
     public float getBalance() {
         return balance;
     }
-    
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public void setCard(String card) {
+        this.card = card;
+    }
+
+    public void setDelta(String delta) {
+        this.delta = delta;
+    }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
+
     @Override
     public String toString() {
-    	StringBuilder sb = new StringBuilder();
-    	sb.append(FORMATTER.format(getDate())).append("\n");
-    	sb.append("Balance: ").append(getBalance()).append("\n");
-    	if (getDelta() != null) {
-    		sb.append("Delta: ").append(getDelta()).append("\n");
-    	}
-    	if (getPlace() != null) {
-    		sb.append("Place: ").append(getPlace()).append("\n");
-    	}
-    	return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append(FORMATTER.format(getDate())).append("\n");
+        sb.append("Balance: ").append(getBalance()).append("\n");
+        if (getDelta() != null) {
+            sb.append("Delta: ").append(getDelta()).append("\n");
+        }
+        if (getPlace() != null) {
+            sb.append("Place: ").append(getPlace()).append("\n");
+        }
+        return sb.toString();
     }
 }
