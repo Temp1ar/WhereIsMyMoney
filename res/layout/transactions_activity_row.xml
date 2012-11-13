@@ -53,6 +53,10 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="right">
+        <ImageView
+                android:layout_height="20dp"
+                android:layout_width="20dp"
+                android:src="@drawable/date_icon" />
         <TextView
             android:id="@+id/transaction_date"
             android:layout_width="wrap_content"
