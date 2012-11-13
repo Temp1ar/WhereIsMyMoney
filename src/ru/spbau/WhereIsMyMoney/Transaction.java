@@ -1,6 +1,5 @@
 package ru.spbau.WhereIsMyMoney;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -78,22 +77,5 @@ public class Transaction {
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    @Override
-    public String toString() {
-    	String FORMAT = "yyyy.MM.dd HH:mm:ss";
-    	SimpleDateFormat FORMATTER = new SimpleDateFormat(FORMAT);
-    	StringBuilder sb = new StringBuilder();
-    	sb.append(FORMATTER.format(getDate())).append("\n");
-    	sb.append("Balance: ").append(getBalance()).append("\n");
-    	sb.append("Card: ").append(getCard()).append("\n");
-    	if (getDelta() != null) {
-    		sb.append("Delta: ").append(getDelta()).append("\n");
-    	}
-    	if (getPlace() != null) {
-    		sb.append("Place: ").append(getPlace()).append("\n");
-    	}
-    	return sb.toString();
     }
 }
