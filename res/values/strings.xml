@@ -6,6 +6,7 @@
     <string name="place">Place</string>
     <string name="ok">Save</string>
     <string name="add">Add Transaction</string>
+    <string name="unknown_place">unknown</string>
     <string name="reportByPlace">by Place</string>
     <string name="reportByCards">by Cards</string>
     <string name="makeReport">Make Report</string>

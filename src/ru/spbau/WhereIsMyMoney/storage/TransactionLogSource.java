@@ -9,10 +9,8 @@ import java.util.Map;
 import java.util.Set;
 
 import ru.spbau.WhereIsMyMoney.Transaction;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 /**
  * Transactions database adapter
