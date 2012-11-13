@@ -1,5 +1,6 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 import android.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -8,11 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import ru.spbau.WhereIsMyMoney.ExistingSmsReader;
-import ru.spbau.WhereIsMyMoney.SmsEvent;
-import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
-
-import java.util.ArrayList;
 
 /**
  * Shows list of cards.
@@ -46,8 +42,6 @@ public class CardListActivity extends Activity {
         db.open();
         setContentView(ru.spbau.WhereIsMyMoney.R.layout.cards);
         createCardsListView();
-
-        // ArrayList<SmsEvent> array = ExistingSmsReader.getAll(this, null);
 
     }
 
