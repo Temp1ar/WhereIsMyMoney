@@ -74,4 +74,8 @@ public class Transaction {
     public void setBalance(float balance) {
         this.balance = balance;
     }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 }
