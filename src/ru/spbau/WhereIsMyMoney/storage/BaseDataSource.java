@@ -21,7 +21,7 @@ public class BaseDataSource implements Closeable {
 		myHelper = helper;
 	}
 
-	/**
+        /**
 	 * Opens database for reading or writing.
 	 * 
 	 * @param mode TransactionLogSource.FOR_READ to open database for reading,
@@ -35,6 +35,7 @@ public class BaseDataSource implements Closeable {
 			myDatabase = myHelper.getWritableDatabase();
 			Log.d(getClass().getCanonicalName(), "database " + myDatabase.getPath() + " opened for write");
 		}
+            myHelper.onUpgrade(myDatabase, 1, 1);
 	}
 
 	/**

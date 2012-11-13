@@ -26,17 +26,7 @@ public class TransactionLogSource extends BaseDataSource {
 	 * @param transaction transaction to be inserted
 	 */
 	public void addTransaction(Transaction transaction) {
-		ContentValues dbTransaction = new ContentValues();
-		dbTransaction.put(TransactionLogHelper.COLUMN_CARD, transaction.getCard());
-		dbTransaction.put(TransactionLogHelper.COLUMN_DELTA, transaction.getDelta());
-		dbTransaction.put(TransactionLogHelper.COLUMN_DATE, transaction.getDate().getTime());
-		dbTransaction.put(TransactionLogHelper.COLUMN_BALANCE, transaction.getBalance());
-		dbTransaction.put(TransactionLogHelper.COLUMN_TYPE, transaction.getType());
-		dbTransaction.put(TransactionLogHelper.COLUMN_PLACE, transaction.getPlace());
-		
-		long insertId = getDatabase().insert(TransactionLogHelper.TABLE_TRANSACTION, null, dbTransaction);
-		
-		Log.d(this.getClass().getCanonicalName(), "Transaction " + transaction + " saved with id " + insertId);
+            TransactionLogHelper.addTransaction(transaction, getDatabase());
 	}
 	
 	/**
