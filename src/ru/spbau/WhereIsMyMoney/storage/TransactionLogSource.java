@@ -106,14 +106,31 @@ public class TransactionLogSource extends BaseDataSource {
 	 * @param card target card
 	 * @return list of transactions
 	 */
-	public List<Transaction> getTransactionsPerCard(String card) {
-		final String target = card;
+	public List<Transaction> getTransactionsPerCard(final String card) {
 		return getTransactions(new IFilter<Transaction>() {
 			public boolean match(Transaction transaction) {
-				return transaction.getCard().equals(target);
+				return transaction.getCard().equals(card);
 			}
 		});
 	}
+
+    /**
+     * All transactions for specified card for period
+     *
+     * @param card target card
+     * @param start start date of period
+     * @param end end date of period
+     * @return list of transactions
+     */
+    public List<Transaction> getTransactionsPerCardForPeriod(final String card, final Date start, final Date end) {
+        return getTransactions(new IFilter<Transaction>() {
+            public boolean match(Transaction transaction) {
+                return transaction.getCard().equals(card)
+                        && transaction.getDate().compareTo(start) >= 0
+                        && transaction.getDate().compareTo(end) <= 0;
+            }
+        });
+    }
 
     /**
      * Return total costs for each cards
@@ -122,27 +139,16 @@ public class TransactionLogSource extends BaseDataSource {
      * @param end end date for report
      * @return map costs_report to total costs from start to end
      */
-    public Map<String, Double> getCostsForPeriodPerCards(final Date start, final Date end) {
-        HashMap<String, Double> costs = new HashMap<String, Double>();
+    public Map<String, Float> getCostsPerCardsForPeriod(Date start, Date end) {
 
-        List<Transaction> transactions = getTransactions(new IFilter<Transaction>() {
-            public boolean match(Transaction transaction) {
-                return transaction.getDate().compareTo(start) >= 0 && transaction.getDate().compareTo(end) <= 0;
-            }
-        });
+        Set<String> cards = getCards();
+        HashMap<String, Float> costs = new HashMap<String, Float>();
 
-        for (Transaction transaction : transactions) {
-            final Pattern moneyMatcher = Pattern.compile("^(\\d+(?:\\.\\d+)?)\\s*(.*)");
-            Matcher matcher = moneyMatcher.matcher(transaction.getDelta());
-            if (matcher.matches()) {
-                Double value = costs.get(transaction.getCard());
-                if (value == null)
-                    value = 0.0;
-
-                value += Double.valueOf(matcher.group(1));
-                costs.put(transaction.getCard(), value);
-            }
+        for (String card : cards) {
+            List<Transaction> transactions = getTransactionsPerCardForPeriod(card, start, end);
+            if (!transactions.isEmpty())
+                costs.put(card, Math.abs(transactions.get(0).getBalance() - transactions.get(transactions.size() - 1).getBalance()));
         }
-        return costs;
+       return costs;
     }
 }

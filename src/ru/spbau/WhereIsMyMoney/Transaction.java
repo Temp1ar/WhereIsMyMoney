@@ -20,6 +20,9 @@ public class Transaction {
     private float balance;
     private int type;
 
+    public Transaction() {
+    }
+    
     public Transaction(Date date, String place, String card, String delta, float balance, int type) {
         this.date = date;
         this.place = place;
@@ -52,7 +55,27 @@ public class Transaction {
     public int getType() {
     	return type;
     }
-    
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public void setCard(String card) {
+        this.card = card;
+    }
+
+    public void setDelta(String delta) {
+        this.delta = delta;
+    }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
+
     @Override
     public String toString() {
     	String FORMAT = "yyyy.MM.dd HH:mm:ss";

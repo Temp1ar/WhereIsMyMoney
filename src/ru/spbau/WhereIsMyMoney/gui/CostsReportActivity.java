@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
+import java.lang.Float;
 import java.util.*;
 
 /**
@@ -38,7 +39,7 @@ public class CostsReportActivity extends Activity {
         }
         Date start = new Date(startTime);
         Date end = new Date(endTime);
-        final Map<String, Double> cards2costs = db.getCostsForPeriodPerCards(start,  end);
+        final Map<String, Float> cards2costs = db.getCostsPerCardsForPeriod(start, end);
         final List<String> cards = new ArrayList<String>(cards2costs.keySet());
 //        final List<Double> costs = new ArrayList<Double>();
         final List<String> dataForAdapter = new ArrayList<String>();
@@ -82,9 +83,9 @@ public class CostsReportActivity extends Activity {
         db.close();
     }
 
-    private Double sum(Collection<Double> numbers) {
-        double sum = 0;
-        for(Double i : numbers) {
+    private Float sum(Collection<Float> numbers) {
+        float sum = 0;
+        for(Float i : numbers) {
             sum += i;
         }
         return sum;
