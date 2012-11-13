@@ -49,8 +49,13 @@ public class CardListActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new TransactionLogSource(getApplicationContext());
-        db.open();
         setContentView(ru.spbau.WhereIsMyMoney.R.layout.cards);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        db.open();
         createCardsListView();
     }
 
