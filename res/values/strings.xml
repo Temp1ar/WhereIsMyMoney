@@ -10,4 +10,7 @@
     <string name="reportByPlace">by Place</string>
     <string name="reportByCards">by Cards</string>
     <string name="makeReport">Make Report</string>
+    <string name="totalCosts">Total</string>
+    <string name="startDate">Start date:</string>
+    <string name="endDate">End date:</string>
 </resources>

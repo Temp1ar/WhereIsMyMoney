@@ -8,7 +8,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start date:"
+            android:text="@string/startDate"
             android:id="@+id/textView1" android:layout_gravity="left|center_vertical"/>
     <DatePicker
             android:layout_width="fill_parent"
@@ -17,7 +17,7 @@
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="End date:"
+            android:text="@string/endDate"
             android:id="@+id/textView"/>
     <DatePicker
             android:layout_width="fill_parent"
