@@ -18,8 +18,8 @@ public class TransactionListAdapter extends ArrayAdapter<Transaction> {
 	private static final int GREEN = Color.parseColor("#3CB371");
 	private static final int BLUE = Color.parseColor("#0000FF");
 	
-	private static final String DATE_FORMAT = "yyyy.MM.dd HH:mm:ss";
-	private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
+	private final String DATE_FORMAT;
+	private final SimpleDateFormat DATE_FORMATTER;
 	
 	private final Context myContext;
 	private final List<Transaction> myTransactions;
@@ -28,6 +28,8 @@ public class TransactionListAdapter extends ArrayAdapter<Transaction> {
 		super(context, R.layout.transactions_activity_row, transactions);
 		myContext = context;
 		myTransactions = transactions;
+                DATE_FORMAT = context.getString(R.string.date_format);
+                DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public class TransactionListAdapter extends ArrayAdapter<Transaction> {
 			place.setText(trans.getPlace());
 		}
 		TextView balance = (TextView) rowView.findViewById(R.id.transaction_new_balance);
-		balance.setText("balance: " + trans.getBalance());
+		balance.setText(myContext.getString(R.string.balance) + ": " + trans.getBalance());
 		TextView date = (TextView) rowView.findViewById(R.id.transaction_date);
 		date.setText(DATE_FORMATTER.format(trans.getDate()));
 		

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WhereIsMyMoney</string>
+    <string name="description">Ваши карты</string>
+    <string name="sum">Сумма</string>
+    <string name="place">Место</string>
+    <string name="ok">Сохранить</string>
+    <string name="add">Добавить транзакцию</string>
+    <string name="unknown_place"></string>
+    <string name="reportByPlace">По местам</string>
+    <string name="reportByCards">По картам</string>
+    <string name="makeReport">Сделать отчёт</string>
+    <string name="balance">Баланс</string>
+    <string name="date_format">dd.MM.yyyy HH:mm</string>
+    <string name="totalCosts">Сумма</string>
+    <string name="startDate">С:</string>
+    <string name="endDate">По:</string>
+</resources>

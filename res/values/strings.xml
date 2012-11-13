@@ -6,10 +6,12 @@
     <string name="place">Place</string>
     <string name="ok">Save</string>
     <string name="add">Add Transaction</string>
-    <string name="unknown_place">unknown</string>
+    <string name="unknown_place"></string>
     <string name="reportByPlace">by Place</string>
     <string name="reportByCards">by Cards</string>
     <string name="makeReport">Make Report</string>
+    <string name="balance">Balance</string>
+    <string name="date_format">dd.MM.yyyy HH:mm</string>
     <string name="totalCosts">Total</string>
     <string name="startDate">Start date:</string>
     <string name="endDate">End date:</string>
