@@ -9,24 +9,27 @@ import java.util.Date;
  * Time: 3:32 PM
  */
 public class Transaction {
-	private static final String FORMAT = "yyyy.MM.dd HH:mm:ss";
-	private static final SimpleDateFormat FORMATTER = new SimpleDateFormat(FORMAT);
+	public static final int WITHDRAW = 0;
+	public static final int DEPOSIT = 1;
+	public static final int NONE = 2;
 	
     private Date date;
     private String place;
     private String card;
     private String delta;
     private float balance;
+    private int type;
 
     public Transaction() {
     }
-
-    public Transaction(Date date, String place, String card, String delta, float balance) {
+    
+    public Transaction(Date date, String place, String card, String delta, float balance, int type) {
         this.date = date;
         this.place = place;
-            this.card = card;
+        this.card = card;
         this.delta = delta;
         this.balance = balance;
+        this.type = type;
     }
 
     public Date getDate() {
@@ -47,6 +50,10 @@ public class Transaction {
 
     public float getBalance() {
         return balance;
+    }
+    
+    public int getType() {
+    	return type;
     }
 
     public void setDate(Date date) {
@@ -71,19 +78,18 @@ public class Transaction {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(FORMATTER.format(getDate())).append("\n");
-        sb.append("Balance: ").append(getBalance()).append("\n");
-        if (getDelta() != null) {
-            sb.append("Delta: ").append(getDelta()).append("\n");
-        }
-        if (getPlace() != null) {
-            sb.append("Place: ").append(getPlace()).append("\n");
-        }
-        if (getCard() != null) {
-            sb.append("Card: ").append(getCard()).append("\n");
-        }
-
-        return sb.toString();
+    	String FORMAT = "yyyy.MM.dd HH:mm:ss";
+    	SimpleDateFormat FORMATTER = new SimpleDateFormat(FORMAT);
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(FORMATTER.format(getDate())).append("\n");
+    	sb.append("Balance: ").append(getBalance()).append("\n");
+    	sb.append("Card: ").append(getCard()).append("\n");
+    	if (getDelta() != null) {
+    		sb.append("Delta: ").append(getDelta()).append("\n");
+    	}
+    	if (getPlace() != null) {
+    		sb.append("Place: ").append(getPlace()).append("\n");
+    	}
+    	return sb.toString();
     }
 }
