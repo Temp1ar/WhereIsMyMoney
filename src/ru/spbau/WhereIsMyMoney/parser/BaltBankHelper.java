@@ -35,7 +35,8 @@ public class BaltBankHelper {
         goodsWithdrawMap.put(4, new PlaceParser());
         goodsWithdrawMap.put(5, new BalanceParser("", '.'));
 
-        parsers.add(new REParser(goodsWithdrawMap, goodsWithdrawEn));
+        parsers.add(new REParser(goodsWithdrawMap, goodsWithdrawEn, Transaction.WITHDRAW));
+        parsers.add(new REParser(goodsWithdrawMap, goodsWithdraw, Transaction.WITHDRAW));
     }
 
     public Transaction tryParse(String message) {
