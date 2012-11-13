@@ -24,13 +24,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/endDate"/>
     <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" android:gravity="bottom">
         <Button
-                android:layout_width="fill_parent"
+                android:layout_width="114dp"
                 android:layout_height="wrap_content"
-                android:text="Show report"
-                android:id="@+id/showReport"/>
+                android:text="by Places"
+                android:id="@+id/showReportByPlaces" android:layout_weight="1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="by Cards"
+                android:id="@+id/showReportByCards" android:layout_weight="1"/>
     </LinearLayout>
 </LinearLayout>

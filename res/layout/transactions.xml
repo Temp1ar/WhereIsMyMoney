@@ -17,4 +17,12 @@
             android:layout_height="wrap_content" >
     </ListView>
 
+    <Button
+        android:id="@+id/add_tr"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add"
+        android:onClick="saveTransaction"
+        />
+
 </LinearLayout>

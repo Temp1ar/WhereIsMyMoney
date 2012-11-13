@@ -2,16 +2,18 @@ package ru.spbau.WhereIsMyMoney.parser;
 
 import ru.spbau.WhereIsMyMoney.Transaction;
 
+import java.io.Serializable;
+
 /**
  * User: Alexander Opeykin alexander.opeykin@gmail.com
  * Date: 11/13/12
  * Time: 11:27 AM
  */
-public class MoneyParser implements Parser {
+public class BalanceParser implements Parser {
     private String ignoreSymbols;
     private char decimalDelimiter;
 
-    public MoneyParser(String ignoreSymbols, char decimalDelimiter) {
+    public BalanceParser(String ignoreSymbols, char decimalDelimiter) {
         this.ignoreSymbols = ignoreSymbols;
         this.decimalDelimiter = decimalDelimiter;
     }
@@ -26,19 +28,7 @@ public class MoneyParser implements Parser {
         return true;
     }
 
-    public String getRE() {
-        return "[\\d" + ignoreSymbols + decimalDelimiter + "]*";
-    }
-
     public String getDescription() {
         return this.toString();
-    }
-
-    @Override
-    public String toString() {
-        return "MoneyParser{" +
-                "ignoreSymbols='" + ignoreSymbols + '\'' +
-                ", decimalDelimiter=" + decimalDelimiter +
-                '}';
     }
 }

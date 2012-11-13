@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import ru.spbau.WhereIsMyMoney.R;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -26,21 +27,42 @@ public class CostsReportSetupActivity extends Activity {
 
         final DatePicker startDate = (DatePicker) findViewById(ru.spbau.WhereIsMyMoney.R.id.startDate);
         final DatePicker endDate = (DatePicker) findViewById(ru.spbau.WhereIsMyMoney.R.id.endDate);
-        Button showReport = (Button) findViewById(ru.spbau.WhereIsMyMoney.R.id.showReport);
+        Button showReportByCards = (Button) findViewById(R.id.showReportByCards);
+        Button showReportByPlaces = (Button) findViewById(R.id.showReportByPlaces);
 
-        showReport.setOnClickListener(new View.OnClickListener() {
+        showReportByPlaces.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Calendar cal = new GregorianCalendar();
-                cal.set(startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth());
-                Long start = cal.getTimeInMillis();
-                cal.set(endDate.getYear(), endDate.getMonth(), endDate.getDayOfMonth());
-                Long end = cal.getTimeInMillis();
+                Log.d(TAG, "Try to show report by places");
 
-                Intent intent = new Intent(CostsReportSetupActivity.this, CostsReportActivity.class);
-                intent.putExtra(CostsReportActivity.START_DATE, start);
-                intent.putExtra(CostsReportActivity.END_DATE, end);
+                long start = unixTime(startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth());
+                long end = unixTime(endDate.getYear(), endDate.getMonth(), endDate.getDayOfMonth());
+
+                Intent intent = new Intent(CostsReportSetupActivity.this, CostsReportByPlacesActivity.class);
+                intent.putExtra(AbstractCostsReportActivity.START_DATE, start);
+                intent.putExtra(AbstractCostsReportActivity.END_DATE, end);
+                startActivity(intent);
+            }
+        });
+
+        showReportByCards.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Log.d(TAG, "Try to show report by cards");
+
+                long start = unixTime(startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth());
+                long end = unixTime(endDate.getYear(), endDate.getMonth(), endDate.getDayOfMonth());
+
+                Intent intent = new Intent(CostsReportSetupActivity.this, CostsReportByCardsActivity.class);
+                intent.putExtra(AbstractCostsReportActivity.START_DATE, start);
+                intent.putExtra(AbstractCostsReportActivity.END_DATE, end);
                 startActivity(intent);
             }
         });
     }
+
+    long unixTime(int year, int month, int day) {
+        Calendar cal = new GregorianCalendar();
+        cal.set(year, month, day);
+        return cal.getTimeInMillis();
+    }
+
 }
