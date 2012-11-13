@@ -40,7 +40,7 @@ public class TransactionsListActivity extends Activity {
         db = new TransactionLogSource(getApplicationContext());
         db.open();
         TextView title = (TextView) findViewById(ru.spbau.WhereIsMyMoney.R.id.card_id);
-        title.setText(cardId);
+        title.setText(getString(R.string.transaction_list_header) + " " + cardId);
         ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.transactions);
         List<Transaction> transactions = db.getTransactionsPerCard(cardId);
         ArrayAdapter<Transaction> adapter = new TransactionListAdapter(getApplicationContext(), transactions);

@@ -38,7 +38,7 @@ public class TransactionListAdapter extends ArrayAdapter<Transaction> {
 		TextView delta = (TextView) rowView.findViewById(R.id.transaction_delta);
 		delta.setText(trans.getDelta());
 		TextView place = (TextView) rowView.findViewById(R.id.transaction_place);
-		if (trans.getPlace() != null) {
+		if (trans.getPlace() != null && !"".equals(trans.getPlace().trim())) {
 			place.setText(trans.getPlace());
 		}
 		TextView balance = (TextView) rowView.findViewById(R.id.transaction_new_balance);

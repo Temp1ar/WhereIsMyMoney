@@ -35,7 +35,7 @@ public class TransactionLogSource extends BaseDataSource {
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		Cursor cursor = getDatabase().query(TransactionLogHelper.TABLE_TRANSACTION,
 				TransactionLogHelper.ALL_COLUMNS, null, null, null, null,
-				TransactionLogHelper.COLUMN_DATE);
+				TransactionLogHelper.COLUMN_DATE + " DESC");
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			Transaction transaction = cursorToTransaction(cursor);

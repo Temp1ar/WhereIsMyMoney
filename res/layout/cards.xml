@@ -4,11 +4,12 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/description"
-            />
+
+    <LinearLayout style="@style/HeaderLinearLayout">
+        <TextView
+            style="@style/HeaderTextView"
+            android:text="@string/description"/>
+    </LinearLayout>
 
     <ListView
             android:id="@+id/cards"

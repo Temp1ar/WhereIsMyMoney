@@ -8,17 +8,17 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
         <activity android:name=".gui.CardListActivity"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".gui.TransactionsListActivity"/>
-        <activity android:name=".gui.CostsReportByCardsActivity"/>
-        <activity android:name=".gui.CostsReportByPlacesActivity"/>
-        <activity android:name=".gui.CostsReportSetupActivity"/>
-        <activity android:name=".gui.AddTransactionActivity"/>
+        <activity android:name=".gui.TransactionsListActivity" android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".gui.CostsReportByCardsActivity" android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".gui.CostsReportByPlacesActivity" android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".gui.CostsReportSetupActivity" android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".gui.AddTransactionActivity" android:theme="@android:style/Theme.NoTitleBar"/>
         <activity android:name="org.achartengine.GraphicalActivity"/>
 
         <service android:name=".service.WatcherService" android:process=":remote"></service>

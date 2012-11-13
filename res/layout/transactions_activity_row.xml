@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#0a0a0a">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -13,18 +14,19 @@
             android:id="@+id/transaction_delta"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".3"
+            android:layout_weight=".35"
             android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge">
+            android:textSize="18sp">
         </TextView>
         <TextView
             android:id="@+id/transaction_place"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".7"
-            android:gravity="right"
+            android:layout_weight=".65"
             android:text="@string/unknown_place"
-            android:textAppearance="?android:attr/textAppearanceLarge">
+            android:textSize="18sp"
+            android:textColor="@color/transaction_none"
+            android:layout_marginLeft="5dp">
         </TextView>
 	</LinearLayout>
     <LinearLayout
@@ -51,16 +53,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="right">
-        <ImageView
-                android:layout_marginRight="3dp"
-                android:layout_height="16dp"
-                android:layout_width="16dp"
-                android:src="@drawable/date_icon" />
         <TextView
             android:id="@+id/transaction_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall">
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_marginRight="3dp">
         </TextView>
         </LinearLayout>
     </LinearLayout>
