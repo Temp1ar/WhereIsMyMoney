@@ -45,7 +45,6 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
     @Override
     protected void customizeListView(ExpandableListView listView) {
         listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i2, long l) {
                 Intent intent = new Intent(CostsReportByCardsActivity.this, TransactionsListActivity.class);
 

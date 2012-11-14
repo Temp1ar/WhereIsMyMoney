@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import ru.spbau.WhereIsMyMoney.Card;
 import ru.spbau.WhereIsMyMoney.Transaction;
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogHelper;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
 import java.util.ArrayList;
@@ -87,7 +88,13 @@ public class CardListActivity extends Activity {
             case ru.spbau.WhereIsMyMoney.R.id.add_parser:
                 Intent intent = new Intent(this, SmsViewActivity.class);
                 startActivity(intent);
-                return (true);
+                return true;
+            case ru.spbau.WhereIsMyMoney.R.id.refresh_history:
+            	TransactionLogSource source = new TransactionLogSource(getApplicationContext());
+            	source.open();
+            	source.resetDatabase();
+            	source.close();
+            	return true;
         }
 
         return (super.onOptionsItemSelected(item));

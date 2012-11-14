@@ -16,6 +16,10 @@ public class TransactionLogSource extends BaseDataSource {
 		super(new TransactionLogHelper(context));
 	}
 	
+	public void resetDatabase() {
+		getHelper().onUpgrade(getDatabase(), 1, 1);
+	}
+	
 	/**
 	 * Insert new transaction into database. Database have be open for writing.
 	 * 

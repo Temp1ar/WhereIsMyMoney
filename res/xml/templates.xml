@@ -16,4 +16,12 @@
 <![CDATA[ {{card}} ; schet debetovan ; Summa : {{delta}} ; Dostupno : {{balance}} RUR ; ]]>
 </template>
 
+<template type="withdraw">
+<![CDATA[ {{date:[^\s]*\\s+[^\s]*}} {{card:[^:]*?}} : Списание средств со счета {{delta:[^\s]*\s+[^\s]*}} код [^\s]*? ([^;]*?) ; Доступно : {{balance}} ]]>
+</template>
+
+<template type="withdraw">
+<![CDATA[ {{date:[^\s]*\s+[^\s]*}} {{card:[^:]*?}} : Spisanie sredstv so scheta {{delta:[^\s]*\s+[^\s]*}} kod {{code:[^\s]*}} {{place:[^;]*?}} ; Dostupno : {{balance}} ]]>
+</template>
+
 </resource>

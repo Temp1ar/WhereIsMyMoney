@@ -5,9 +5,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.util.Log;
-
-class TemplateMatcher {
+public class TemplateMatcher {
 	private static final Pattern TEMPLATE_ARG = Pattern.compile("\\{\\{(.*?)\\}\\}");
 	private static final Pattern SPACE_FILLER = Pattern.compile("\\s+");
 	private static final String GROUP_RE = "(.*)";
@@ -36,17 +34,19 @@ class TemplateMatcher {
         myRegex = template;
 
         for (Map.Entry<String, String> entry : reMap.entrySet()) {
-            String placeholder = "\\{\\{" + entry.getKey() + "\\}\\}";
+        	String placeholder = "{{" + entry.getKey() + "}}";
             String re = entry.getValue();
-            Pattern pattern = Pattern.compile(placeholder);
-            myRegex = pattern.matcher(myRegex).replaceAll(re);
+            myRegex = plainReplace(myRegex, placeholder, re);
         }
 
         matcher = SPACE_FILLER.matcher(myRegex);
 		myRegex = matcher.replaceAll(SPACE_RE);
-		Log.d(getClass().getCanonicalName(), "myRegex = " + myRegex);
 	}
 
+	private String plainReplace(String str, String value, String replacement) {
+		int index = str.indexOf(value);
+		return str.substring(0, index) + replacement + str.substring(index + value.length());
+	}
 
 	public Map<String, String> match(String string) {
 		Pattern pattern = Pattern.compile(myRegex);
