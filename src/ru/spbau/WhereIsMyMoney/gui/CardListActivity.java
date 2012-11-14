@@ -1,19 +1,21 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ru.spbau.WhereIsMyMoney.Card;
+import ru.spbau.WhereIsMyMoney.Transaction;
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
-import ru.spbau.WhereIsMyMoney.Card;
-import ru.spbau.WhereIsMyMoney.Transaction;
-import ru.spbau.WhereIsMyMoney.storage.TransactionLogHelper;
-import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 
 /**
  * Shows list of cards.

@@ -1,19 +1,18 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 import ru.spbau.WhereIsMyMoney.R;
-
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.*;
-
-import java.lang.Float;
-import java.util.*;
+import android.widget.ExpandableListView;
+import android.widget.SimpleExpandableListAdapter;
 
 /**
  * Base class for reports

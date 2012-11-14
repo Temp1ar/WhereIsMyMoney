@@ -1,15 +1,16 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import ru.spbau.WhereIsMyMoney.R;
 import android.content.Intent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.TextView;
-import ru.spbau.WhereIsMyMoney.R;
-
-import java.lang.String;
-import java.util.*;
 
 /**
  * Show costs report grouped by place
@@ -17,14 +18,12 @@ import java.util.*;
 
 public class CostsReportByPlacesActivity extends AbstractCostsReportActivity{
     private Map<String, Map<String, Float>> places2costs = null;
-    private List<String> places = null;
     private Date start = null;
     private Date end = null;
 
     @Override
     protected void init(Date start, Date end) {
         this.places2costs = db.getCostsPerPlacesForPeriod(start, end);
-        this.places = new ArrayList<String>(places2costs.keySet());
         this.start = start;
         this.end = end;
     }
