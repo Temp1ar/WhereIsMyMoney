@@ -24,6 +24,11 @@
 <![CDATA[ {{date:[^\s]*\s+[^\s]*}} {{card:[^:]*?}} : Spisanie sredstv so scheta {{delta:[^\s]*\s+[^\s]*}} kod {{code:[^\s]*}} {{place:[^;]*?}} ; Dostupno : {{balance}} ]]>
 </template>
 
+<!--Alfa bank-->
+<template type="deposit">
+    <![CDATA[ {{card}} ; Postupleniye ; Summa: {{delta}} ; Ostatok: {{balance}} ; {{date}} ]]>
+</template>    
+
 <!--
         String bankCashout = "([^\\s]*\\s+[^\\s]*)\\s+([^:]*?):\\s+Списание\\s+средств\\s+со\\s+счета\\s+([^\\s]*\\s+[^\\s]*)\\s+код\\s+[^\\s]*?\\s+([^;]*?);Доступно:([^ ]*)";
         String bankCashoutEn = "([^\\s]*\\s+[^\\s]*)\\s+([^:]*?):\\s+Spisanie\\s+sredstv\\s+so\\s+scheta\\s+([^\\s]*\\s+[^\\s]*)\\s+kod\\s+[^\\s]*?\\s+([^;]*?);Dostupno:([^ ]*)";

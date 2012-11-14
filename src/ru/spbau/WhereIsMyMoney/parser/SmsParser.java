@@ -1,6 +1,7 @@
 package ru.spbau.WhereIsMyMoney.parser;
 
 import android.content.Context;
+import android.util.Log;
 import ru.spbau.WhereIsMyMoney.SmsEvent;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TemplatesSource;
@@ -36,6 +37,7 @@ public class SmsParser {
         String body = sms.getBody();
         for (Template template : myTemplates) {
             TemplateMatcher matcher = new TemplateMatcher(template.getTemplate());
+
             Map<String, String> args = matcher.match(body);
             if (args != null) {
                 Transaction transaction = makeTransaction(sms, args, template.getType());
@@ -44,6 +46,7 @@ public class SmsParser {
                 }
             }
         }
+
         return null;
     }
 
