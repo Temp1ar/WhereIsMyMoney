@@ -1,5 +1,8 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.lang.String;
@@ -12,11 +15,15 @@ import java.util.*;
 public class CostsReportByPlacesActivity extends AbstractCostsReportActivity{
     Map<String, Map<String, Float>> places2costs = null;
     List<String> places = null;
+    Date start = null;
+    Date end = null;
 
     @Override
     protected void init(Date start, Date end) {
-        places2costs = db.getCostsPerPlacesForPeriod(start, end);
-        places = new ArrayList<String>(places2costs.keySet());
+        this.places2costs = db.getCostsPerPlacesForPeriod(start, end);
+        this.places = new ArrayList<String>(places2costs.keySet());
+        this.start = start;
+        this.end = end;
     }
 
     @Override
@@ -41,6 +48,20 @@ public class CostsReportByPlacesActivity extends AbstractCostsReportActivity{
 
     @Override
     protected void customizeListView(ListView listView) {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Intent intent = new Intent(CostsReportByPlacesActivity.this, TransactionsListActivity.class);
+                intent.putExtra(TransactionsListActivity.PLACE, places.get(position));
+                if (start != null)
+                    intent.putExtra(CostsReportByPlacesActivity.START_DATE, start.getTime());
+                if (end != null)
+                    intent.putExtra(CostsReportByPlacesActivity.END_DATE, end.getTime());
+
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
