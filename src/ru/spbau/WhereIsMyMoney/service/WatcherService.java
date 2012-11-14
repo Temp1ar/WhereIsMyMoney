@@ -10,7 +10,7 @@ import android.util.Log;
 import ru.spbau.WhereIsMyMoney.SmsEvent;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.parser.BaltBankHelper;
-import ru.spbau.WhereIsMyMoney.storage.TransactionLogHelper;
+import ru.spbau.WhereIsMyMoney.parser.SmsParser;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
 public class WatcherService extends Service {
@@ -27,11 +27,16 @@ public class WatcherService extends Service {
         Log.d(TAG, "message date: "   + event.getDate());
         TransactionLogSource db = new TransactionLogSource(getApplicationContext());
         db.open();
-        BaltBankHelper helper = new BaltBankHelper();
-        Transaction transaction;
-        if ((transaction = helper.tryParse(event.getBody())) != null) {
-            db.addTransaction(transaction);
+        SmsParser parser = new SmsParser(getApplicationContext());
+        //BaltBankHelper helper = new BaltBankHelper();
+        Transaction transaction = parser.parseSms(event);
+        if (transaction != null) {
+        	db.addTransaction(transaction);
         }
+        //if ((transaction = helper.tryParse(event.getBody())) != null) {
+        //    db.addTransaction(transaction);
+        //}
+        db.close();
     }
 
     /**

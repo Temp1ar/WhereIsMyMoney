@@ -1,17 +1,18 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
-import java.util.Date;
-import java.util.List;
-
+import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.*;
 import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogHelper;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
-import android.app.Activity;
-import android.content.Intent;
-import android.view.View;
+
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Shows list of transactions from specified card.
@@ -20,9 +21,9 @@ public class TransactionsListActivity extends Activity {
     private static final String TAG = TransactionsListActivity.class.getCanonicalName();
 
     final static String ID_PARAM = "id";
-    final static String PLACE = "place";
+    private final static String PLACE = "place";
 
-    TransactionLogSource db;
+    private TransactionLogSource db;
     //todo drop this from class field
     private String cardId;
 
@@ -100,7 +101,9 @@ public class TransactionsListActivity extends Activity {
         chartView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 BalanceChartBuilder builder = new BalanceChartBuilder();
-                startActivity(builder.getIntent(TransactionsListActivity.this, db.getTransactionsPerCard(cardId)));
+                List<Transaction> transactions = db.getTransactionsPerCard(cardId);
+                Collections.reverse(transactions);
+                startActivity(builder.getIntent(TransactionsListActivity.this, transactions));
             }
         });
     }

@@ -14,7 +14,7 @@ import java.util.Map;
  * Time: 17:46
  */
 public class BaltBankHelper {
-    ArrayList<REParser> parsers = new ArrayList<REParser>();
+    private final ArrayList<REParser> parsers = new ArrayList<REParser>();
 
     public BaltBankHelper() {
         Map<Integer, Parser> withPlace = new HashMap<Integer, Parser>();
@@ -58,10 +58,10 @@ public class BaltBankHelper {
 
     public Transaction tryParse(String message) {
         Transaction transaction = new Transaction();
-        for (int i = 0; i < parsers.size(); ++i) {
-                if (parsers.get(i).parse(message, transaction)) {
-                    return transaction;
-                }
+        for (REParser parser : parsers) {
+            if (parser.parse(message, transaction)) {
+                return transaction;
+            }
         }
         return null;
     }

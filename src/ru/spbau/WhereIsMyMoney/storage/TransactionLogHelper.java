@@ -1,18 +1,17 @@
 package ru.spbau.WhereIsMyMoney.storage;
 
-import java.util.ArrayList;
-import java.util.Date;
-
-import ru.spbau.WhereIsMyMoney.ExistingSmsReader;
-import ru.spbau.WhereIsMyMoney.SmsEvent;
-import ru.spbau.WhereIsMyMoney.Transaction;
-import ru.spbau.WhereIsMyMoney.parser.BaltBankHelper;
-import ru.spbau.WhereIsMyMoney.parser.SmsParser;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import ru.spbau.WhereIsMyMoney.ExistingSmsReader;
+import ru.spbau.WhereIsMyMoney.SmsEvent;
+import ru.spbau.WhereIsMyMoney.Transaction;
+import ru.spbau.WhereIsMyMoney.parser.SmsParser;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Helper creates (updates schema) database
@@ -27,7 +26,7 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 	
 	public static final String TABLE_TRANSACTION = "transactions";
 	
-	public static final String COLUMN_ID = "_id";
+	private static final String COLUMN_ID = "_id";
 	private static final String COLUMN_ID_TYPE = "integer primary key autoincrement";
 	
 	public static final String COLUMN_CARD = "card";
@@ -80,21 +79,21 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 
     private void insertExistingSms(SQLiteDatabase db) {
             Log.d(getClass().getCanonicalName(), "inserting existing sms");
-            ArrayList<SmsEvent> array = ExistingSmsReader.getAll(context, null);
+            ArrayList<SmsEvent> array = ExistingSmsReader.getAll(context);
     
             //BaltBankHelper baltBankHelper = new BaltBankHelper();
             SmsParser parser = new SmsParser(context);
             //Transaction transaction;
-            for (int i = 0; i < array.size(); ++i) {
+        for (SmsEvent anArray : array) {
             //    if ((transaction = baltBankHelper.tryParse(array.get(i).getBody())) != null) {
             //        addTransaction(transaction, db);
             //        continue;
             //    }
-            	Transaction trans = parser.parseSms(array.get(i));
-            	if (trans != null) {
-            		addTransaction(trans, db);
-            	}
+            Transaction trans = parser.parseSms(anArray);
+            if (trans != null) {
+                addTransaction(trans, db);
             }
+        }
         }
 
     private void insertCash(SQLiteDatabase db) {

@@ -37,11 +37,11 @@ public class ExistingSmsReader {
 //    [24] "error_code" (id=830102693112)
 //    [25] "seen" (id=830102693184)
 
-    public static ArrayList<SmsEvent> getAll(Context context, String whereClause) {
+    public static ArrayList<SmsEvent> getAll(Context context) {
         ArrayList<SmsEvent> list = new ArrayList<SmsEvent>();
         Uri allMessage = Uri.parse("content://sms/inbox");
         ContentResolver cr = context.getContentResolver();
-        Cursor c = cr.query(allMessage, new String[] {"address", "body", "date"}, whereClause, null, null);
+        Cursor c = cr.query(allMessage, new String[] {"address", "body", "date"}, null, null, null);
         while  (c.moveToNext()) {
            list.add(new SmsEvent(c.getString(0), c.getString(1), c.getLong(2)));
         }

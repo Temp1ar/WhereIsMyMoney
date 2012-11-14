@@ -11,5 +11,4 @@ import java.io.Serializable;
 
 public interface Parser extends Serializable {
     public boolean parse(String string, Transaction result);
-    public String getDescription();
 }

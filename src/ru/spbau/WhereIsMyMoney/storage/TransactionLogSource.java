@@ -1,10 +1,10 @@
 package ru.spbau.WhereIsMyMoney.storage;
 
-import java.util.*;
-
-import ru.spbau.WhereIsMyMoney.Transaction;
 import android.content.Context;
 import android.database.Cursor;
+import ru.spbau.WhereIsMyMoney.Transaction;
+
+import java.util.*;
 
 /**
  * Transactions database adapter
@@ -31,7 +31,7 @@ public class TransactionLogSource extends BaseDataSource {
 	 * @param filter filter or null
 	 * @return list of matched transactions
 	 */
-	public List<Transaction> getTransactions(IFilter<Transaction> filter) {
+        List<Transaction> getTransactions(IFilter<Transaction> filter) {
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		Cursor cursor = getDatabase().query(TransactionLogHelper.TABLE_TRANSACTION,
 				TransactionLogHelper.ALL_COLUMNS, null, null, null, null,
@@ -91,7 +91,7 @@ public class TransactionLogSource extends BaseDataSource {
      *
      * @return set of places from database
      */
-    public Set<String> getPlaces() {
+    Set<String> getPlaces() {
         Set<String> places = new HashSet<String>();
         Cursor cursor = getDatabase().query(TransactionLogHelper.TABLE_TRANSACTION,
                 TransactionLogHelper.ALL_COLUMNS, null, null, null, null, null);
@@ -218,7 +218,7 @@ public class TransactionLogSource extends BaseDataSource {
         return costs;
     }
 
-    protected Map<String, Float> sum(Collection<Transaction> transactions) {
+    Map<String, Float> sum(Collection<Transaction> transactions) {
         Map<String, Float> sums = new HashMap<String, Float>();
 
         for(Transaction transaction : transactions) {

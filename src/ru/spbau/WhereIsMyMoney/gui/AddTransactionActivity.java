@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.Transaction;
-import ru.spbau.WhereIsMyMoney.storage.BaseDataSource;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
 import java.util.Date;
@@ -50,7 +49,7 @@ public class AddTransactionActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new TransactionLogSource(getApplicationContext());
-        db.open(BaseDataSource.FOR_WRITE);
+        db.open();
         Intent intent = getIntent();
         cardId = intent.getStringExtra(TransactionsListActivity.ID_PARAM);
         setContentView(R.layout.add_transaction);

@@ -1,21 +1,19 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
-
-import ru.spbau.WhereIsMyMoney.R;
-import ru.spbau.WhereIsMyMoney.Transaction;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import ru.spbau.WhereIsMyMoney.R;
+import ru.spbau.WhereIsMyMoney.Transaction;
 
-public class TransactionListAdapter extends ArrayAdapter<Transaction> {
-	private final String DATE_FORMAT;
-	private final SimpleDateFormat DATE_FORMATTER;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+class TransactionListAdapter extends ArrayAdapter<Transaction> {
+    private final SimpleDateFormat DATE_FORMATTER;
 	
 	private final Context myContext;
 	private final List<Transaction> myTransactions;
@@ -24,7 +22,7 @@ public class TransactionListAdapter extends ArrayAdapter<Transaction> {
 		super(context, R.layout.transactions_activity_row, transactions);
 		myContext = context;
 		myTransactions = transactions;
-                DATE_FORMAT = context.getString(R.string.date_format);
+            String DATE_FORMAT = context.getString(R.string.date_format);
                 DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
 	}
 

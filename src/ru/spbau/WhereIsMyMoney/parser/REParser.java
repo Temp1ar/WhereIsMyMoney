@@ -12,10 +12,10 @@ import java.util.regex.Pattern;
  * Time: 3:25 PM
  */
 public class REParser implements Parser {
-    private Pattern pattern;
-    private Map<Integer, Parser> parsers;
-    private String re;
-    int type;
+    private final Pattern pattern;
+    private final Map<Integer, Parser> parsers;
+    private final String re;
+    private final int type;
 
 
     public REParser(Map<Integer, Parser> parsers, String re, int type) {
@@ -40,10 +40,6 @@ public class REParser implements Parser {
         }
         result.setType(type);
         return true;
-    }
-
-    public String getDescription() {
-        return this.toString();
     }
 
     @Override

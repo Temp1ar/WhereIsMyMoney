@@ -13,12 +13,12 @@ import ru.spbau.WhereIsMyMoney.storage.TransactionLogHelper;
 
 import java.util.List;
 
-public class CardListAdapter extends ArrayAdapter<Card> {
+class CardListAdapter extends ArrayAdapter<Card> {
     private final Context myContext;
     private final List<Card> myCards;
 
-    public CardListAdapter(Context context, int resource, List<Card> cards) {
-        super(context, resource, cards);
+    public CardListAdapter(Context context, List<Card> cards) {
+        super(context, R.layout.card_row, cards);
         myContext = context;
         myCards = cards;
     }
