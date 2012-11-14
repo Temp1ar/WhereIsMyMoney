@@ -2,13 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-        >
+              android:layout_height="fill_parent">
 
     <LinearLayout style="@style/HeaderLinearLayout">
         <TextView
-            style="@style/HeaderTextView"
-            android:text="@string/description"/>
+                style="@style/HeaderTextViewNoWidth"
+                android:layout_width="0dp"
+                android:layout_weight=".70"
+                android:gravity="left"
+                android:text="@string/description"
+                android:layout_marginTop="12dp"/>
+
+        <ImageView
+                android:layout_height="40dp"
+                android:layout_width="40dp"
+                android:src="@drawable/report"
+                android:id="@+id/makeReport"
+                android:background="@drawable/chart_shape"
+                android:layout_marginTop="6dp"/>
     </LinearLayout>
 
     <ListView
@@ -16,19 +27,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
     </ListView>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="bottom">
-        <Button
-            android:background="@drawable/nice_button"
-            style="@style/ShadowedText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/makeReport"
-            android:id="@+id/makeReport"/>
-    </LinearLayout>
 </LinearLayout>
 
