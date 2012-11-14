@@ -3,6 +3,7 @@
     <color name="transaction_none">#ffd7d7d7</color>
     <color name="transaction_withdraw">#ffb00000</color>
     <color name="transaction_deposit">#ff1ea91c</color>
+    <color name="graph_color">#ff1ea91c</color>
 
     <color name="NiceButtonStartColor">#006909</color>
     <color name="NiceButtonEndColor">#ff003e05</color>
