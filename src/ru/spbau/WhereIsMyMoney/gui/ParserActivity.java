@@ -11,7 +11,7 @@ import android.widget.Spinner;
 import ru.spbau.WhereIsMyMoney.R;
 
 public class ParserActivity extends Activity {
-    String smsText = "Hi 1234 hi\n 4321 hi hi hi";
+    String smsText;
     String smsSource;
     int transactionType = 0;
     final String[] types = {"Withdraw", "Deposit"};
