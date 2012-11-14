@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+    <LinearLayout style="@style/HeaderLinearLayout">
+        <TextView
+                style="@style/HeaderTextView"
+                android:text="@string/choose_sms"/>
+    </LinearLayout>
+    <ListView
+            android:id="@+id/sms_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+    </ListView>
+</LinearLayout>

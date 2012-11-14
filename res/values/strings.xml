@@ -20,5 +20,10 @@
     <string name="add_transaction_header">Add cash transaction</string>
     <string name="costs_report_setup_header">Generate report</string>
     <string name="costs_report">Report results</string>
+    <string name="sms">SMS example</string>
+    <string name="parse_sms">Parse SMS example</string>
+    <string name="type">Transaction type</string>
+    <string name="choose_sms">Choose SMS to parse</string>
     <string name="cash_account">Cash</string>
+    <string name="add_parser">Add parser</string>
 </resources>

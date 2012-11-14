@@ -1,18 +1,18 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
+import java.util.List;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.BarChart;
 import org.achartengine.model.CategorySeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
+
 import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.Transaction;
-
-import java.util.List;
+import android.content.Context;
+import android.content.Intent;
 
 /**
  * User: Alexander Opeykin alexander.opeykin@gmail.com
