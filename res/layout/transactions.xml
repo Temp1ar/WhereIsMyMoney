@@ -11,19 +11,17 @@
         android:layout_width="0dp"
         android:layout_weight=".70"
         android:gravity="left"
-        android:id="@+id/header"/>
+        android:id="@+id/header"
+        android:layout_marginTop="12dp"/>
 
     <ImageView
         android:layout_height="40dp"
         android:layout_width="40dp"
         android:src="@drawable/chart"
-        android:paddingRight="5dp"
-        android:paddingBottom="10dp"
         android:id="@+id/chart_view"
-        />
-
+        android:background="@drawable/chart_shape"
+        android:layout_marginTop="6dp"/>
 </LinearLayout>
-
 
     <ListView
             android:id="@+id/transactions"
