@@ -5,6 +5,7 @@ import java.util.Map;
 
 import ru.spbau.WhereIsMyMoney.SmsEvent;
 import ru.spbau.WhereIsMyMoney.Transaction;
+import ru.spbau.WhereIsMyMoney.storage.TemplatesSource;
 
 import android.content.Context;
 
@@ -17,7 +18,10 @@ public class SmsParser {
 	private final List<Template> myTemplates;
 	
 	public SmsParser(Context context) {
-		myTemplates = new TemplatesParser(context).getTemplates();
+		TemplatesSource db = new TemplatesSource(context);
+		db.open();
+		myTemplates = db.getTemplates();
+		db.close();
 	}
 	
 	public Transaction parseSms(SmsEvent sms) {
