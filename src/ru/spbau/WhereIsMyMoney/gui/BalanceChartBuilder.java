@@ -22,7 +22,8 @@ public class BalanceChartBuilder {
     private XYMultipleSeriesRenderer renderer;
 
     public BalanceChartBuilder() {
-        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+        renderer = new XYMultipleSeriesRenderer();
+        readSettings();
     }
 
     public Intent getIntent(Context context, List<Transaction> transactions) {
@@ -39,6 +40,7 @@ public class BalanceChartBuilder {
         renderer.setMargins(new int[] {20, 30, 15, 5});
         SimpleSeriesRenderer r = new SimpleSeriesRenderer();
         r.setColor(Color.BLUE);
+        renderer.addSeriesRenderer(r);
     }
 
     private void setChartSettings(List<Transaction> transactions) {
@@ -46,9 +48,9 @@ public class BalanceChartBuilder {
         renderer.setXTitle("transactions");
         renderer.setYTitle("balance ");
         renderer.setXAxisMin(0);
-        renderer.setXAxisMax(transactions.size()); // additional 10%
+        renderer.setXAxisMax(transactions.size() + 1);
         renderer.setYAxisMin(0);
-        renderer.setYAxisMax(getMaxBalance(transactions) * 1.1);
+        renderer.setYAxisMax(getMaxBalance(transactions) * 1.1);  // additional 10%
     }
 
     private float getMaxBalance(List<Transaction> transactions) {

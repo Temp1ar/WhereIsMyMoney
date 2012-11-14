@@ -25,6 +25,18 @@ public class TransactionsListActivity extends Activity {
     TransactionLogSource db;
     private String cardId;
 
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+////        Button chartButton = (Button) findViewById(R.id.chart_button);
+////        chartButton.setOnClickListener(new View.OnClickListener() {
+////            public void onClick(View view) {
+////                BalanceChartBuilder builder = new BalanceChartBuilder();
+////                startActivity(builder.getIntent(TransactionsListActivity.this, db.getTransactionsPerCard(cardId)));
+////            }
+////        });
+//    }
+
     public void saveTransaction(View view) {
         Intent intent = new Intent(this, AddTransactionActivity.class);
         intent.putExtra(TransactionsListActivity.ID_PARAM, cardId);
@@ -51,6 +63,13 @@ public class TransactionsListActivity extends Activity {
         } else {
             addTransaction.setVisibility(View.GONE);
         }
+        final Button chartButton = (Button) findViewById(R.id.chart_button);
+        chartButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                BalanceChartBuilder builder = new BalanceChartBuilder();
+                startActivity(builder.getIntent(TransactionsListActivity.this, db.getTransactionsPerCard(cardId)));
+            }
+        });
     }
 
     @Override
