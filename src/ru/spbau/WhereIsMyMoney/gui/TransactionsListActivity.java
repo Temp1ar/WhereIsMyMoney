@@ -10,6 +10,7 @@ import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogHelper;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -100,7 +101,9 @@ public class TransactionsListActivity extends Activity {
         chartView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 BalanceChartBuilder builder = new BalanceChartBuilder();
-                startActivity(builder.getIntent(TransactionsListActivity.this, db.getTransactionsPerCard(cardId)));
+                List<Transaction> transactions = db.getTransactionsPerCard(cardId);
+                Collections.reverse(transactions);
+                startActivity(builder.getIntent(TransactionsListActivity.this, transactions));
             }
         });
     }

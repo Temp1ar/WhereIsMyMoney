@@ -48,15 +48,15 @@ public class SmsParser {
     }
 
     private Transaction makeTransaction(SmsEvent sms, Map<String, String> args, int type) {
-        String card = args.get(CARD);
-        String place = args.get(PLACE);
-        String delta = args.get(DELTA);
-        String balanceStr = args.get(BALANCE);
-        MoneyParser parser = new MoneyParser();
-        Float balance = parser.parse(balanceStr);
-        if (balance != null) {
-            return new Transaction(sms.getDate(), place, card, delta, balance, type);
+            String card = args.get(CARD);
+            String place = args.get(PLACE);
+            String delta = args.get(DELTA);
+            String balanceStr = args.get(BALANCE);
+            MoneyParser parser = new MoneyParser();
+            Float balance = parser.parse(balanceStr);
+            if (balance != null) {
+                return new Transaction(sms.getDate(), place, card, delta, balance, type);
+            }
+            return null;
         }
-        return null;
-    }
 }
