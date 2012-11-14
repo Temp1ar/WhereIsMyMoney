@@ -26,6 +26,7 @@
     <string name="type">Тип транзакции</string>
     <string name="choose_sms">Выберите СМС для разбора</string>
     <string name="add_parser">Добавить парсер</string>
+    <string name="drop_parsers">Сбросить парсеры</string>
     <string name="refresh_history">Обновить историю</string>
     <string-array name="field_name">
         <item>Карта</item>

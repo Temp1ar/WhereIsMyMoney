@@ -36,7 +36,11 @@ public class BaseDataSource implements Closeable {
 			Log.d(getClass().getCanonicalName(), "database " + myDatabase.getPath() + " opened for write");
 		}
 	}
-
+        
+	public void resetDatabase() {
+		getHelper().onUpgrade(getDatabase(), 1, 1);
+	}
+    	
 	/**
 	 * Opens database for reading. Equivalent of open(TransactionLogSource.FOR_READ)
 	 */

@@ -26,6 +26,7 @@
     <string name="choose_sms">Choose SMS to parse</string>
     <string name="cash_account">Cash</string>
     <string name="add_parser">Add parser</string>
+    <string name="drop_parsers">Drop parsers</string>
     <string name="refresh_history">Refresh</string>
     <string name="change">Change word</string>
     <string-array name="field_name">
