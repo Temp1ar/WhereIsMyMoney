@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class SmsViewActivity extends Activity {
     final static String BODY = "body";
-    final static String SOURCE = "source";
 
     private void createSmsListView() {
         ListView listView = (ListView) findViewById(R.id.sms_list);
@@ -40,7 +39,6 @@ public class SmsViewActivity extends Activity {
                                     int position, long id) {
                 Intent intent = new Intent(SmsViewActivity.this, ParserActivity.class);
                 intent.putExtra(BODY, smsList.get(position).getBody());
-                intent.putExtra(SOURCE, smsList.get(position).getSource());
                 startActivity(intent);
             }
 

@@ -26,4 +26,14 @@
     <string name="type">Тип транзакции</string>
     <string name="choose_sms">Выберите СМС для разбора</string>
     <string name="add_parser">Добавить парсер</string>
+    <string-array name="field_name">
+        <item>Карта</item>
+        <item>Место</item>
+        <item>Сумма</item>
+        <item>Баланс</item>
+    </string-array>
+    <string-array name="type_name">
+        <item>Расход</item>
+        <item>Пополнение</item>
+    </string-array>
 </resources>
