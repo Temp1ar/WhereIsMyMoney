@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.util.Log;
-
 public class TemplateMatcher {
 	private static final Pattern TEMPLATE_ARG = Pattern.compile("\\{\\{(.*?)\\}\\}");
 	private static final Pattern SPACE_FILLER = Pattern.compile("\\s+");

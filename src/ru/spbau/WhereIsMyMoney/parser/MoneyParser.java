@@ -1,6 +1,5 @@
 package ru.spbau.WhereIsMyMoney.parser;
 
-import android.util.Log;
 
 public class MoneyParser {
 	private static final char[] SEPARATORS = {'.', ','};
@@ -10,7 +9,6 @@ public class MoneyParser {
 		for (char sep : SEPARATORS) {
 			String num = formatWithSeparator(str, sep);
 			try {
-				Log.d(getClass().getCanonicalName(), "parse float: " + num);
 				return Float.parseFloat(num);
 			} catch (Exception e) {}
 		}
