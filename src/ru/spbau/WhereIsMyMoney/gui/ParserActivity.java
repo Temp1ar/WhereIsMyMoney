@@ -39,17 +39,31 @@ public class ParserActivity extends Activity {
         sms.setText(text);
     }
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.parser);
-
-        Intent intent = getIntent();
-        smsText = intent.getStringExtra(SmsViewActivity.BODY);
-        final EditText sms = (EditText) findViewById(R.id.sms);
-        sms.setText(smsText);
-
+    private void createFieldAdapter() {
         Resources res = getResources();
         String[] localizedFields = res.getStringArray(R.array.field_name);
+
+        ArrayAdapter<String> fieldAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, localizedFields);
+        fieldAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Spinner field = (Spinner) findViewById(R.id.field);
+        field.setAdapter(fieldAdapter);
+        field.setSelection(0);
+
+        field.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                fieldType = position;
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+                fieldType = 0;
+            }
+        });
+    }
+
+    private void createTypeAdapter() {
+        Resources res = getResources();
         String[] localizedTypes = res.getStringArray(R.array.type_name);
 
 
@@ -71,23 +85,18 @@ public class ParserActivity extends Activity {
             }
         });
 
-        ArrayAdapter<String> fieldAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, localizedFields);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    }
 
-        Spinner field = (Spinner) findViewById(R.id.field);
-        field.setAdapter(fieldAdapter);
-        field.setSelection(0);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.parser);
 
-        field.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Intent intent = getIntent();
+        smsText = intent.getStringExtra(SmsViewActivity.BODY);
+        final EditText sms = (EditText) findViewById(R.id.sms);
+        sms.setText(smsText);
 
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                fieldType = position;
-            }
-
-            public void onNothingSelected(AdapterView<?> parent) {
-                fieldType = 0;
-            }
-        });
-
+        createTypeAdapter();
+        createFieldAdapter();
     }
 }
