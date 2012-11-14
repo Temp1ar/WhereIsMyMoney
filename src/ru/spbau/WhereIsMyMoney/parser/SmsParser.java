@@ -55,7 +55,11 @@ public class SmsParser {
             String place = args.get(PLACE);
             String delta = args.get(DELTA);
             String balanceStr = args.get(BALANCE);
+
             MoneyParser parser = new MoneyParser();
+            if (balanceStr == null) {
+                return null;
+            }
             Float balance = parser.parse(balanceStr);
             if (balance != null) {
                 return new Transaction(sms.getDate(), place, card, delta, balance, type);
