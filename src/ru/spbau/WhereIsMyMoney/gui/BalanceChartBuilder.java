@@ -55,7 +55,7 @@ public class BalanceChartBuilder {
         renderer.setYTitle("balance");
         renderer.setXAxisMin(0);
         renderer.setXAxisMax(transactions.size() + 1);
-        renderer.setYAxisMin(0);
+        renderer.setYAxisMin(getMinBalance(transactions) * 0.9);
         renderer.setYAxisMax(getMaxBalance(transactions) * 1.1);  // additional 10%
     }
 
@@ -66,6 +66,15 @@ public class BalanceChartBuilder {
             max = max >= balance ? max : balance;
         }
         return max;
+    }
+
+    private float getMinBalance(List<Transaction> transactions) {
+        float min = 0;
+        for (Transaction t : transactions) {
+            float balance = t.getBalance();
+            min = min <= balance ? min : balance;
+        }
+        return min;
     }
 
     private XYMultipleSeriesDataset getDataset(List<Transaction> transactions) {
