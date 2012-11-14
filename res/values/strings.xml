@@ -33,6 +33,7 @@
         <item>Place</item>
         <item>Delta</item>
         <item>Balance</item>
+        <item>Date</item>
     </string-array>
     <string-array name="type_name">
         <item>Withdraw</item>

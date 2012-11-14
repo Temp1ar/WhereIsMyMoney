@@ -32,6 +32,7 @@
         <item>Место</item>
         <item>Сумма</item>
         <item>Баланс</item>
+        <item>Дата</item>
     </string-array>
     <string-array name="type_name">
         <item>Расход</item>
