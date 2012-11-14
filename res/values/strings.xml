@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WhereIsMyMoney</string>
-    <string name="description">Your cards</string>
+    <string name="description">Your accounts</string>
     <string name="sum">Sum</string>
     <string name="place">Place</string>
     <string name="ok">Save</string>
-    <string name="add">Add</string>
-    <string name="unknown_place">unknown</string>
+    <string name="add">Add Transaction</string>
+    <string name="unknown_place">Unknown place</string>
+    <string name="reportByPlace">by Place</string>
+    <string name="reportByCards">by Cards</string>
+    <string name="makeReport">Generate report</string>
+    <string name="balance">Balance</string>
+    <string name="date_format">dd.MM.yyyy HH:mm</string>
+    <string name="totalCosts">Total</string>
+    <string name="startDate">Start date:</string>
+    <string name="endDate">End date:</string>
+    <string name="transaction_list_header">Transactions of </string>
+    <string name="add_transaction_header">Add cash transaction</string>
+    <string name="costs_report_setup_header">Generate report</string>
+    <string name="costs_report">Report results</string>
+    <string name="cash_account">Cash</string>
 </resources>

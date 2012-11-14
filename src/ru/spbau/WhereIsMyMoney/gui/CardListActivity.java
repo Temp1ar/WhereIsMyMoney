@@ -1,7 +1,10 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
+import android.widget.Button;
+import ru.spbau.WhereIsMyMoney.Card;
+import ru.spbau.WhereIsMyMoney.R;
+import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
-import android.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +12,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Shows list of cards.
@@ -18,10 +24,24 @@ public class CardListActivity extends Activity {
 
     private void createCardsListView() {
         ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.cards);
-        final String[] cards = db.getCards().toArray(new String[db.getCards().size()]);
+        Button makeReport = (Button) findViewById(ru.spbau.WhereIsMyMoney.R.id.makeReport);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.simple_list_item_1, R.id.text1, cards);
+        makeReport.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(CardListActivity.this, CostsReportSetupActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        final String[] card_ids = db.getCards().toArray(new String[db.getCards().size()]);
+        final ArrayList<Card> cards = new ArrayList<Card>();
+        for (String card_id : card_ids) {
+            List<Transaction> transactions = db.getTransactionsPerCard(card_id);
+            Float balance = (transactions.size() > 0) ? db.getTransactionsPerCard(card_id).get(0).getBalance() : 0f;
+            cards.add(new Card(card_id, balance));
+        }
+
+        ArrayAdapter<Card> adapter = new CardListAdapter(this, R.layout.card_row, cards);
 
         listView.setAdapter(adapter);
 
@@ -29,7 +49,7 @@ public class CardListActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent intent = new Intent(CardListActivity.this, TransactionsListActivity.class);
-                String message = cards[position];
+                String message = card_ids[position];
                 intent.putExtra(TransactionsListActivity.ID_PARAM, message);
                 startActivity(intent);
             }
@@ -39,10 +59,14 @@ public class CardListActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new TransactionLogSource(getApplicationContext());
-        db.open();
         setContentView(ru.spbau.WhereIsMyMoney.R.layout.cards);
-        createCardsListView();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        db.open();
+        createCardsListView();
     }
 
     @Override

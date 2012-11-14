@@ -3,13 +3,27 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-        >
+    >
 
+<LinearLayout style="@style/HeaderLinearLayout">
     <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/card_id"
-            />
+        style="@style/HeaderTextViewNoWidth"
+        android:layout_width="0dp"
+        android:layout_weight=".70"
+        android:gravity="left"
+        android:id="@+id/header"/>
+
+    <ImageView
+        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:src="@drawable/chart"
+        android:paddingRight="5dp"
+        android:paddingBottom="10dp"
+        android:id="@+id/chart_view"
+        />
+
+</LinearLayout>
+
 
     <ListView
             android:id="@+id/transactions"
@@ -17,12 +31,19 @@
             android:layout_height="wrap_content" >
     </ListView>
 
-    <Button
-        android:id="@+id/add_tr"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add"
-        android:onClick="saveTransaction"
-        />
+        android:layout_height="fill_parent"
+        android:gravity="bottom">
+
+        <Button
+            android:id="@+id/add_tr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add"
+            android:onClick="saveTransaction"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
 </LinearLayout>

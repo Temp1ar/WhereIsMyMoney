@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transaction_none">#ffd7d7d7</color>
+    <color name="transaction_withdraw">#ffb00000</color>
+    <color name="transaction_deposit">#ff1ea91c</color>
+
+    <color name="NiceButtonStartColor">#006909</color>
+    <color name="NiceButtonEndColor">#ff003e05</color>
+    <color name="NiceButtonDisabledStartColor">#565051</color>
+    <color name="NiceButtonDisabledEndColor">#736F6E</color>
+    <color name="NiceButtonBorderColor">#ff002505</color>
+
+    <style name="HeaderLinearLayout">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/header_gradient</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingLeft">10dp</item>
+    </style>
+
+
+
+    <style name="HeaderTextViewNoWidth" parent="ShadowedText">
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="HeaderTextView" parent="HeaderTextViewNoWidth">
+            <item name="android:layout_width">fill_parent</item>
+    </style>
+
+    <style name="ShadowedText">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowColor">@android:color/black</item>
+
+    </style>
+</resources>

@@ -4,16 +4,31 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/description"
-            />
+
+    <LinearLayout style="@style/HeaderLinearLayout">
+        <TextView
+            style="@style/HeaderTextView"
+            android:text="@string/description"/>
+    </LinearLayout>
 
     <ListView
             android:id="@+id/cards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
     </ListView>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom">
+        <Button
+            android:background="@drawable/nice_button"
+            style="@style/ShadowedText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/makeReport"
+            android:id="@+id/makeReport"/>
+    </LinearLayout>
 </LinearLayout>
 

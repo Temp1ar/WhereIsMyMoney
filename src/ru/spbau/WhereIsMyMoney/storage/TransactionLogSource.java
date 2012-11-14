@@ -1,12 +1,6 @@
 package ru.spbau.WhereIsMyMoney.storage;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import ru.spbau.WhereIsMyMoney.Transaction;
 import android.content.Context;
@@ -41,7 +35,7 @@ public class TransactionLogSource extends BaseDataSource {
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		Cursor cursor = getDatabase().query(TransactionLogHelper.TABLE_TRANSACTION,
 				TransactionLogHelper.ALL_COLUMNS, null, null, null, null,
-				TransactionLogHelper.COLUMN_DATE);
+				TransactionLogHelper.COLUMN_DATE + " DESC");
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			Transaction transaction = cursorToTransaction(cursor);
@@ -143,6 +137,24 @@ public class TransactionLogSource extends BaseDataSource {
     }
 
     /**
+     * All transactions for specified place
+     *
+     * @return list of transactions
+     */
+    public List<Transaction> getTransactionsPerPlace(final String place) {
+        return getTransactions(new IFilter<Transaction>() {
+            public boolean match(Transaction transaction) {
+                String trPlace = transaction.getPlace();
+                if (trPlace == null || trPlace.isEmpty())
+                    return place == null || place.isEmpty();
+
+                return trPlace.equals(place);
+
+            }
+        });
+    }
+
+    /**
      * All transactions for specified place of period
      *
      * @param start start date of period
@@ -152,9 +164,15 @@ public class TransactionLogSource extends BaseDataSource {
     public List<Transaction> getTransactionsPerPlaceForPeriod(final String place, final Date start, final Date end) {
         return getTransactions(new IFilter<Transaction>() {
             public boolean match(Transaction transaction) {
-                return transaction.getPlace().equals(place)
-                        && transaction.getDate().compareTo(start) >= 0
-                        && transaction.getDate().compareTo(end) <= 0;
+                if (transaction.getDate().compareTo(start) < 0 || transaction.getDate().compareTo(end) > 0)
+                    return false;
+
+                String trPlace = transaction.getPlace();
+                if (trPlace == null || trPlace.isEmpty())
+                    return place == null || place.isEmpty();
+
+                return trPlace.equals(place);
+
             }
         });
     }
@@ -166,14 +184,15 @@ public class TransactionLogSource extends BaseDataSource {
      * @param end end date for report
      * @return map card to total costs from start to end
      */
-    public Map<String, Float> getCostsPerCardsForPeriod(Date start, Date end) {
+    public Map<String, Map<String, Float>> getCostsPerCardsForPeriod(Date start, Date end) {
         Set<String> cards = getCards();
-        HashMap<String, Float> costs = new HashMap<String, Float>();
+        HashMap<String, Map<String, Float>> costs = new HashMap<String, Map<String, Float>>();
 
         for (String card : cards) {
             List<Transaction> transactions = getTransactionsPerCardForPeriod(card, start, end);
-            if (!transactions.isEmpty())
-                costs.put(card, Math.abs(transactions.get(0).getBalance() - transactions.get(transactions.size() - 1).getBalance()));
+            if (!transactions.isEmpty()) {
+                costs.put(card, sum(transactions));
+            }
         }
        return costs;
     }
@@ -184,16 +203,35 @@ public class TransactionLogSource extends BaseDataSource {
      * @param end end date for report
      * @return map place to total costs from start to end
      */
-    public Map<String, Float> getCostsPerPlacesForPeriod(Date start, Date end) {
+    public Map<String, Map<String,Float>> getCostsPerPlacesForPeriod(Date start, Date end) {
 
         Set<String> places = getPlaces();
-        HashMap<String, Float> costs = new HashMap<String, Float>();
+        HashMap<String, Map<String,Float>> costs = new HashMap<String, Map<String, Float>>();
 
         for (String place : places) {
+            if (place == null)
+                place = "";
             List<Transaction> transactions = getTransactionsPerPlaceForPeriod(place, start, end);
             if (!transactions.isEmpty())
-                costs.put(place, Math.abs(transactions.get(0).getBalance() - transactions.get(transactions.size() - 1).getBalance()));
+                costs.put(place, sum(transactions));
         }
         return costs;
+    }
+
+    protected Map<String, Float> sum(Collection<Transaction> transactions) {
+        Map<String, Float> sums = new HashMap<String, Float>();
+
+        for(Transaction transaction : transactions) {
+            if (transaction.getType() != Transaction.WITHDRAW)
+                continue;
+
+            Float sum = sums.get(transaction.getCurrency());
+            if (sum == null)
+                sum = 0f;
+            sum += transaction.getAmount();
+            sums.put(transaction.getCurrency(), sum);
+        }
+
+        return sums;
     }
 }

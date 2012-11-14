@@ -5,26 +5,18 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent">
 
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+    <LinearLayout style="@style/HeaderLinearLayout">
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total"
-                android:id="@+id/TotalCaption" android:layout_gravity="left"
-                android:textSize="20dp" android:textStyle="bold" android:layout_weight="1"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0 RUR"
-                android:id="@+id/totalVal" android:layout_gravity="right"
-                android:textStyle="bold" android:textSize="20dp" android:autoText="false" android:gravity="right"/>
+            style="@style/HeaderTextView"
+            android:text="@string/costs_report"/>
     </LinearLayout>
+
     <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/places"/>
-    <ListView android:id="@+id/places" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/totalVals"/>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/places"/>
 </LinearLayout>

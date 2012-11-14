@@ -8,6 +8,10 @@ import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
 import ru.spbau.WhereIsMyMoney.SmsEvent;
+import ru.spbau.WhereIsMyMoney.Transaction;
+import ru.spbau.WhereIsMyMoney.parser.BaltBankHelper;
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogHelper;
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
 public class WatcherService extends Service {
     private static final String TAG = WatcherService.class.getCanonicalName();
@@ -21,6 +25,13 @@ public class WatcherService extends Service {
         Log.d(TAG, "message source: " + event.getSource());
         Log.d(TAG, "message body: "   + event.getBody());
         Log.d(TAG, "message date: "   + event.getDate());
+        TransactionLogSource db = new TransactionLogSource(getApplicationContext());
+        db.open();
+        BaltBankHelper helper = new BaltBankHelper();
+        Transaction transaction;
+        if ((transaction = helper.tryParse(event.getBody())) != null) {
+            db.addTransaction(transaction);
+        }
     }
 
     /**

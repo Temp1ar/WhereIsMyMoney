@@ -14,12 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class TransactionListAdapter extends ArrayAdapter<Transaction> {
-	private static final int RED = Color.parseColor("#FF0000");
-	private static final int GREEN = Color.parseColor("#3CB371");
-	private static final int BLUE = Color.parseColor("#0000FF");
-	
-	private static final String DATE_FORMAT = "yyyy.MM.dd HH:mm:ss";
-	private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
+	private final String DATE_FORMAT;
+	private final SimpleDateFormat DATE_FORMATTER;
 	
 	private final Context myContext;
 	private final List<Transaction> myTransactions;
@@ -28,6 +24,8 @@ public class TransactionListAdapter extends ArrayAdapter<Transaction> {
 		super(context, R.layout.transactions_activity_row, transactions);
 		myContext = context;
 		myTransactions = transactions;
+                DATE_FORMAT = context.getString(R.string.date_format);
+                DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
 	}
 
 	@Override
@@ -40,23 +38,23 @@ public class TransactionListAdapter extends ArrayAdapter<Transaction> {
 		TextView delta = (TextView) rowView.findViewById(R.id.transaction_delta);
 		delta.setText(trans.getDelta());
 		TextView place = (TextView) rowView.findViewById(R.id.transaction_place);
-		if (trans.getPlace() != null) {
+		if (trans.getPlace() != null && !"".equals(trans.getPlace().trim())) {
 			place.setText(trans.getPlace());
 		}
 		TextView balance = (TextView) rowView.findViewById(R.id.transaction_new_balance);
-		balance.setText("balance: " + trans.getBalance());
+		balance.setText(trans.getBalance() + "");
 		TextView date = (TextView) rowView.findViewById(R.id.transaction_date);
 		date.setText(DATE_FORMATTER.format(trans.getDate()));
 		
 		switch (trans.getType()) {
 		case Transaction.WITHDRAW:
-			delta.setTextColor(RED);
+			delta.setTextColor(myContext.getResources().getColor(R.color.transaction_withdraw));
 			break;
 		case Transaction.NONE:
-			delta.setTextColor(BLUE);
+			delta.setTextColor(myContext.getResources().getColor(R.color.transaction_none));
 			break;
 		case Transaction.DEPOSIT:
-			delta.setTextColor(GREEN);
+			delta.setTextColor(myContext.getResources().getColor(R.color.transaction_deposit));
 			break;
 		}
 		

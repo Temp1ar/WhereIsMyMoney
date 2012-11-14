@@ -31,7 +31,7 @@ public class AddTransactionActivity extends Activity {
         }
 
         db.addTransaction(new Transaction(new Date(), place, cardId, delta,
-                transactions.get(transactions.size() - 1).getBalance(),
+                transactions.get(transactions.size() - 1).getBalance() + Integer.parseInt(delta),
                 type));
         finish();
     }

@@ -22,7 +22,7 @@ public abstract class AbstractCostsReportActivity extends Activity {
 
     protected  abstract void init(Date start, Date end);
 
-    protected abstract String getTotalVal();
+    protected abstract List<String> getTotalVals();
 
     protected abstract void customizeListView(ListView listView);
 
@@ -48,17 +48,19 @@ public abstract class AbstractCostsReportActivity extends Activity {
         Log.d(TAG, "Generate report from " + start.toString() + " to " + end.toString());
 
         init(start, end);
-        List<String> dataForAdapter = getDataForAdapter();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.simple_list_item_2, R.id.text1, dataForAdapter);
+        ArrayAdapter<String> transactions = new ArrayAdapter<String>(this,
+                R.layout.simple_list_item_2, R.id.text1, getDataForAdapter());
 
-        ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.places);
-        listView.setAdapter(adapter);
-        customizeListView(listView);
+        ListView transactionsView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.places);
+        transactionsView.setAdapter(transactions);
+        customizeListView(transactionsView);
 
-        TextView totalVal = (TextView) findViewById(ru.spbau.WhereIsMyMoney.R.id.totalVal);
-        totalVal.setText(getTotalVal());
+        ArrayAdapter<String> totalVals = new ArrayAdapter<String>(this,
+                R.layout.simple_list_item_2, R.id.text1, getTotalVals());
+
+        ListView totalValsView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.totalVals);
+        totalValsView.setAdapter(totalVals);
     }
 
     @Override

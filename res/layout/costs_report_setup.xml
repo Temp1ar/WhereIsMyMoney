@@ -5,10 +5,17 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent">
 
+    <LinearLayout style="@style/HeaderLinearLayout">
+        <TextView
+            style="@style/HeaderTextView"
+            android:text="@string/costs_report_setup_header"/>
+    </LinearLayout>
+
+
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start date:"
+            android:text="@string/startDate"
             android:id="@+id/textView1" android:layout_gravity="left|center_vertical"/>
     <DatePicker
             android:layout_width="fill_parent"
@@ -17,7 +24,7 @@
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="End date:"
+            android:text="@string/endDate"
             android:id="@+id/textView"/>
     <DatePicker
             android:layout_width="fill_parent"
@@ -30,12 +37,18 @@
         <Button
                 android:layout_width="114dp"
                 android:layout_height="wrap_content"
-                android:text="by Places"
-                android:id="@+id/showReportByPlaces" android:layout_weight="1"/>
+                android:text="@string/reportByPlace"
+                android:id="@+id/showReportByPlaces" android:layout_weight="1"
+                android:background="@drawable/nice_button"
+                style="@style/ShadowedText"
+                />
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="by Cards"
-                android:id="@+id/showReportByCards" android:layout_weight="1"/>
+                android:text="@string/reportByCards"
+                android:id="@+id/showReportByCards" android:layout_weight="1"
+                android:background="@drawable/nice_button"
+                style="@style/ShadowedText"
+                />
     </LinearLayout>
 </LinearLayout>
