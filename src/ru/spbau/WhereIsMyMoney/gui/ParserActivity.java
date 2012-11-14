@@ -24,7 +24,7 @@ public class ParserActivity extends Activity {
     private String smsText;
     private int transactionType = 0;
     private int fieldType = 0;
-    private final String[] fields = {"{{card}}", "{{place}}", "{{delta}}", "{{balance}}"};
+    private final String[] fields = {"{{card}}", "{{place}}", "{{delta}}", "{{balance}}", "{{date}}"};
 
     public void saveParser(View view) {
         EditText sms = (EditText) findViewById(R.id.sms);

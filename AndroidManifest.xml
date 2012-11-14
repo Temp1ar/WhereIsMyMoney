@@ -24,7 +24,6 @@
        <activity android:name=".gui.SmsViewActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
        <activity android:name=".gui.ParserActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
        <activity android:name="org.achartengine.GraphicalActivity" android:theme="@android:style/Theme.NoTitleBar"/>
-
         <service android:name=".service.WatcherService" android:process=":remote"/>
         <receiver android:name=".service.SmsReceiver">
             <intent-filter>

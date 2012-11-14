@@ -1,28 +1,28 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import ru.spbau.WhereIsMyMoney.R;
 import android.content.Intent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.TextView;
-import ru.spbau.WhereIsMyMoney.R;
-
-import java.util.*;
 
 /**
  * Show costs report grouped by cards
  */
 public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
     private Map<String, Map<String,Float>> cards2costs = null;
-    private List<String> cards = null;
     private Date start = null;
     private Date end = null;
 
     @Override
     protected void init(Date start, Date end) {
         this.cards2costs = db.getCostsPerCardsForPeriod(start, end);
-        this.cards = new ArrayList<String>(cards2costs.keySet());
         this.start = start;
         this.end = end;
     }
@@ -45,7 +45,6 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
     @Override
     protected void customizeListView(ExpandableListView listView) {
         listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i2, long l) {
                 Intent intent = new Intent(CostsReportByCardsActivity.this, TransactionsListActivity.class);
 

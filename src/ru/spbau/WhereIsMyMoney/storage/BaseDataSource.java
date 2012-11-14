@@ -52,4 +52,8 @@ public class BaseDataSource implements Closeable {
 	public SQLiteDatabase getDatabase() {
 		return myDatabase;
 	}
+	
+	public SQLiteOpenHelper getHelper() {
+		return myHelper;
+	}
 }

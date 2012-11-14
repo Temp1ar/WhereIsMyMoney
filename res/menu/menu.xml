@@ -2,4 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/add_parser"
           android:title="@string/add_parser"/>
+    
+    <item android:id="@+id/refresh_history"
+          android:title="@string/refresh_history"/>
 </menu>

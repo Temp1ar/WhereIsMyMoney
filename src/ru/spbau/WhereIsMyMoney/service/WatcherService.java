@@ -1,5 +1,9 @@
 package ru.spbau.WhereIsMyMoney.service;
 
+import ru.spbau.WhereIsMyMoney.SmsEvent;
+import ru.spbau.WhereIsMyMoney.Transaction;
+import ru.spbau.WhereIsMyMoney.parser.SmsParser;
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
@@ -7,11 +11,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
-import ru.spbau.WhereIsMyMoney.SmsEvent;
-import ru.spbau.WhereIsMyMoney.Transaction;
-import ru.spbau.WhereIsMyMoney.parser.BaltBankHelper;
-import ru.spbau.WhereIsMyMoney.parser.SmsParser;
-import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
 public class WatcherService extends Service {
     private static final String TAG = WatcherService.class.getCanonicalName();
@@ -28,14 +27,10 @@ public class WatcherService extends Service {
         TransactionLogSource db = new TransactionLogSource(getApplicationContext());
         db.open();
         SmsParser parser = new SmsParser(getApplicationContext());
-        //BaltBankHelper helper = new BaltBankHelper();
         Transaction transaction = parser.parseSms(event);
         if (transaction != null) {
         	db.addTransaction(transaction);
         }
-        //if ((transaction = helper.tryParse(event.getBody())) != null) {
-        //    db.addTransaction(transaction);
-        //}
         db.close();
     }
 
