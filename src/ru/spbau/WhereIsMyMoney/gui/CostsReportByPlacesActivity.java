@@ -48,30 +48,39 @@ public class CostsReportByPlacesActivity extends AbstractCostsReportActivity{
 
     @Override
     protected void customizeListView(ListView listView) {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Intent intent = new Intent(CostsReportByPlacesActivity.this, TransactionsListActivity.class);
-                intent.putExtra(TransactionsListActivity.PLACE, places.get(position));
-                if (start != null)
-                    intent.putExtra(CostsReportByPlacesActivity.START_DATE, start.getTime());
-                if (end != null)
-                    intent.putExtra(CostsReportByPlacesActivity.END_DATE, end.getTime());
-
-                startActivity(intent);
-            }
-        });
-
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id) {
+//                Intent intent = new Intent(CostsReportByPlacesActivity.this, TransactionsListActivity.class);
+//                intent.putExtra(TransactionsListActivity.PLACE, places.get(position));
+//                if (start != null)
+//                    intent.putExtra(CostsReportByPlacesActivity.START_DATE, start.getTime());
+//                if (end != null)
+//                    intent.putExtra(CostsReportByPlacesActivity.END_DATE, end.getTime());
+//
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
-    protected List<String> getDataForAdapter() {
-        List<String> dataForAdapter = new ArrayList<String>();
-        for (String place : places2costs.keySet()) {
-            Map<String, Float> currency2costs = places2costs.get(place);
-            for(String currency : currency2costs.keySet()) {
-                dataForAdapter.add(place + "\n" + currency2costs.get(currency).toString() + " " + currency);
+    protected List<List<Map<String, String>>> getDataForAdapter() {
+        List<List<Map<String, String>>> dataForAdapter = new ArrayList<List<Map<String, String>>>();
+
+        Map<String, Map<String, Float>> currency2place2costs = swapFirstAndSecondKeys(places2costs);
+        for (String currency : currency2place2costs.keySet()) {
+            List<Map<String, String>> places = new ArrayList<Map<String, String>>();
+
+            Map<String, Float> place2costs = currency2place2costs.get(currency);
+            for(String place : place2costs.keySet()) {
+                Float costs = place2costs.get(place);
+                Map<String, String> m = new HashMap<String, String>();
+                m.put("place", place);
+                m.put("amount", costs.toString());
+
+                places.add(m);
             }
+            dataForAdapter.add(places);
         }
 
         return dataForAdapter;

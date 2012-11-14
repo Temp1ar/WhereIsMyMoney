@@ -46,36 +46,39 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
 
     @Override
     protected void customizeListView(ListView listView) {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Intent intent = new Intent(CostsReportByCardsActivity.this, TransactionsListActivity.class);
-                intent.putExtra(TransactionsListActivity.ID_PARAM, cards.get(position));
-                if (start != null)
-                    intent.putExtra(AbstractCostsReportActivity.START_DATE, start.getTime());
-                if (end != null)
-                    intent.putExtra(AbstractCostsReportActivity.END_DATE, end.getTime());
-
-                startActivity(intent);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id) {
+//                Intent intent = new Intent(CostsReportByCardsActivity.this, TransactionsListActivity.class);
+//                intent.putExtra(TransactionsListActivity.ID_PARAM, cards.get(position));
+//                if (start != null)
+//                    intent.putExtra(AbstractCostsReportActivity.START_DATE, start.getTime());
+//                if (end != null)
+//                    intent.putExtra(AbstractCostsReportActivity.END_DATE, end.getTime());
+//
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
-    protected List<String> getDataForAdapter() {
-        List<String> dataForAdapter = new ArrayList<String>();
+    protected List<List<Map<String, String>>> getDataForAdapter() {
+        List<List<Map<String, String>>> dataForAdapter = new ArrayList<List<Map<String, String>>>();
 
-        for (String card : cards2costs.keySet()) {
-            Map<String, Float> currency2costs = cards2costs.get(card);
-            if (currency2costs.isEmpty()) {
-                int i = cards.indexOf(card);
-                if (i != -1) {
-                    cards.remove(i);
-                }
+        Map<String, Map<String, Float>> currency2card2costs = swapFirstAndSecondKeys(cards2costs);
+        for (String currency : currency2card2costs.keySet()) {
+            List<Map<String, String>> cards = new ArrayList<Map<String, String>>();
+
+            Map<String, Float> card2costs = currency2card2costs.get(currency);
+            for(String card : card2costs.keySet()) {
+                Float costs = card2costs.get(card);
+                Map<String, String> m = new HashMap<String, String>();
+                m.put("card", card);
+                m.put("amount", costs.toString());
+
+                cards.add(m);
             }
-            for(String currency : currency2costs.keySet()) {
-                dataForAdapter.add(card + "\n" + currency2costs.get(currency).toString() + " " + currency);
-            }
+            dataForAdapter.add(cards);
         }
 
         return dataForAdapter;
