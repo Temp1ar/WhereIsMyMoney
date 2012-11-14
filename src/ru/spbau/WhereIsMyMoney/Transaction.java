@@ -24,6 +24,8 @@ public class Transaction {
     private float amount = 0;
 
     private final Pattern currencyPattern = Pattern.compile("(\\d+(?:\\.\\d+)?)\\s*(.*)\\s*");
+    private final Pattern currencyPatternWithDot = Pattern.compile("((\\d|,)+(?:\\.\\d+)?)\\s*(.*)\\s*");
+    private final Pattern currencyPatternWithComma = Pattern.compile("((\\d|\\.)+(?:,\\d+)?)\\s*(.*)\\s*");
     private static final int AMOUNT_GROUP = 1;
     private static final int CURRENCY_GROUP = 2;
 
@@ -38,7 +40,15 @@ public class Transaction {
         this.balance = balance;
         this.type = type;
 
-        Matcher matcher = currencyPattern.matcher(delta);
+        String normalized = delta.replaceAll("[\\s]","");
+        if (currencyPatternWithDot.matcher(normalized).matches()) {
+            normalized = normalized.replaceAll(",", "");
+        }
+        else if (currencyPatternWithComma.matcher(normalized).matches()) {
+            normalized = normalized.replaceAll(".", "").replace(',','.');
+        }
+
+        Matcher matcher = currencyPattern.matcher(normalized);
 
         if (matcher.matches()) {
             this.amount = Float.valueOf(matcher.group(AMOUNT_GROUP));
