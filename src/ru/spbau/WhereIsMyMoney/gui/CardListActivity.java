@@ -5,6 +5,7 @@ import java.util.List;
 
 import ru.spbau.WhereIsMyMoney.Card;
 import ru.spbau.WhereIsMyMoney.Transaction;
+import ru.spbau.WhereIsMyMoney.storage.TemplatesSource;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 import android.app.Activity;
 import android.content.Intent;
@@ -89,11 +90,18 @@ public class CardListActivity extends Activity {
                 startActivity(intent);
                 return true;
             case ru.spbau.WhereIsMyMoney.R.id.refresh_history:
-            	TransactionLogSource source = new TransactionLogSource(getApplicationContext());
-            	source.open();
-            	source.resetDatabase();
-            	source.close();
+            	TransactionLogSource trSource = new TransactionLogSource(getApplicationContext());
+            	trSource.open();
+            	trSource.resetDatabase();
+            	trSource.close();
             	return true;
+            case ru.spbau.WhereIsMyMoney.R.id.drop_parsers:
+            	TemplatesSource tpSource = new TemplatesSource(getApplicationContext());
+            	tpSource.open();
+            	tpSource.resetDatabase();
+            	tpSource.close();
+            	return true;
+            	
         }
 
         return (super.onOptionsItemSelected(item));
