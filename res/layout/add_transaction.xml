@@ -23,6 +23,7 @@
             />
 
     <EditText android:id="@+id/delta"
+              android:inputType="numberSigned"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content" />
 
