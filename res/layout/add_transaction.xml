@@ -4,6 +4,7 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent">
 
+
     <LinearLayout style="@style/HeaderLinearLayout">
         <TextView
             style="@style/HeaderTextView"
@@ -23,6 +24,7 @@
             />
 
     <EditText android:id="@+id/delta"
+              android:inputType="numberSigned"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content" />
 
