@@ -5,7 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
-import android.R;
+import ru.spbau.WhereIsMyMoney.R;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +14,6 @@ import android.widget.*;
 
 import java.lang.Float;
 import java.util.*;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 /**
  * Base class for reports

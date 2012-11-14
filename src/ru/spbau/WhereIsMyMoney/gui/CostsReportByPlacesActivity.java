@@ -3,7 +3,10 @@ package ru.spbau.WhereIsMyMoney.gui;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.TextView;
+import ru.spbau.WhereIsMyMoney.R;
 
 import java.lang.String;
 import java.util.*;

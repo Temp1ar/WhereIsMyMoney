@@ -21,7 +21,7 @@ public class TransactionsListActivity extends Activity {
     private static final String TAG = TransactionsListActivity.class.getCanonicalName();
 
     final static String ID_PARAM = "id";
-    private final static String PLACE = "place";
+    final static String PLACE = "place";
 
     private TransactionLogSource db;
     //todo drop this from class field
