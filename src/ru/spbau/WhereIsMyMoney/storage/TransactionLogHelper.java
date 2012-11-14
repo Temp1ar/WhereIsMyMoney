@@ -74,16 +74,15 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 		Log.d(getClass().getCanonicalName(), "create " + DATABASE_NAME);
 		db.execSQL(CREATE_TABLE);
 		insertCash(db);
-		insertExistingSms(db);
+		insertExistingSms(db, new SmsParser(context));
 	}
 
-    private void insertExistingSms(SQLiteDatabase db) {
+    public void insertExistingSms(SQLiteDatabase db, SmsParser parser) {
             Log.d(getClass().getCanonicalName(), "inserting existing sms");
             ArrayList<SmsEvent> array = ExistingSmsReader.getAll(context);
     
             //BaltBankHelper baltBankHelper = new BaltBankHelper();
-            SmsParser parser = new SmsParser(context);
-            //Transaction transaction;
+        //Transaction transaction;
         for (SmsEvent anArray : array) {
             //    if ((transaction = baltBankHelper.tryParse(array.get(i).getBody())) != null) {
             //        addTransaction(transaction, db);
