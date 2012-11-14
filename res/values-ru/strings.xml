@@ -15,9 +15,15 @@
     <string name="totalCosts">Сумма</string>
     <string name="startDate">С:</string>
     <string name="endDate">По:</string>
-    <string name="transaction_list_header">Транзакции с</string>
+    <string name="transaction_list_header">Транзакции</string>
+    <string name="transaction_list_header_for_cash">Транзакции с наличными</string>
     <string name="add_transaction_header">Ручное добавление транзакции</string>
     <string name="costs_report_setup_header">Создать отчёт</string>
     <string name="costs_report">Отображение отчёта</string>
     <string name="cash_account">Наличные</string>
+    <string name="sms">Пример СМС</string>
+    <string name="parse_sms">Пример разбора СМС</string>
+    <string name="type">Тип транзакции</string>
+    <string name="choose_sms">Выберите СМС для разбора</string>
+    <string name="add_parser">Добавить парсер</string>
 </resources>

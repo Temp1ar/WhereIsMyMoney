@@ -7,6 +7,7 @@ import ru.spbau.WhereIsMyMoney.ExistingSmsReader;
 import ru.spbau.WhereIsMyMoney.SmsEvent;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.parser.BaltBankHelper;
+import ru.spbau.WhereIsMyMoney.parser.SmsParser;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -74,20 +75,25 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 		Log.d(getClass().getCanonicalName(), "create " + DATABASE_NAME);
 		db.execSQL(CREATE_TABLE);
 		insertCash(db);
-                insertExistingSms(db);
+		insertExistingSms(db);
 	}
 
     private void insertExistingSms(SQLiteDatabase db) {
             Log.d(getClass().getCanonicalName(), "inserting existing sms");
             ArrayList<SmsEvent> array = ExistingSmsReader.getAll(context, null);
     
-            BaltBankHelper baltBankHelper = new BaltBankHelper();
-            Transaction transaction;
+            //BaltBankHelper baltBankHelper = new BaltBankHelper();
+            SmsParser parser = new SmsParser(context);
+            //Transaction transaction;
             for (int i = 0; i < array.size(); ++i) {
-                if ((transaction = baltBankHelper.tryParse(array.get(i).getBody())) != null) {
-                    addTransaction(transaction, db);
-                    continue;
-                }
+            //    if ((transaction = baltBankHelper.tryParse(array.get(i).getBody())) != null) {
+            //        addTransaction(transaction, db);
+            //        continue;
+            //    }
+            	Transaction trans = parser.parseSms(array.get(i));
+            	if (trans != null) {
+            		addTransaction(trans, db);
+            	}
             }
         }
 

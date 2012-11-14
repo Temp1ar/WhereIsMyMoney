@@ -10,11 +10,19 @@
             android:text="@string/add_transaction_header"/>
     </LinearLayout>
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:padding="20dp"
+            >
+
     <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:text="@string/sum" />
+              android:text="@string/sum"
+            />
 
-    <EditText  android:id="@+id/delta"
+    <EditText android:id="@+id/delta"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content" />
 
@@ -27,9 +35,15 @@
               android:layout_height="wrap_content" />
 
     <Button android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/ok"
-            android:onClick="saveTransaction"/>
+            android:onClick="saveTransaction"
+            android:background="@drawable/nice_button"
+            style="@style/ShadowedText"
+            />
+
+       </LinearLayout>
 
 </LinearLayout>

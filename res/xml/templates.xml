@@ -1,0 +1,19 @@
+<resource>
+    
+<template type="withdraw">
+<![CDATA[ {{card}} ; Vydacha nalichnyh ; USPEShNO ; Summa : {{delta}} ; {{place}} ; {{date}} ; Dostupno : {{balance}} RUR ; ]]>
+</template>
+
+<template type="deposit">
+<![CDATA[ {{card}} ; Popolnenie scheta ; Summa : {{delta}} ; Dostupno : {{balance}} RUR ; ]]>
+</template>
+
+<template type="withdraw">
+<![CDATA[ {{card}} ; Pokupka ; USPEShNO ; Summa : {{delta}} ; {{place}} ; {{date}} ; Dostupno : {{balance}} RUR ; ]]>
+</template>
+
+<template type="withdraw">
+<![CDATA[ {{card}} ; schet debetovan ; Summa : {{delta}} ; Dostupno : {{balance}} RUR ; ]]>
+</template>
+
+</resource>
