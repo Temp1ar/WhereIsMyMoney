@@ -34,7 +34,7 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
 
         List<String> ret = new ArrayList<String>();
         for (String currency : currency2costs4all.keySet()) {
-            ret.add(currency2costs4all.get(currency).toString() + "  " + currency);
+            ret.add(currency2costs4all.get(currency).toString() + " " + currency);
         }
 
         return ret;
@@ -42,15 +42,15 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
 
     @Override
     protected void customizeListView(ListView listView) {
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//                Intent intent = new Intent(CostsReportByCardsActivity.this, TransactionsListActivity.class);
-//                String card = cards.get(position);
-//                intent.putExtra(TransactionsListActivity.ID_PARAM, card);
-//                startActivity(intent);
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Intent intent = new Intent(CostsReportByCardsActivity.this, TransactionsListActivity.class);
+                String card = cards.get(position);
+                intent.putExtra(TransactionsListActivity.ID_PARAM, card);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -59,8 +59,14 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
 
         for (String card : cards2costs.keySet()) {
             Map<String, Float> currency2costs = cards2costs.get(card);
+            if (currency2costs.isEmpty()) {
+                int i = cards.indexOf(card);
+                if (i != -1) {
+                    cards.remove(i);
+                }
+            }
             for(String currency : currency2costs.keySet()) {
-                dataForAdapter.add(card + "\n" + currency2costs.get(currency).toString() + currency);
+                dataForAdapter.add(card + "\n" + currency2costs.get(currency).toString() +" " + currency);
             }
         }
 

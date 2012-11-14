@@ -33,7 +33,7 @@ public class CostsReportByPlacesActivity extends AbstractCostsReportActivity{
 
         List<String> ret = new ArrayList<String>();
         for (String currency : currency2costs4all.keySet()) {
-            ret.add(currency2costs4all.get(currency).toString() + "  " + currency);
+            ret.add(currency2costs4all.get(currency).toString() + " " + currency);
         }
 
         return ret;
@@ -49,7 +49,7 @@ public class CostsReportByPlacesActivity extends AbstractCostsReportActivity{
         for (String place : places2costs.keySet()) {
             Map<String, Float> currency2costs = places2costs.get(place);
             for(String currency : currency2costs.keySet()) {
-                dataForAdapter.add(place + "\n" + currency2costs.get(currency).toString() + currency);
+                dataForAdapter.add(place + "\n" + currency2costs.get(currency).toString() + " " + currency);
             }
         }
 
