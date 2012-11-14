@@ -1,11 +1,11 @@
 package ru.spbau.WhereIsMyMoney.storage;
 
 import ru.spbau.WhereIsMyMoney.parser.Template;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.content.Context;
 
 public class TemplatesSource extends BaseDataSource {
-	public TemplatesSource(SQLiteOpenHelper helper) {
-		super(helper);
+	public TemplatesSource(Context context) {
+		super(new TemplatesHelper(context));
 	}
 	
 	public void addTemplate(Template template) {
