@@ -22,6 +22,11 @@ public abstract class AbstractCostsReportActivity extends Activity {
     private static final String TAG = AbstractCostsReportActivity.class.getCanonicalName();
     static final String START_DATE = "startDate";
     static final String END_DATE = "endDate";
+    private static final String VALUE = "value";
+    private static final String CURRENCY_NAME = "currencyName";
+    private static final String NAME = "name";
+    private static final String AMOUNT = "amount";
+
 
     protected  abstract void init(Date start, Date end);
 
@@ -56,14 +61,14 @@ public abstract class AbstractCostsReportActivity extends Activity {
         Map<String, Float> totalVals = getTotalVals();
         for (String currency : totalVals.keySet()) {
             Map<String, String> m = new HashMap<String, String>();
-            m.put("currName", currency);
-            m.put("val", totalVals.get(currency).toString());
+            m.put(CURRENCY_NAME, currency);
+            m.put(VALUE, totalVals.get(currency).toString());
             groupData.add(m);
         }
-        String groupFrom[] = new String[] {"val", "currName"};
+        String groupFrom[] = new String[] {VALUE, CURRENCY_NAME};
         int groupTo[] = new int[] {R.id.curr_totalVal, R.id.curr_name};
 
-        String childFrom[] = new String[] {"name", "amount", "img"};
+        String childFrom[] = new String[] {NAME, AMOUNT};
         int childTo[] = new int[] {R.id.child_name, R.id.child_amount};
 
         List<List<Map<String, String>>> childData = getDataForAdapter();
@@ -108,13 +113,5 @@ public abstract class AbstractCostsReportActivity extends Activity {
             }
         }
         return second2first2value;
-    }
-
-    protected Float sum(Collection<Float> numbers) {
-        float sum = 0;
-        for(Float i : numbers) {
-            sum += i;
-        }
-        return sum;
     }
 }

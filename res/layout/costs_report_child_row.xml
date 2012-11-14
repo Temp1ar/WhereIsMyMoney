@@ -4,11 +4,9 @@
               android:orientation="horizontal"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
+              android:paddingLeft="20dp"
               android:weightSum="1.0">
-    <!--<ImageView android:id="@+id/child_img"-->
-        <!--android:layout_marginRight="2dp"-->
-        <!--android:layout_height="20dp"-->
-        <!--android:layout_width="20dp"/>-->
+
     <TextView android:id="@+id/child_amount"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
