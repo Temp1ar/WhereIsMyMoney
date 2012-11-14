@@ -16,7 +16,6 @@ public class TemplatesParser {
 	private static final String TYPE = "type";
 	private static final String WITHDRAW = "withdraw";
 	private static final String DEPOSIT = "deposit";
-	private static final String NONE = "none";
 	
 	private final List<Template> myTemplates = new ArrayList<Template>();
 	
