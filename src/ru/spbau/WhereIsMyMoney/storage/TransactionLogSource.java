@@ -137,6 +137,24 @@ public class TransactionLogSource extends BaseDataSource {
     }
 
     /**
+     * All transactions for specified place
+     *
+     * @return list of transactions
+     */
+    public List<Transaction> getTransactionsPerPlace(final String place) {
+        return getTransactions(new IFilter<Transaction>() {
+            public boolean match(Transaction transaction) {
+                String trPlace = transaction.getPlace();
+                if (trPlace == null || trPlace.isEmpty())
+                    return place == null || place.isEmpty();
+
+                return trPlace.equals(place);
+
+            }
+        });
+    }
+
+    /**
      * All transactions for specified place of period
      *
      * @param start start date of period

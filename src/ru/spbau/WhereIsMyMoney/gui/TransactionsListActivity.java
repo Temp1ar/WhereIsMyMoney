@@ -23,8 +23,10 @@ public class TransactionsListActivity extends Activity {
     private static final String TAG = TransactionsListActivity.class.getCanonicalName();
 
     final static String ID_PARAM = "id";
+    final static String PLACE = "place";
 
     TransactionLogSource db;
+    //todo drop this from class field
     private String cardId;
 
     public void saveTransaction(View view) {
@@ -48,30 +50,50 @@ public class TransactionsListActivity extends Activity {
             Log.d(TAG, AbstractCostsReportActivity.END_DATE + "parameter not found");
         }
 
-        cardId = intent.getStringExtra(ID_PARAM);
-
         setContentView(ru.spbau.WhereIsMyMoney.R.layout.transactions);
         db = new TransactionLogSource(getApplicationContext());
         db.open();
 
-        TextView title = (TextView) findViewById(ru.spbau.WhereIsMyMoney.R.id.card_id);
-        title.setText(getString(R.string.transaction_list_header) + " " + cardId);
-        ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.transactions);
         List<Transaction> transactions;
-        if (startTime == -1 || endTime == -1) {
-            transactions = db.getTransactionsPerCard(cardId);
+
+        cardId = intent.getStringExtra(ID_PARAM);
+
+        if (cardId != null) {
+            TextView title = (TextView) findViewById(R.id.header);
+            title.setText(getString(R.string.transaction_list_header) + " " + cardId);
+
+            if (startTime == -1 || endTime == -1) {
+                transactions = db.getTransactionsPerCard(cardId);
+            } else {
+                transactions = db.getTransactionsPerCardForPeriod(cardId, new Date(startTime), new Date(endTime));
+            }
+
+            Button addTransaction = (Button)findViewById(R.id.add_tr);
+            if (cardId.equals(TransactionLogHelper.CASH)) {
+                addTransaction.setVisibility(View.VISIBLE);
+            } else {
+                addTransaction.setVisibility(View.GONE);
+            }
         } else {
-            transactions = db.getTransactionsPerCardForPeriod(cardId, new Date(startTime), new Date(endTime));
+            String place = intent.getStringExtra(PLACE);
+
+            if (place == null)
+                return;
+
+            TextView title = (TextView) findViewById(R.id.header);
+            title.setText(getString(R.string.transaction_list_header) + " place");
+
+            if (startTime == -1 || endTime == -1) {
+                transactions = db.getTransactionsPerPlace(place);
+            } else {
+                transactions = db.getTransactionsPerPlaceForPeriod(place, new Date(startTime), new Date(endTime));
+            }
         }
 
         ArrayAdapter<Transaction> adapter = new TransactionListAdapter(getApplicationContext(), transactions);
+
+        ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.transactions);
         listView.setAdapter(adapter);
-        Button addTransaction = (Button)findViewById(R.id.add_tr);
-        if (cardId.equals(TransactionLogHelper.CASH)) {
-            addTransaction.setVisibility(View.VISIBLE);
-        } else {
-            addTransaction.setVisibility(View.GONE);
-        }
     }
 
     @Override

@@ -8,7 +8,7 @@
     <LinearLayout style="@style/HeaderLinearLayout">
         <TextView
             style="@style/HeaderTextView"
-            android:id="@+id/card_id"/>
+            android:id="@+id/header"/>
     </LinearLayout>
 
     <ListView
