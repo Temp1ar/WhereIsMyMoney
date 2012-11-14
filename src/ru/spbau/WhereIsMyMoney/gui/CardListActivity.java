@@ -1,8 +1,10 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
 import android.widget.Button;
+import ru.spbau.WhereIsMyMoney.Card;
+import ru.spbau.WhereIsMyMoney.R;
+import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
-import android.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +12,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Shows list of cards.
@@ -28,10 +33,15 @@ public class CardListActivity extends Activity {
             }
         });
 
-        final String[] cards = db.getCards().toArray(new String[db.getCards().size()]);
+        final String[] card_ids = db.getCards().toArray(new String[db.getCards().size()]);
+        final ArrayList<Card> cards = new ArrayList<Card>();
+        for (String card_id : card_ids) {
+            List<Transaction> transactions = db.getTransactionsPerCard(card_id);
+            Float balance = (transactions.size() > 0) ? db.getTransactionsPerCard(card_id).get(0).getBalance() : 0f;
+            cards.add(new Card(card_id, balance));
+        }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.simple_list_item_1, R.id.text1, cards);
+        ArrayAdapter<Card> adapter = new CardListAdapter(this, R.layout.card_row, cards);
 
         listView.setAdapter(adapter);
 
@@ -39,7 +49,7 @@ public class CardListActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent intent = new Intent(CardListActivity.this, TransactionsListActivity.class);
-                String message = cards[position];
+                String message = card_ids[position];
                 intent.putExtra(TransactionsListActivity.ID_PARAM, message);
                 startActivity(intent);
             }
