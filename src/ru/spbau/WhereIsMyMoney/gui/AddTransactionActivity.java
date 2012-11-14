@@ -20,8 +20,8 @@ public class AddTransactionActivity extends Activity {
     private TransactionLogSource db;
 
     public void saveTransaction(View view) {
-        String delta = ((EditText)findViewById(R.id.delta)).getText().toString();
-        String place = ((EditText)findViewById(R.id.place)).getText().toString();
+        String delta = ((EditText) findViewById(R.id.delta)).getText().toString();
+        String place = ((EditText) findViewById(R.id.place)).getText().toString();
 
         final List<Transaction> transactions = db.getTransactionsPerCard(cardId);
 

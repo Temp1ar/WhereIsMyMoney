@@ -70,7 +70,7 @@ public class TransactionsListActivity extends Activity {
                 transactions = db.getTransactionsPerCardForPeriod(cardId, new Date(startTime), new Date(endTime));
             }
 
-            Button addTransaction = (Button)findViewById(R.id.add_tr);
+            Button addTransaction = (Button) findViewById(R.id.add_tr);
             if (cardId.equals(TransactionLogHelper.CASH)) {
                 addTransaction.setVisibility(View.VISIBLE);
             } else {

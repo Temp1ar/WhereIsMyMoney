@@ -16,7 +16,8 @@
     <string name="startDate">С:</string>
     <string name="endDate">По:</string>
     <string name="transaction_list_header">Транзакции</string>
-    <string name="transaction_list_header_for_cash">Транзакции с наличными</string>
+    <string name="transaction_list_header_for_cash">Транзакции с наличными
+    </string>
     <string name="add_transaction_header">Ручное добавление транзакции</string>
     <string name="costs_report_setup_header">Создать отчёт</string>
     <string name="costs_report">Отображение отчёта</string>
@@ -28,6 +29,7 @@
     <string name="add_parser">Добавить парсер</string>
     <string name="drop_parsers">Сбросить парсеры</string>
     <string name="refresh_history">Обновить историю</string>
+    <string name="change">Пометить слово</string>
     <string-array name="field_name">
         <item>Карта</item>
         <item>Место</item>
@@ -38,5 +40,6 @@
     <string-array name="type_name">
         <item>Расход</item>
         <item>Пополнение</item>
+        <item>Баланс не изменился</item>
     </string-array>
 </resources>

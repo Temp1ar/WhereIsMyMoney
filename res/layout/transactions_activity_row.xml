@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:padding="3dp">
-    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1.0">
-        <TextView
-            android:id="@+id/transaction_delta"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".35"
-            android:gravity="left"
-            android:textSize="18sp">
-        </TextView>
-        <TextView
-            android:id="@+id/transaction_place"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".65"
-            android:text="@string/unknown_place"
-            android:textSize="18sp"
-            android:textColor="@color/transaction_none"
-            android:layout_marginLeft="5dp">
-        </TextView>
-	</LinearLayout>
+        android:padding="3dp">
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1.0">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1.0">
+        <TextView
+                android:id="@+id/transaction_delta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".35"
+                android:gravity="left"
+                android:textSize="18sp">
+        </TextView>
+        <TextView
+                android:id="@+id/transaction_place"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".65"
+                android:text="@string/unknown_place"
+                android:textSize="18sp"
+                android:textColor="@color/transaction_none"
+                android:layout_marginLeft="5dp">
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1.0">
         <ImageView
                 android:layout_marginRight="2dp"
                 android:layout_height="20dp"
                 android:layout_width="20dp"
-                android:src="@drawable/balance_icon" />
+                android:src="@drawable/balance_icon"/>
         <TextView
-            android:id="@+id/transaction_new_balance"
-            android:layout_width="0dp"
-            android:layout_weight=".45"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceSmall">
+                android:id="@+id/transaction_new_balance"
+                android:layout_width="0dp"
+                android:layout_weight=".45"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceSmall">
         </TextView>
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight=".55"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="right">
-        <ImageView
-                android:layout_height="20dp"
-                android:layout_width="20dp"
-                android:src="@drawable/date_icon" />
-        <TextView
-            android:id="@+id/transaction_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall">
-        </TextView>
+                android:layout_width="0dp"
+                android:layout_weight=".55"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right">
+            <ImageView
+                    android:layout_height="20dp"
+                    android:layout_width="20dp"
+                    android:src="@drawable/date_icon"/>
+            <TextView
+                    android:id="@+id/transaction_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall">
+            </TextView>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -1,9 +1,5 @@
 package ru.spbau.WhereIsMyMoney.service;
 
-import ru.spbau.WhereIsMyMoney.SmsEvent;
-import ru.spbau.WhereIsMyMoney.Transaction;
-import ru.spbau.WhereIsMyMoney.parser.SmsParser;
-import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
@@ -11,6 +7,10 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
+import ru.spbau.WhereIsMyMoney.SmsEvent;
+import ru.spbau.WhereIsMyMoney.Transaction;
+import ru.spbau.WhereIsMyMoney.parser.SmsParser;
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
 public class WatcherService extends Service {
     private static final String TAG = WatcherService.class.getCanonicalName();
@@ -22,14 +22,14 @@ public class WatcherService extends Service {
         Log.d(TAG, "processMessage: " + message);
         SmsEvent event = SmsEvent.parse(message);
         Log.d(TAG, "message source: " + event.getSource());
-        Log.d(TAG, "message body: "   + event.getBody());
-        Log.d(TAG, "message date: "   + event.getDate());
+        Log.d(TAG, "message body: " + event.getBody());
+        Log.d(TAG, "message date: " + event.getDate());
         TransactionLogSource db = new TransactionLogSource(getApplicationContext());
         db.open();
         SmsParser parser = new SmsParser(getApplicationContext());
         Transaction transaction = parser.parseSms(event);
         if (transaction != null) {
-        	db.addTransaction(transaction);
+            db.addTransaction(transaction);
         }
         db.close();
     }

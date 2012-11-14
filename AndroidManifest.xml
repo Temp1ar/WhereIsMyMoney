@@ -6,25 +6,42 @@
     <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="15"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
+    <application android:label="@string/app_name"
+                 android:icon="@drawable/ic_launcher">
         <activity android:name=".gui.CardListActivity"
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoTitleBar"
                   android:screenOrientation="portrait">
-           <intent-filter>
-               <action android:name="android.intent.action.MAIN"/>
-               <category android:name="android.intent.category.LAUNCHER"/>
-           </intent-filter>
-       </activity>
-       <activity android:name=".gui.TransactionsListActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
-       <activity android:name=".gui.CostsReportByCardsActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
-       <activity android:name=".gui.CostsReportByPlacesActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
-       <activity android:name=".gui.CostsReportSetupActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
-       <activity android:name=".gui.AddTransactionActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
-       <activity android:name=".gui.SmsViewActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
-       <activity android:name=".gui.ParserActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
-       <activity android:name="org.achartengine.GraphicalActivity" android:theme="@android:style/Theme.NoTitleBar"/>
-        <service android:name=".service.WatcherService" android:process=":remote"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".gui.TransactionsListActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".gui.CostsReportByCardsActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".gui.CostsReportByPlacesActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".gui.CostsReportSetupActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".gui.AddTransactionActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".gui.SmsViewActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".gui.ParserActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="org.achartengine.GraphicalActivity"
+                  android:theme="@android:style/Theme.NoTitleBar"/>
+        <service android:name=".service.WatcherService"
+                 android:process=":remote"/>
         <receiver android:name=".service.SmsReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>

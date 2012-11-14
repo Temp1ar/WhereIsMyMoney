@@ -1,22 +1,18 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import ru.spbau.WhereIsMyMoney.R;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import ru.spbau.WhereIsMyMoney.R;
+
+import java.util.*;
 
 /**
  * Show costs report grouped by place
  */
 
-public class CostsReportByPlacesActivity extends AbstractCostsReportActivity{
+public class CostsReportByPlacesActivity extends AbstractCostsReportActivity {
     private Map<String, Map<String, Float>> places2costs = null;
     private Date start = null;
     private Date end = null;
@@ -32,7 +28,7 @@ public class CostsReportByPlacesActivity extends AbstractCostsReportActivity{
     protected Map<String, Float> getTotalVals() {
         Map<String, Float> currency2costs4all = new HashMap<String, Float>();
         for (Map<String, Float> currency2costs : places2costs.values()) {
-            for(String currency : currency2costs.keySet()) {
+            for (String currency : currency2costs.keySet()) {
                 Float val = currency2costs4all.get(currency);
                 if (val == null)
                     val = 0f;
@@ -73,7 +69,7 @@ public class CostsReportByPlacesActivity extends AbstractCostsReportActivity{
             List<Map<String, String>> places = new ArrayList<Map<String, String>>();
 
             Map<String, Float> place2costs = currency2place2costs.get(currency);
-            for(String place : place2costs.keySet()) {
+            for (String place : place2costs.keySet()) {
                 Float costs = place2costs.get(place);
                 Map<String, String> m = new HashMap<String, String>();
                 m.put("name", place);

@@ -1,7 +1,6 @@
 package ru.spbau.WhereIsMyMoney.parser;
 
 import android.content.Context;
-import android.util.Log;
 import ru.spbau.WhereIsMyMoney.SmsEvent;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TemplatesSource;
@@ -15,14 +14,14 @@ public class SmsParser {
     private static final String DELTA = "delta";
     private static final String BALANCE = "balance";
 
-    private final List<Template> myTemplates;
+    private final List<Template> templates;
 
     public SmsParser(Context context) {
         this(getTemplatesFromDatabase(context));
     }
 
     public SmsParser(List<Template> templates) {
-        myTemplates = templates;
+        this.templates = templates;
     }
 
     private static List<Template> getTemplatesFromDatabase(Context context) {
@@ -35,7 +34,7 @@ public class SmsParser {
 
     public Transaction parseSms(SmsEvent sms) {
         String body = sms.getBody();
-        for (Template template : myTemplates) {
+        for (Template template : templates) {
             TemplateMatcher matcher = new TemplateMatcher(template.getTemplate());
 
             Map<String, String> args = matcher.match(body);
@@ -51,15 +50,15 @@ public class SmsParser {
     }
 
     private Transaction makeTransaction(SmsEvent sms, Map<String, String> args, int type) {
-            String card = args.get(CARD);
-            String place = args.get(PLACE);
-            String delta = args.get(DELTA);
-            String balanceStr = args.get(BALANCE);
-            MoneyParser parser = new MoneyParser();
-            Float balance = parser.parse(balanceStr);
-            if (balance != null) {
-                return new Transaction(sms.getDate(), place, card, delta, balance, type);
-            }
-            return null;
+        String card = args.get(CARD);
+        String place = args.get(PLACE);
+        String delta = args.get(DELTA);
+        String balanceStr = args.get(BALANCE);
+        MoneyParser parser = new MoneyParser();
+        Float balance = parser.parse(balanceStr);
+        if (balance != null) {
+            return new Transaction(sms.getDate(), place, card, delta, balance, type);
         }
+        return null;
+    }
 }
