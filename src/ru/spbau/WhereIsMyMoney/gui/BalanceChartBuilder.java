@@ -69,7 +69,7 @@ public class BalanceChartBuilder {
     }
 
     private float getMinBalance(List<Transaction> transactions) {
-        float min = 0;
+        float min = Float.MAX_VALUE;
         for (Transaction t : transactions) {
             float balance = t.getBalance();
             min = min <= balance ? min : balance;
