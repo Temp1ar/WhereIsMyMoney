@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.util.Log;
+import android.widget.*;
 import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogHelper;
@@ -11,10 +12,6 @@ import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 
 /**
  * Shows list of transactions from specified card.
@@ -95,8 +92,8 @@ public class TransactionsListActivity extends Activity {
         ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.transactions);
         listView.setAdapter(adapter);
 
-        Button chartButton = (Button) findViewById(R.id.chart_button);
-        chartButton.setOnClickListener(new View.OnClickListener() {
+        ImageView chartView = (ImageView) findViewById(R.id.chart_view);
+        chartView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 BalanceChartBuilder builder = new BalanceChartBuilder();
                 startActivity(builder.getIntent(TransactionsListActivity.this, db.getTransactionsPerCard(cardId)));
