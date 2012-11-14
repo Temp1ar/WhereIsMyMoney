@@ -49,7 +49,7 @@ public class BaseDataSource implements Closeable {
 		Log.d(getClass().getCanonicalName(), "database " + myDatabase.getPath() + " closed");
 	}
 	
-	SQLiteDatabase getDatabase() {
+	public SQLiteDatabase getDatabase() {
 		return myDatabase;
 	}
 }

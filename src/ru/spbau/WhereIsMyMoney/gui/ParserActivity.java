@@ -11,8 +11,14 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import ru.spbau.WhereIsMyMoney.R;
+import ru.spbau.WhereIsMyMoney.parser.SmsParser;
 import ru.spbau.WhereIsMyMoney.parser.Template;
 import ru.spbau.WhereIsMyMoney.storage.TemplatesSource;
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogHelper;
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParserActivity extends Activity {
     private String smsText;
@@ -25,7 +31,16 @@ public class ParserActivity extends Activity {
         smsText = sms.getText().toString();
         TemplatesSource templatesSource = new TemplatesSource(getApplicationContext());
         templatesSource.open();
-        templatesSource.addTemplate(new Template(smsText, transactionType));
+        List<Template> list = new ArrayList<Template>();
+        Template template = new Template(smsText, transactionType);
+        list.add(template);
+        SmsParser parser = new SmsParser(list);
+        TransactionLogSource db = new TransactionLogSource(getApplicationContext());
+        TransactionLogHelper helper = new TransactionLogHelper(getApplicationContext());
+        db.open();
+        helper.insertExistingSms(db.getDatabase(), parser);
+        db.close();
+        templatesSource.addTemplate(template);
         templatesSource.close();
         finish();
     }

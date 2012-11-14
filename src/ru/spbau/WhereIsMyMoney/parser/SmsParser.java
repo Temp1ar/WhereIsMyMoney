@@ -17,10 +17,10 @@ public class SmsParser {
     private final List<Template> myTemplates;
 
     public SmsParser(Context context) {
-        this(context, getTemplatesFromDatabase(context));
+        this(getTemplatesFromDatabase(context));
     }
 
-    public SmsParser(Context context, List<Template> templates) {
+    public SmsParser(List<Template> templates) {
         myTemplates = templates;
     }
 

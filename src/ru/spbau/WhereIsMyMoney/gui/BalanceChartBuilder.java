@@ -35,7 +35,6 @@ class BalanceChartBuilder {
 
     private void readSettings() {
         renderer.setAxisTitleTextSize(16);
-//        renderer.setChartTitleTextSize(20);
         renderer.setLabelsTextSize(15);
         renderer.setLegendTextSize(18);
         renderer.setBarSpacing(1);
@@ -49,7 +48,6 @@ class BalanceChartBuilder {
     }
 
     private void setChartSettings(List<Transaction> transactions) {
-        //renderer.setChartTitle("Chart demo");
         renderer.setXTitle("transactions");
         renderer.setYTitle("balance");
         renderer.setXAxisMin(0);
