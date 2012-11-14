@@ -16,17 +16,36 @@ class TemplateMatcher {
 	public TemplateMatcher(String template) {
 		Matcher matcher = TEMPLATE_ARG.matcher(template);
 		int occurence = 0;
+
+        Map<String,String> reMap = new HashMap<String, String>();
+
 		while (matcher.find()) {
 			String arg = matcher.group(1);
 			myMapping.put(arg, occurence + 1);
 			++occurence;
+
+            String[] splitted = arg.split(":", 1);
+            if (splitted.length == 2) {
+                reMap.put(splitted[0], splitted[1]);
+            } else {
+                reMap.put(splitted[0], GROUP_RE);
+            }
 		}
-		matcher = TEMPLATE_ARG.matcher(template);
-		template = matcher.replaceAll(GROUP_RE);
-		matcher = SPACE_FILLER.matcher(template);
+
+        myRegex = template;
+
+        for (Map.Entry<String, String> entry : reMap.entrySet()) {
+            String placeholder = entry.getKey();
+            String re = "(" + entry.getValue() + ")";
+            Pattern pattern = Pattern.compile(placeholder);
+            myRegex = pattern.matcher(myRegex).replaceAll(re);
+        }
+
+        matcher = SPACE_FILLER.matcher(myRegex);
 		myRegex = matcher.replaceAll(SPACE_RE);
 	}
-	
+
+
 	public Map<String, String> match(String string) {
 		Pattern pattern = Pattern.compile(myRegex);
 		Matcher matcher = pattern.matcher(string);
