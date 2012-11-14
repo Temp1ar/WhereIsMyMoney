@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <LinearLayout style="@style/HeaderLinearLayout">
+        <TextView
+                style="@style/HeaderTextView"
+                android:text="@string/parse_sms"/>
+    </LinearLayout>
+
+    <TextView android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/sms" />
+
+    <EditText  android:id="@+id/sms"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:inputType="textMultiLine"/>
+
+    <TextView android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/type" />
+
+    <Spinner
+            android:id="@+id/type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    </Spinner>
+
+    <Button android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"
+            android:onClick="saveParser"/>
+
+</LinearLayout>

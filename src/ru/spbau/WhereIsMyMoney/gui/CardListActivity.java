@@ -1,17 +1,19 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import ru.spbau.WhereIsMyMoney.Card;
 import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,4 +76,22 @@ public class CardListActivity extends Activity {
         super.onStop();
         db.close();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(ru.spbau.WhereIsMyMoney.R.menu.menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case ru.spbau.WhereIsMyMoney.R.id.add_parser:
+                Intent intent = new Intent(this, SmsViewActivity.class);
+                startActivity(intent);
+                return (true);
+        }
+
+        return (super.onOptionsItemSelected(item));
+    }
+
 }
