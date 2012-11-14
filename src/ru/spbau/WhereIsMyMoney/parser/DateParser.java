@@ -2,7 +2,6 @@ package ru.spbau.WhereIsMyMoney.parser;
 
 import ru.spbau.WhereIsMyMoney.Transaction;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -14,7 +13,7 @@ import java.util.Date;
  * Time: 11:29 AM
  */
 public class DateParser implements Parser {
-    DateFormat dateFormat;
+    private final DateFormat dateFormat;
 
     public DateParser(DateFormat dateFormat) {
         this.dateFormat = dateFormat;
@@ -30,7 +29,4 @@ public class DateParser implements Parser {
         }
     }
 
-    public String getDescription() {
-        return this.toString();
-    }
 }

@@ -1,16 +1,15 @@
 package ru.spbau.WhereIsMyMoney.parser;
 
+import android.content.Context;
+import android.util.Log;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import ru.spbau.WhereIsMyMoney.R;
+import ru.spbau.WhereIsMyMoney.Transaction;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
-import ru.spbau.WhereIsMyMoney.R;
-import ru.spbau.WhereIsMyMoney.Transaction;
-import android.content.Context;
-import android.util.Log;
 
 public class TemplatesParser {
 	private static final String TEMPLATE = "template";
@@ -19,7 +18,7 @@ public class TemplatesParser {
 	private static final String DEPOSIT = "deposit";
 	private static final String NONE = "none";
 	
-	private List<Template> myTemplates = new ArrayList<Template>();
+	private final List<Template> myTemplates = new ArrayList<Template>();
 	
 	public TemplatesParser(Context context) {
 		XmlPullParser parser = context.getResources().getXml(R.xml.templates);

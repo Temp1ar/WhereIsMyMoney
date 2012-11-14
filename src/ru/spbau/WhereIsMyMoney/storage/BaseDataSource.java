@@ -1,23 +1,23 @@
 package ru.spbau.WhereIsMyMoney.storage;
 
-import java.io.Closeable;
-
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.io.Closeable;
 
 /**
  * Base class for database adapters
  * @author kmu
  */
 public class BaseDataSource implements Closeable {
-	public static final int FOR_READ = 1;
-	public static final int FOR_WRITE = 2;
+	private static final int FOR_READ = 1;
+	private static final int FOR_WRITE = 2;
 	
-	private SQLiteOpenHelper myHelper;
+	private final SQLiteOpenHelper myHelper;
 	private SQLiteDatabase myDatabase;
 	
-	public BaseDataSource(SQLiteOpenHelper helper) {
+	BaseDataSource(SQLiteOpenHelper helper) {
 		myHelper = helper;
 	}
 
@@ -27,7 +27,7 @@ public class BaseDataSource implements Closeable {
 	 * @param mode TransactionLogSource.FOR_READ to open database for reading,
 	 * 		TransactionLogSource.FOR_WRITE to open database for writing
 	 */
-	public void open(int mode) {
+        void open(int mode) {
 		if (mode == FOR_READ) {
 			myDatabase = myHelper.getReadableDatabase();
 			Log.d(getClass().getCanonicalName(), "database " + myDatabase.getPath() + " opened for read");
@@ -49,7 +49,7 @@ public class BaseDataSource implements Closeable {
 		Log.d(getClass().getCanonicalName(), "database " + myDatabase.getPath() + " closed");
 	}
 	
-	public SQLiteDatabase getDatabase() {
+	SQLiteDatabase getDatabase() {
 		return myDatabase;
 	}
 }

@@ -13,7 +13,4 @@ public class CardParser implements Parser {
         return true;
     }
 
-    public String getDescription() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
 }

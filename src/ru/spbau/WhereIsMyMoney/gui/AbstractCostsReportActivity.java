@@ -1,26 +1,19 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
-import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
-import android.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.*;
+import android.widget.ExpandableListView;
+import android.widget.ListView;
+import android.widget.SimpleExpandableListAdapter;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
-import java.lang.Float;
 import java.util.*;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 /**
  * Base class for reports
  */
-public abstract class AbstractCostsReportActivity extends Activity {
+abstract class AbstractCostsReportActivity extends Activity {
     private static final String TAG = AbstractCostsReportActivity.class.getCanonicalName();
     static final String START_DATE = "startDate";
     static final String END_DATE = "endDate";
@@ -121,11 +114,4 @@ public abstract class AbstractCostsReportActivity extends Activity {
         return second2first2value;
     }
 
-    protected Float sum(Collection<Float> numbers) {
-        float sum = 0;
-        for(Float i : numbers) {
-            sum += i;
-        }
-        return sum;
-    }
 }

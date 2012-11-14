@@ -11,10 +11,10 @@ import android.widget.Spinner;
 import ru.spbau.WhereIsMyMoney.R;
 
 public class ParserActivity extends Activity {
-    String smsText;
-    String smsSource;
-    int transactionType = 0;
-    final String[] types = {"Withdraw", "Deposit"};
+    private String smsText;
+    private String smsSource;
+    private int transactionType = 0;
+    private final String[] types = {"Withdraw", "Deposit"};
 
     public void saveParser(View view) {
         EditText sms = (EditText)findViewById(R.id.sms);

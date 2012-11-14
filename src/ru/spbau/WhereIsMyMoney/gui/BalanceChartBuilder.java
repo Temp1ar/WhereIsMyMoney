@@ -1,26 +1,25 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
-import java.util.List;
-
+import android.content.Context;
+import android.content.Intent;
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.BarChart;
 import org.achartengine.model.CategorySeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
-
 import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.Transaction;
-import android.content.Context;
-import android.content.Intent;
+
+import java.util.List;
 
 /**
  * User: Alexander Opeykin alexander.opeykin@gmail.com
  * Date: 11/13/12
  * Time: 10:14 PM
  */
-public class BalanceChartBuilder {
-    private XYMultipleSeriesRenderer renderer;
+class BalanceChartBuilder {
+    private final XYMultipleSeriesRenderer renderer;
     private Context myContext;
 
     public BalanceChartBuilder() {

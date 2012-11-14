@@ -5,8 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import ru.spbau.WhereIsMyMoney.ExistingSmsReader;
 import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.SmsEvent;
@@ -20,10 +25,10 @@ public class SmsViewActivity extends Activity {
     private void createSmsListView() {
         ListView listView = (ListView) findViewById(R.id.sms_list);
 
-        final ArrayList<SmsEvent> smsList = ExistingSmsReader.getAll(getApplicationContext(), null);
+        final ArrayList<SmsEvent> smsList = ExistingSmsReader.getAll(getApplicationContext());
 
         SmsAdapter adapter = new SmsAdapter(this,
-                R.layout.list_item, smsList);
+                smsList);
 
 
         listView.setAdapter(adapter);
@@ -51,10 +56,10 @@ public class SmsViewActivity extends Activity {
 
     private class SmsAdapter extends ArrayAdapter<SmsEvent> {
 
-        private ArrayList<SmsEvent> items;
+        private final ArrayList<SmsEvent> items;
 
-        public SmsAdapter(Context context, int textViewResourceId, ArrayList<SmsEvent> items) {
-            super(context, textViewResourceId, items);
+        public SmsAdapter(Context context, ArrayList<SmsEvent> items) {
+            super(context, R.layout.list_item, items);
             this.items = items;
         }
 

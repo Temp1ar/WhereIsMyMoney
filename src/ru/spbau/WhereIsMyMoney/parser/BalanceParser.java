@@ -3,16 +3,14 @@ package ru.spbau.WhereIsMyMoney.parser;
 import android.util.Log;
 import ru.spbau.WhereIsMyMoney.Transaction;
 
-import java.io.Serializable;
-
 /**
  * User: Alexander Opeykin alexander.opeykin@gmail.com
  * Date: 11/13/12
  * Time: 11:27 AM
  */
 public class BalanceParser implements Parser {
-    private String ignoreSymbols;
-    private char decimalDelimiter;
+    private final String ignoreSymbols;
+    private final char decimalDelimiter;
 
     public BalanceParser(String ignoreSymbols, char decimalDelimiter) {
         this.ignoreSymbols = ignoreSymbols;
@@ -20,13 +18,13 @@ public class BalanceParser implements Parser {
     }
 
     public boolean parse(String string, Transaction result) {
-        String filteredString = new String(string);
+        String filteredString = string;
         for (char c : ignoreSymbols.toCharArray()) {
             filteredString = filteredString.replaceAll(Character.toString(c), "");
         }
         filteredString = filteredString.replace(decimalDelimiter,'.');
         try {
-            result.setBalance(new Float(filteredString));
+            result.setBalance(Float.valueOf(filteredString));
             return true;
         } catch (NumberFormatException e) {
             Log.e(this.getClass().getCanonicalName(), "Can't parse: " + string + " with " + this);
@@ -34,7 +32,4 @@ public class BalanceParser implements Parser {
         }
     }
 
-    public String getDescription() {
-        return this.toString();
-    }
 }

@@ -5,12 +5,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class RegexesStorageHelper extends SQLiteOpenHelper {
+class RegexesStorageHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "regexes.db";
 	private static final int DATABASE_VERSION = 1;
 	
 	public static final String REGEXES_TABLE = "regexes";
-	public static final String COLUMN_ID = "_id";
+	private static final String COLUMN_ID = "_id";
 	private static final String COLUMN_ID_TYPE = "integer primary key autoincrement";
 
 	public static final String COLUMN_SERIALIZED = "serilized";

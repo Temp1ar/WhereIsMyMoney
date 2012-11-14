@@ -1,13 +1,12 @@
 package ru.spbau.WhereIsMyMoney.parser;
 
-import java.util.List;
-import java.util.Map;
-
+import android.content.Context;
 import ru.spbau.WhereIsMyMoney.SmsEvent;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TemplatesSource;
 
-import android.content.Context;
+import java.util.List;
+import java.util.Map;
 
 public class SmsParser {
 	private static final String CARD = "card";

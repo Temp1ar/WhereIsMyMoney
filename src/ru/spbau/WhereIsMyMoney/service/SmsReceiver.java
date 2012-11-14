@@ -1,6 +1,8 @@
 package ru.spbau.WhereIsMyMoney.service;
 
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.*;
 import android.telephony.SmsMessage;
 import android.util.Log;
@@ -55,7 +57,7 @@ public class SmsReceiver extends BroadcastReceiver {
      * @param intent  Intent
      * @return Message
      */
-    protected String buildMessage(Context context, Intent intent) {
+    String buildMessage(Context context, Intent intent) {
         Bundle pdusBundle = intent.getExtras();
         Object[] pdus = (Object[]) pdusBundle.get("pdus");
         SmsMessage message = SmsMessage.createFromPdu((byte[]) pdus[0]);
