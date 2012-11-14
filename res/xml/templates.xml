@@ -24,4 +24,9 @@
 <![CDATA[ {{date:[^\s]*\s+[^\s]*}} {{card:[^:]*?}} : Spisanie sredstv so scheta {{delta:[^\s]*\s+[^\s]*}} kod {{code:[^\s]*}} {{place:[^;]*?}} ; Dostupno : {{balance}} ]]>
 </template>
 
+<!--Alfa bank-->
+<template type="deposit">
+    <![CDATA[ {{card}} ; Postupleniye ; Summa: {{delta}} ; Ostatok: {{balance}} ; {{date}} ]]>
+</template>
+
 </resource>

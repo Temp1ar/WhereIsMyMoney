@@ -1,5 +1,7 @@
 package ru.spbau.WhereIsMyMoney.parser;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -41,6 +43,7 @@ public class TemplateMatcher {
 
         matcher = SPACE_FILLER.matcher(myRegex);
 		myRegex = matcher.replaceAll(SPACE_RE);
+        Log.d(getClass().getCanonicalName(), myRegex);
 	}
 
 	private String plainReplace(String str, String value, String replacement) {
