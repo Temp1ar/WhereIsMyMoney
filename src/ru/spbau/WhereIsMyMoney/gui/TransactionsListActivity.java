@@ -88,20 +88,20 @@ public class TransactionsListActivity extends Activity {
             } else {
                 transactions = db.getTransactionsPerPlaceForPeriod(place, new Date(startTime), new Date(endTime));
             }
-            
-            Button chartButton = (Button) findViewById(R.id.chart_button);
-            chartButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    BalanceChartBuilder builder = new BalanceChartBuilder();
-                    startActivity(builder.getIntent(TransactionsListActivity.this, db.getTransactionsPerCard(cardId)));
-                }
-            });
         }
 
         ArrayAdapter<Transaction> adapter = new TransactionListAdapter(getApplicationContext(), transactions);
 
         ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.transactions);
         listView.setAdapter(adapter);
+
+        Button chartButton = (Button) findViewById(R.id.chart_button);
+        chartButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                BalanceChartBuilder builder = new BalanceChartBuilder();
+                startActivity(builder.getIntent(TransactionsListActivity.this, db.getTransactionsPerCard(cardId)));
+            }
+        });
     }
 
     @Override
