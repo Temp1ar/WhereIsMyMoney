@@ -57,7 +57,11 @@ public class TransactionsListActivity extends Activity {
 
         if (cardId != null) {
             TextView title = (TextView) findViewById(R.id.header);
-            title.setText(getString(R.string.transaction_list_header) + " " + cardId);
+            if (cardId.equals(TransactionLogHelper.CASH)) {
+                title.setText(getString(R.string.transaction_list_header_for_cash));
+            } else {
+                title.setText(getString(R.string.transaction_list_header) + " *" + cardId.substring(cardId.length() - 4, cardId.length()));
+            }
 
             if (startTime == -1 || endTime == -1) {
                 transactions = db.getTransactionsPerCard(cardId);

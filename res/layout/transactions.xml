@@ -43,7 +43,9 @@
             android:layout_height="wrap_content"
             android:text="@string/add"
             android:onClick="saveTransaction"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@drawable/nice_button"
+            style="@style/ShadowedText"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -16,6 +16,7 @@
     <string name="startDate">Start date:</string>
     <string name="endDate">End date:</string>
     <string name="transaction_list_header">Transactions of </string>
+    <string name="transaction_list_header_for_cash">Cash transactions</string>
     <string name="add_transaction_header">Add cash transaction</string>
     <string name="costs_report_setup_header">Generate report</string>
     <string name="costs_report">Report results</string>
