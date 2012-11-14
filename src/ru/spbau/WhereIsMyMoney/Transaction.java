@@ -23,7 +23,7 @@ public class Transaction {
     private String currency = null;
     private float amount = 0;
 
-    Pattern currencyPattern = Pattern.compile("(\\d+(?:\\.\\d+)?)\\s*(.*)\\s*");
+    private final Pattern currencyPattern = Pattern.compile("(\\d+(?:\\.\\d+)?)\\s*(.*)\\s*");
     private static final int AMOUNT_GROUP = 1;
     private static final int CURRENCY_GROUP = 2;
 

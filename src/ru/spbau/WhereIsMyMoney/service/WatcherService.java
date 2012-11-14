@@ -10,7 +10,6 @@ import android.util.Log;
 import ru.spbau.WhereIsMyMoney.SmsEvent;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.parser.BaltBankHelper;
-import ru.spbau.WhereIsMyMoney.storage.TransactionLogHelper;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
 public class WatcherService extends Service {

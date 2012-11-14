@@ -1,27 +1,27 @@
 package ru.spbau.WhereIsMyMoney.storage;
 
-import ru.spbau.WhereIsMyMoney.parser.Template;
-import ru.spbau.WhereIsMyMoney.parser.TemplatesParser;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import ru.spbau.WhereIsMyMoney.parser.Template;
+import ru.spbau.WhereIsMyMoney.parser.TemplatesParser;
 
-public class TemplatesHelper extends SQLiteOpenHelper {
+class TemplatesHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "templates.db";
 	private static final int DATABASE_VERSION = 1;
 	
-	public static final String TABLE_TEMPLATES = "templates";
+	static final String TABLE_TEMPLATES = "templates";
 	
-	public static final String COLUMN_ID = "_id";
-	private static final String COLUMN_ID_TYPE = "integer primary key autoincrement";
+	static final String COLUMN_ID = "_id";
+	static final String COLUMN_ID_TYPE = "integer primary key autoincrement";
 	
-	public static final String COLUMN_TEMPLATE = "template";
-	private static final String COLUMN_TEMPLATE_TYPE = "text not null";
+	static final String COLUMN_TEMPLATE = "template";
+	static final String COLUMN_TEMPLATE_TYPE = "text not null";
 	
-	public static final String COLUMN_TYPE = "type";
-	private static final String COLUMN_TYPE_TYPE = "integer not null";
+	static final String COLUMN_TYPE = "type";
+	static final String COLUMN_TYPE_TYPE = "integer not null";
 	
 	public static final String[] ALL_COLUMNS = {
 		COLUMN_ID, COLUMN_TEMPLATE, COLUMN_TYPE

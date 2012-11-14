@@ -5,8 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import ru.spbau.WhereIsMyMoney.ExistingSmsReader;
 import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.SmsEvent;
@@ -15,15 +20,14 @@ import java.util.ArrayList;
 
 public class SmsViewActivity extends Activity {
     final static String BODY = "body";
-    final static String SOURCE = "source";
 
     private void createSmsListView() {
         ListView listView = (ListView) findViewById(R.id.sms_list);
 
-        final ArrayList<SmsEvent> smsList = ExistingSmsReader.getAll(getApplicationContext(), null);
+        final ArrayList<SmsEvent> smsList = ExistingSmsReader.getAll(getApplicationContext());
 
         SmsAdapter adapter = new SmsAdapter(this,
-                R.layout.list_item, smsList);
+                smsList);
 
 
         listView.setAdapter(adapter);
@@ -35,7 +39,6 @@ public class SmsViewActivity extends Activity {
                                     int position, long id) {
                 Intent intent = new Intent(SmsViewActivity.this, ParserActivity.class);
                 intent.putExtra(BODY, smsList.get(position).getBody());
-                intent.putExtra(SOURCE, smsList.get(position).getSource());
                 startActivity(intent);
             }
 
@@ -51,10 +54,10 @@ public class SmsViewActivity extends Activity {
 
     private class SmsAdapter extends ArrayAdapter<SmsEvent> {
 
-        private ArrayList<SmsEvent> items;
+        private final ArrayList<SmsEvent> items;
 
-        public SmsAdapter(Context context, int textViewResourceId, ArrayList<SmsEvent> items) {
-            super(context, textViewResourceId, items);
+        public SmsAdapter(Context context, ArrayList<SmsEvent> items) {
+            super(context, R.layout.list_item, items);
             this.items = items;
         }
 

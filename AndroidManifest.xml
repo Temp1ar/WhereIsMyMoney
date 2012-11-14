@@ -23,7 +23,7 @@
    <activity android:name=".gui.SmsViewActivity" android:theme="@android:style/Theme.NoTitleBar"/>
    <activity android:name=".gui.ParserActivity" android:theme="@android:style/Theme.NoTitleBar"/>
 
-        <service android:name=".service.WatcherService" android:process=":remote"></service>
+        <service android:name=".service.WatcherService" android:process=":remote"/>
         <receiver android:name=".service.SmsReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>

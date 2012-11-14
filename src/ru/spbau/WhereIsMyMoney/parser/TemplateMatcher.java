@@ -5,13 +5,13 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TemplateMatcher {
+class TemplateMatcher {
 	private static final Pattern TEMPLATE_ARG = Pattern.compile("\\{\\{(.*?)\\}\\}");
 	private static final Pattern SPACE_FILLER = Pattern.compile("\\s+");
 	private static final String GROUP_RE = "(.*)";
 	private static final String SPACE_RE = "\\\\s*";
-	private Map<String, Integer> myMapping = new HashMap<String, Integer>();
-	private String myRegex;
+	private final Map<String, Integer> myMapping = new HashMap<String, Integer>();
+	private final String myRegex;
 	
 	public TemplateMatcher(String template) {
 		Matcher matcher = TEMPLATE_ARG.matcher(template);

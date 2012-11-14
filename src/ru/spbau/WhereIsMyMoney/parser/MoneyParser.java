@@ -1,7 +1,9 @@
 package ru.spbau.WhereIsMyMoney.parser;
 
 
-public class MoneyParser {
+import android.util.Log;
+
+class MoneyParser {
 	private static final char[] SEPARATORS = {'.', ','};
 	private static final char SEPARATOR = '.';
 	
@@ -12,7 +14,8 @@ public class MoneyParser {
 				return Float.parseFloat(num);
 			} catch (Exception e) {}
 		}
-		return null;
+            Log.e(getClass().getCanonicalName(), "Can't parse float from message: " + str);
+            return null;
 	}
 	
 	private String formatWithSeparator(String str, char sep) {

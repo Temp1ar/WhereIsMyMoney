@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import ru.spbau.WhereIsMyMoney.Card;
-import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
@@ -22,7 +21,7 @@ import java.util.List;
  * Shows list of cards.
  */
 public class CardListActivity extends Activity {
-    TransactionLogSource db;
+    private TransactionLogSource db;
 
     private void createCardsListView() {
         ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.cards);
@@ -43,7 +42,7 @@ public class CardListActivity extends Activity {
             cards.add(new Card(card_id, balance));
         }
 
-        ArrayAdapter<Card> adapter = new CardListAdapter(this, R.layout.card_row, cards);
+        ArrayAdapter<Card> adapter = new CardListAdapter(this, cards);
 
         listView.setAdapter(adapter);
 

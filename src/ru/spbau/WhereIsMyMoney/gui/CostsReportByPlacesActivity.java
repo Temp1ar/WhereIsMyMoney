@@ -1,11 +1,7 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
-import android.content.Intent;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.lang.String;
 import java.util.*;
 
 /**
@@ -13,10 +9,10 @@ import java.util.*;
  */
 
 public class CostsReportByPlacesActivity extends AbstractCostsReportActivity{
-    Map<String, Map<String, Float>> places2costs = null;
-    List<String> places = null;
-    Date start = null;
-    Date end = null;
+    private Map<String, Map<String, Float>> places2costs = null;
+    private List<String> places = null;
+    private Date start = null;
+    private Date end = null;
 
     @Override
     protected void init(Date start, Date end) {
