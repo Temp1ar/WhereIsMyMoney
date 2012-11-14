@@ -1,0 +1,11 @@
+<resource>
+    
+<template type="withdraw">
+<![CDATA[ {{card}} ; Vydacha nalichnyh ; USPEShNO ; Summa : {{delta}} ; {{place}} ; {{date}} ; Dostupno : {{balance}} RUR ; ]]>
+</template>
+
+<template type="withdraw">
+<![CDATA[ {{date}} {{card}} : Получение наличных в банкомате {{delta}} {{place}} ; Доступно : {{balance}} ]]>
+</template>
+
+</resource>
