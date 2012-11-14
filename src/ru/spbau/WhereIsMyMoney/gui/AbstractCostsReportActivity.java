@@ -9,6 +9,11 @@ import android.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.*;
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
+
+import java.lang.Float;
+import java.util.*;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -26,7 +31,7 @@ public abstract class AbstractCostsReportActivity extends Activity {
 
     protected abstract void customizeListView(ListView listView);
 
-    protected abstract List<String> getDataForAdapter();
+    protected abstract List<List<Map<String, String>>> getDataForAdapter();
 
     TransactionLogSource db;
 
@@ -49,18 +54,39 @@ public abstract class AbstractCostsReportActivity extends Activity {
 
         init(start, end);
 
-        ArrayAdapter<String> transactions = new ArrayAdapter<String>(this,
-                R.layout.simple_list_item_2, R.id.text1, getDataForAdapter());
+//        ArrayAdapter<String> transactions = new ArrayAdapter<String>(this,
+//                R.layout.simple_list_item_2, R.id.text1, getDataForAdapter());
+//
+//        ListView transactionsView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.transactions);
+//        transactionsView.setAdapter(transactions);
+//        customizeListView(transactionsView);
+//
+//        ArrayAdapter<String> totalVals = new ArrayAdapter<String>(this,
+//                R.layout.simple_list_item_2, R.id.text1, getTotalVals());
 
-        ListView transactionsView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.places);
-        transactionsView.setAdapter(transactions);
-        customizeListView(transactionsView);
+//        ListView totalValsView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.totalVals);
+//        totalValsView.setAdapter(totalVals);
 
-        ArrayAdapter<String> totalVals = new ArrayAdapter<String>(this,
-                R.layout.simple_list_item_2, R.id.text1, getTotalVals());
+        List<Map<String, String>> groupData = new ArrayList<Map<String, String>>();
+        for (String val : getTotalVals()) {
+            Map<String, String> m = new HashMap<String, String>();
+            m.put("groupName", val);
+            groupData.add(m);
+        }
+        String groupFrom[] = new String[] {"groupName"};
+        int groupTo[] = new int[] {android.R.id.text1};
 
-        ListView totalValsView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.totalVals);
-        totalValsView.setAdapter(totalVals);
+        String childFrom[] = new String[] {"amount"};
+        int childTo[] = new int[] {android.R.id.text1};
+
+        List<List<Map<String, String>>> childData = getDataForAdapter();
+
+        SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(this, groupData, android.R.layout.simple_expandable_list_item_1,
+                groupFrom, groupTo, childData, android.R.layout.simple_list_item_1,
+                childFrom, childTo);
+
+        ExpandableListView transactionsView = (ExpandableListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.transactions);
+        transactionsView.setAdapter(adapter);
     }
 
     @Override
@@ -77,6 +103,22 @@ public abstract class AbstractCostsReportActivity extends Activity {
     protected void onStop() {
         super.onStop();
         db.close();
+    }
+
+    Map<String, Map<String, Float>> swapFirstAndSecondKeys(Map<String, Map<String, Float>> input) {
+        Map<String, Map<String, Float>> second2first2value = new HashMap<String, Map<String, Float>>();
+        for (String card : input.keySet()) {
+            Map<String, Float> second2value = input.get(card);
+            for(String currency : second2value.keySet()) {
+                Map<String, Float> first2value = second2first2value.get(currency);
+                if (first2value == null)
+                    first2value = new HashMap<String, Float>();
+
+                first2value.put(card, second2value.get(currency));
+                second2first2value.put(currency, first2value);
+            }
+        }
+        return second2first2value;
     }
 
     protected Float sum(Collection<Float> numbers) {

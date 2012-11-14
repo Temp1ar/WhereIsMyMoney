@@ -14,9 +14,16 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/totalVals"/>
+        android:id="@+id/totalVals_"/>
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/places"/>
+        android:id="@+id/places_"/>
+
+    <ExpandableListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/transactions"/>
+
 </LinearLayout>
