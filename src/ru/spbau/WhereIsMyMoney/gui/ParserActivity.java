@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import ru.spbau.WhereIsMyMoney.R;
+import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.parser.SmsParser;
 import ru.spbau.WhereIsMyMoney.parser.Template;
 import ru.spbau.WhereIsMyMoney.storage.TemplatesSource;
@@ -81,13 +82,12 @@ public class ParserActivity extends Activity {
         Resources res = getResources();
         String[] localizedTypes = res.getStringArray(R.array.type_name);
 
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, localizedTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner type = (Spinner) findViewById(R.id.type);
         type.setAdapter(adapter);
-        type.setSelection(0);
+        type.setSelection(Transaction.NONE);
 
         type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -96,7 +96,7 @@ public class ParserActivity extends Activity {
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
-                transactionType = 0;
+                transactionType = Transaction.NONE;
             }
         });
 

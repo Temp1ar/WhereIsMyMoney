@@ -3,47 +3,47 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-    >
+        >
 
-<LinearLayout style="@style/HeaderLinearLayout">
-    <TextView
-        style="@style/HeaderTextViewNoWidth"
-        android:layout_width="0dp"
-        android:layout_weight=".70"
-        android:gravity="left"
-        android:id="@+id/header"
-        android:layout_marginTop="12dp"/>
+    <LinearLayout style="@style/HeaderLinearLayout">
+        <TextView
+                style="@style/HeaderTextViewNoWidth"
+                android:layout_width="0dp"
+                android:layout_weight=".70"
+                android:gravity="left"
+                android:id="@+id/header"
+                android:layout_marginTop="12dp"/>
 
-    <ImageView
-        android:layout_height="40dp"
-        android:layout_width="40dp"
-        android:src="@drawable/chart"
-        android:id="@+id/chart_view"
-        android:background="@drawable/chart_shape"
-        android:layout_marginTop="6dp"/>
-</LinearLayout>
+        <ImageView
+                android:layout_height="40dp"
+                android:layout_width="40dp"
+                android:src="@drawable/chart"
+                android:id="@+id/chart_view"
+                android:background="@drawable/chart_shape"
+                android:layout_marginTop="6dp"/>
+    </LinearLayout>
 
     <ListView
             android:id="@+id/transactions"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
     </ListView>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="bottom">
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="bottom">
 
         <Button
-            android:id="@+id/add_tr"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/add"
-            android:onClick="saveTransaction"
-            android:layout_weight="1"
-            android:background="@drawable/nice_button"
-            style="@style/ShadowedText"/>
+                android:id="@+id/add_tr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/add"
+                android:onClick="saveTransaction"
+                android:layout_weight="1"
+                android:background="@drawable/nice_button"
+                style="@style/ShadowedText"/>
     </LinearLayout>
 
 </LinearLayout>

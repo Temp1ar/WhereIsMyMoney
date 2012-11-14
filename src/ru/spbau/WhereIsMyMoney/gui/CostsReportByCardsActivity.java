@@ -1,22 +1,19 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import ru.spbau.WhereIsMyMoney.R;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import ru.spbau.WhereIsMyMoney.R;
+
+import java.util.*;
 
 /**
  * Show costs report grouped by cards
  */
+
 public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
-    private Map<String, Map<String,Float>> cards2costs = null;
+    private Map<String, Map<String, Float>> cards2costs = null;
     private Date start = null;
     private Date end = null;
 
@@ -31,7 +28,7 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
     protected Map<String, Float> getTotalVals() {
         Map<String, Float> currency2costs4all = new HashMap<String, Float>();
         for (Map<String, Float> currency2costs : cards2costs.values()) {
-            for(String currency : currency2costs.keySet()) {
+            for (String currency : currency2costs.keySet()) {
                 Float val = currency2costs4all.get(currency);
                 if (val == null)
                     val = 0f;
@@ -45,6 +42,7 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
     @Override
     protected void customizeListView(ExpandableListView listView) {
         listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i2, long l) {
                 Intent intent = new Intent(CostsReportByCardsActivity.this, TransactionsListActivity.class);
 
@@ -72,7 +70,7 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
             List<Map<String, String>> cards = new ArrayList<Map<String, String>>();
 
             Map<String, Float> card2costs = currency2card2costs.get(currency);
-            for(String card : card2costs.keySet()) {
+            for (String card : card2costs.keySet()) {
                 Float costs = card2costs.get(card);
                 Map<String, String> m = new HashMap<String, String>();
                 m.put("name", card);

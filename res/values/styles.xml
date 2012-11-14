@@ -27,7 +27,7 @@
     </style>
 
     <style name="HeaderTextView" parent="HeaderTextViewNoWidth">
-            <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">fill_parent</item>
     </style>
 
     <style name="ShadowedText">

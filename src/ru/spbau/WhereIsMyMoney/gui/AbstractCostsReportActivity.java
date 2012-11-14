@@ -1,23 +1,19 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import ru.spbau.WhereIsMyMoney.R;
-import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
+import ru.spbau.WhereIsMyMoney.R;
+import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
+
+import java.util.*;
 
 /**
  * Base class for reports
  */
-public abstract class AbstractCostsReportActivity extends Activity {
+abstract class AbstractCostsReportActivity extends Activity {
     private static final String TAG = AbstractCostsReportActivity.class.getCanonicalName();
     static final String START_DATE = "startDate";
     static final String END_DATE = "endDate";
@@ -26,8 +22,7 @@ public abstract class AbstractCostsReportActivity extends Activity {
     private static final String NAME = "name";
     private static final String AMOUNT = "amount";
 
-
-    protected  abstract void init(Date start, Date end);
+    protected abstract void init(Date start, Date end);
 
     protected abstract Map<String, Float> getTotalVals();
 
@@ -64,11 +59,11 @@ public abstract class AbstractCostsReportActivity extends Activity {
             m.put(VALUE, totalVals.get(currency).toString());
             groupData.add(m);
         }
-        String groupFrom[] = new String[] {VALUE, CURRENCY_NAME};
-        int groupTo[] = new int[] {R.id.curr_totalVal, R.id.curr_name};
+        String groupFrom[] = new String[]{VALUE, CURRENCY_NAME};
+        int groupTo[] = new int[]{R.id.curr_totalVal, R.id.curr_name};
 
-        String childFrom[] = new String[] {NAME, AMOUNT};
-        int childTo[] = new int[] {R.id.child_name, R.id.child_amount};
+        String childFrom[] = new String[]{NAME, AMOUNT};
+        int childTo[] = new int[]{R.id.child_name, R.id.child_amount};
 
         List<List<Map<String, String>>> childData = getDataForAdapter();
 
@@ -102,7 +97,7 @@ public abstract class AbstractCostsReportActivity extends Activity {
         Map<String, Map<String, Float>> second2first2value = new HashMap<String, Map<String, Float>>();
         for (String card : input.keySet()) {
             Map<String, Float> second2value = input.get(card);
-            for(String currency : second2value.keySet()) {
+            for (String currency : second2value.keySet()) {
                 Map<String, Float> first2value = second2first2value.get(currency);
                 if (first2value == null)
                     first2value = new HashMap<String, Float>();

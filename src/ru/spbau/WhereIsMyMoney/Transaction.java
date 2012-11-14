@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
  * Time: 3:32 PM
  */
 public class Transaction {
-	public static final int WITHDRAW = 0;
-	public static final int DEPOSIT = 1;
-	public static final int NONE = 2;
+    public static final int WITHDRAW = 0;
+    public static final int DEPOSIT = 1;
+    public static final int NONE = 2;
 
     private Date date;
     private String place;
@@ -23,15 +23,9 @@ public class Transaction {
     private String currency = null;
     private float amount = 0;
 
-    private final Pattern currencyPattern = Pattern.compile("(\\d+(?:\\.\\d+)?)\\s*(.*)\\s*");
-    private final Pattern currencyPatternWithDot = Pattern.compile("((\\d|,)+(?:\\.\\d+)?)\\s*(.*)\\s*");
-    private final Pattern currencyPatternWithComma = Pattern.compile("((\\d|\\.)+(?:,\\d+)?)\\s*(.*)\\s*");
     private static final int AMOUNT_GROUP = 1;
     private static final int CURRENCY_GROUP = 2;
 
-    public Transaction() {
-    }
-    
     public Transaction(Date date, String place, String card, String delta, float balance, int type) {
         this.date = date;
         this.place = place == null ? "" : place;
@@ -40,14 +34,16 @@ public class Transaction {
         this.balance = balance;
         this.type = type;
 
-        String normalized = delta.replaceAll("[\\s]","");
+        String normalized = delta.replaceAll("[\\s]", "");
+        Pattern currencyPatternWithDot = Pattern.compile("((\\d|,)+(?:\\.\\d+)?)\\s*(.*)\\s*");
+        Pattern currencyPatternWithComma = Pattern.compile("((\\d|\\.)+(?:,\\d+)?)\\s*(.*)\\s*");
         if (currencyPatternWithDot.matcher(normalized).matches()) {
             normalized = normalized.replaceAll(",", "");
-        }
-        else if (currencyPatternWithComma.matcher(normalized).matches()) {
-            normalized = normalized.replaceAll(".", "").replace(',','.');
+        } else if (currencyPatternWithComma.matcher(normalized).matches()) {
+            normalized = normalized.replaceAll(".", "").replace(',', '.');
         }
 
+        Pattern currencyPattern = Pattern.compile("(\\d+(?:\\.\\d+)?)\\s*(.*)\\s*");
         Matcher matcher = currencyPattern.matcher(normalized);
 
         if (matcher.matches()) {
@@ -76,6 +72,7 @@ public class Transaction {
     public float getAmount() {
         return amount;
     }
+
     public String getCurrency() {
         return currency;
     }
@@ -83,32 +80,8 @@ public class Transaction {
     public float getBalance() {
         return balance;
     }
-    
+
     public int getType() {
-    	return type;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public void setCard(String card) {
-        this.card = card;
-    }
-
-    public void setDelta(String delta) {
-        this.delta = delta;
-    }
-
-    public void setBalance(float balance) {
-        this.balance = balance;
-    }
-
-    public void setType(int type) {
-        this.type = type;
+        return type;
     }
 }

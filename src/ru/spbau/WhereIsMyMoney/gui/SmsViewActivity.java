@@ -65,7 +65,7 @@ public class SmsViewActivity extends Activity {
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = convertView;
             if (v == null) {
-                LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 v = vi.inflate(R.layout.list_item, null);
             }
             SmsEvent o = items.get(position);
@@ -75,7 +75,7 @@ public class SmsViewActivity extends Activity {
                 if (tt != null) {
                     tt.setText(o.getSource());
                 }
-                if(bt != null){
+                if (bt != null) {
                     bt.setText(o.getBody());
                 }
             }

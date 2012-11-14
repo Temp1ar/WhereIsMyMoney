@@ -21,7 +21,7 @@ public class SmsReceiver extends BroadcastReceiver {
         Log.d(TAG, "onReceive");
         Intent serviceIntent = new Intent(context, WatcherService.class);
         IBinder binder = peekService(context, serviceIntent);
-        String message = buildMessage(context, intent);
+        String message = buildMessage(intent);
         if (binder == null) {
             Log.d(TAG, "WatcherService isn't running. Trying to start.");
             serviceIntent.putExtra(WatcherService.SMS_EVENT, message);
@@ -53,11 +53,11 @@ public class SmsReceiver extends BroadcastReceiver {
     /**
      * Message that will be sent to server when incoming sms received
      *
-     * @param context Context
+     *
      * @param intent  Intent
      * @return Message
      */
-    String buildMessage(Context context, Intent intent) {
+    String buildMessage(Intent intent) {
         Bundle pdusBundle = intent.getExtras();
         Object[] pdus = (Object[]) pdusBundle.get("pdus");
         SmsMessage message = SmsMessage.createFromPdu((byte[]) pdus[0]);

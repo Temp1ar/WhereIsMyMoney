@@ -20,7 +20,7 @@ import java.util.List;
  */
 class BalanceChartBuilder {
     private final XYMultipleSeriesRenderer renderer;
-    private Context myContext;
+    private Context context;
 
     public BalanceChartBuilder() {
         renderer = new XYMultipleSeriesRenderer();
@@ -28,7 +28,7 @@ class BalanceChartBuilder {
 
     public Intent getIntent(Context context, List<Transaction> transactions) {
         setChartSettings(transactions);
-        myContext = context;
+        this.context = context;
         readSettings();
         return ChartFactory.getBarChartIntent(context, getDataset(transactions), renderer, BarChart.Type.DEFAULT);
     }
@@ -43,7 +43,7 @@ class BalanceChartBuilder {
         renderer.setZoomEnabled(true, false);
         renderer.setAntialiasing(true);
         SimpleSeriesRenderer r = new SimpleSeriesRenderer();
-        r.setColor(myContext.getResources().getColor(R.color.graph_color));
+        r.setColor(context.getResources().getColor(R.color.graph_color));
         renderer.addSeriesRenderer(r);
     }
 
@@ -54,7 +54,7 @@ class BalanceChartBuilder {
         renderer.setXAxisMax(transactions.size() + 1);
         renderer.setYAxisMin(getMinBalance(transactions) * 0.9);
         renderer.setYAxisMax(getMaxBalance(transactions) * 1.1);  // additional 10%
-        renderer.setPanLimits(new double[] {0, transactions.size() + 1, getMinBalance(transactions), getMaxBalance(transactions)});
+        renderer.setPanLimits(new double[]{0, transactions.size() + 1, getMinBalance(transactions), getMaxBalance(transactions)});
     }
 
     private float getMaxBalance(List<Transaction> transactions) {

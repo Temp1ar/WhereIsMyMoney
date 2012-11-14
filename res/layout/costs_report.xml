@@ -7,13 +7,13 @@
 
     <LinearLayout style="@style/HeaderLinearLayout">
         <TextView
-            style="@style/HeaderTextView"
-            android:text="@string/costs_report"/>
+                style="@style/HeaderTextView"
+                android:text="@string/costs_report"/>
     </LinearLayout>
 
     <ExpandableListView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/transactions"/>
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/transactions"/>
 
 </LinearLayout>
