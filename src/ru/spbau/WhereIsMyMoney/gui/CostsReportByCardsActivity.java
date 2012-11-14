@@ -13,11 +13,15 @@ import java.util.*;
 public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
     Map<String, Map<String,Float>> cards2costs = null;
     List<String> cards = null;
+    Date start = null;
+    Date end = null;
 
     @Override
     protected void init(Date start, Date end) {
-        cards2costs = db.getCostsPerCardsForPeriod(start, end);
-        cards = new ArrayList<String>(cards2costs.keySet());
+        this.cards2costs = db.getCostsPerCardsForPeriod(start, end);
+        this.cards = new ArrayList<String>(cards2costs.keySet());
+        this.start = start;
+        this.end = end;
     }
 
     @Override
@@ -46,8 +50,12 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent intent = new Intent(CostsReportByCardsActivity.this, TransactionsListActivity.class);
-                String card = cards.get(position);
-                intent.putExtra(TransactionsListActivity.ID_PARAM, card);
+                intent.putExtra(TransactionsListActivity.ID_PARAM, cards.get(position));
+                if (start != null)
+                    intent.putExtra(AbstractCostsReportActivity.START_DATE, start.getTime());
+                if (end != null)
+                    intent.putExtra(AbstractCostsReportActivity.END_DATE, end.getTime());
+
                 startActivity(intent);
             }
         });
