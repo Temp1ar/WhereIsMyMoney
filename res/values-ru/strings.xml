@@ -19,4 +19,5 @@
     <string name="add_transaction_header">Ручное добавление транзакции</string>
     <string name="costs_report_setup_header">Создать отчёт</string>
     <string name="costs_report">Отображение отчёта</string>
+    <string name="cash_account">Наличные</string>
 </resources>

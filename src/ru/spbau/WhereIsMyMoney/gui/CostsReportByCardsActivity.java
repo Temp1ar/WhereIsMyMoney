@@ -66,7 +66,7 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
                 }
             }
             for(String currency : currency2costs.keySet()) {
-                dataForAdapter.add(card + "\n" + currency2costs.get(currency).toString() +" " + currency);
+                dataForAdapter.add(card + "\n" + currency2costs.get(currency).toString() + " " + currency);
             }
         }
 
