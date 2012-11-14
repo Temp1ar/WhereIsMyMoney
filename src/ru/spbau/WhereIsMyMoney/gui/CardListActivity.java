@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
+import android.widget.*;
 import ru.spbau.WhereIsMyMoney.Card;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
@@ -25,7 +22,7 @@ public class CardListActivity extends Activity {
 
     private void createCardsListView() {
         ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.cards);
-        Button makeReport = (Button) findViewById(ru.spbau.WhereIsMyMoney.R.id.makeReport);
+        ImageView makeReport = (ImageView) findViewById(ru.spbau.WhereIsMyMoney.R.id.makeReport);
 
         makeReport.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
