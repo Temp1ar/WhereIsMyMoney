@@ -56,6 +56,7 @@ class BalanceChartBuilder {
         renderer.setXAxisMax(transactions.size() + 1);
         renderer.setYAxisMin(getMinBalance(transactions) * 0.9);
         renderer.setYAxisMax(getMaxBalance(transactions) * 1.1);  // additional 10%
+        renderer.setPanLimits(new double[] {0, transactions.size() + 1, getMinBalance(transactions), getMaxBalance(transactions)});
     }
 
     private float getMaxBalance(List<Transaction> transactions) {
