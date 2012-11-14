@@ -9,6 +9,7 @@ import org.achartengine.model.CategorySeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.Transaction;
 
 import java.util.List;
@@ -20,33 +21,38 @@ import java.util.List;
  */
 public class BalanceChartBuilder {
     private XYMultipleSeriesRenderer renderer;
+    private Context myContext;
 
     public BalanceChartBuilder() {
         renderer = new XYMultipleSeriesRenderer();
-        readSettings();
     }
 
     public Intent getIntent(Context context, List<Transaction> transactions) {
         setChartSettings(transactions);
+        myContext = context;
+        readSettings();
         return ChartFactory.getBarChartIntent(context, getDataset(transactions), renderer, BarChart.Type.DEFAULT);
     }
 
     private void readSettings() {
         renderer.setAxisTitleTextSize(16);
-        renderer.setChartTitleTextSize(20);
+//        renderer.setChartTitleTextSize(20);
         renderer.setLabelsTextSize(15);
-        renderer.setLegendTextSize(0);
-        renderer.setBarSpacing(0.05);
-        renderer.setMargins(new int[] {20, 30, 15, 5});
+        renderer.setLegendTextSize(18);
+        renderer.setBarSpacing(1);
+        renderer.setMargins(new int[]{20, 30, 15, 5});
+        renderer.setPanEnabled(true, false);
+        renderer.setZoomEnabled(true, false);
+        renderer.setAntialiasing(true);
         SimpleSeriesRenderer r = new SimpleSeriesRenderer();
-        r.setColor(Color.BLUE);
+        r.setColor(myContext.getResources().getColor(R.color.graph_color));
         renderer.addSeriesRenderer(r);
     }
 
     private void setChartSettings(List<Transaction> transactions) {
-        renderer.setChartTitle("Chart demo");
+        //renderer.setChartTitle("Chart demo");
         renderer.setXTitle("transactions");
-        renderer.setYTitle("balance ");
+        renderer.setYTitle("balance");
         renderer.setXAxisMin(0);
         renderer.setXAxisMax(transactions.size() + 1);
         renderer.setYAxisMin(0);

@@ -19,7 +19,7 @@
    <activity android:name=".gui.CostsReportByPlacesActivity" android:theme="@android:style/Theme.NoTitleBar"/>
    <activity android:name=".gui.CostsReportSetupActivity" android:theme="@android:style/Theme.NoTitleBar"/>
    <activity android:name=".gui.AddTransactionActivity" android:theme="@android:style/Theme.NoTitleBar"/>
-   <activity android:name="org.achartengine.GraphicalActivity"/>
+   <activity android:name="org.achartengine.GraphicalActivity" android:theme="@android:style/Theme.NoTitleBar"/>
 
    <service android:name=".service.WatcherService" android:process=":remote"></service>
    <receiver android:name=".service.SmsReceiver">
