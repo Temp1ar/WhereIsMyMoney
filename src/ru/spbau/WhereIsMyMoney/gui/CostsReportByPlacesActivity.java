@@ -2,8 +2,9 @@ package ru.spbau.WhereIsMyMoney.gui;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
+import android.widget.TextView;
+import ru.spbau.WhereIsMyMoney.R;
 
 import java.lang.String;
 import java.util.*;
@@ -27,7 +28,7 @@ public class CostsReportByPlacesActivity extends AbstractCostsReportActivity{
     }
 
     @Override
-    protected List<String> getTotalVals() {
+    protected Map<String, Float> getTotalVals() {
         Map<String, Float> currency2costs4all = new HashMap<String, Float>();
         for (Map<String, Float> currency2costs : places2costs.values()) {
             for(String currency : currency2costs.keySet()) {
@@ -38,29 +39,28 @@ public class CostsReportByPlacesActivity extends AbstractCostsReportActivity{
             }
         }
 
-        List<String> ret = new ArrayList<String>();
-        for (String currency : currency2costs4all.keySet()) {
-            ret.add(currency2costs4all.get(currency).toString() + " " + currency);
-        }
-
-        return ret;
+        return currency2costs4all;
     }
 
     @Override
-    protected void customizeListView(ListView listView) {
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//                Intent intent = new Intent(CostsReportByPlacesActivity.this, TransactionsListActivity.class);
-//                intent.putExtra(TransactionsListActivity.PLACE, places.get(position));
-//                if (start != null)
-//                    intent.putExtra(CostsReportByPlacesActivity.START_DATE, start.getTime());
-//                if (end != null)
-//                    intent.putExtra(CostsReportByPlacesActivity.END_DATE, end.getTime());
-//
-//                startActivity(intent);
-//            }
-//        });
+    protected void customizeListView(ExpandableListView listView) {
+        listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i2, long l) {
+                Intent intent = new Intent(CostsReportByPlacesActivity.this, TransactionsListActivity.class);
+
+                TextView place = (TextView) view.findViewById(R.id.child_name);
+                intent.putExtra(TransactionsListActivity.PLACE, place.getText());
+
+                if (start != null)
+                    intent.putExtra(CostsReportByPlacesActivity.START_DATE, start.getTime());
+                if (end != null)
+                    intent.putExtra(CostsReportByPlacesActivity.END_DATE, end.getTime());
+
+                startActivity(intent);
+
+                return true;
+            }
+        });
     }
 
     @Override
@@ -75,7 +75,7 @@ public class CostsReportByPlacesActivity extends AbstractCostsReportActivity{
             for(String place : place2costs.keySet()) {
                 Float costs = place2costs.get(place);
                 Map<String, String> m = new HashMap<String, String>();
-                m.put("place", place);
+                m.put("name", place);
                 m.put("amount", costs.toString());
 
                 places.add(m);

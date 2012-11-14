@@ -5,17 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
-import android.R;
+import ru.spbau.WhereIsMyMoney.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.*;
-import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
 import java.lang.Float;
 import java.util.*;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 /**
  * Base class for reports
@@ -27,9 +24,9 @@ public abstract class AbstractCostsReportActivity extends Activity {
 
     protected  abstract void init(Date start, Date end);
 
-    protected abstract List<String> getTotalVals();
+    protected abstract Map<String, Float> getTotalVals();
 
-    protected abstract void customizeListView(ListView listView);
+    protected abstract void customizeListView(ExpandableListView listView);
 
     protected abstract List<List<Map<String, String>>> getDataForAdapter();
 
@@ -54,39 +51,30 @@ public abstract class AbstractCostsReportActivity extends Activity {
 
         init(start, end);
 
-//        ArrayAdapter<String> transactions = new ArrayAdapter<String>(this,
-//                R.layout.simple_list_item_2, R.id.text1, getDataForAdapter());
-//
-//        ListView transactionsView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.transactions);
-//        transactionsView.setAdapter(transactions);
-//        customizeListView(transactionsView);
-//
-//        ArrayAdapter<String> totalVals = new ArrayAdapter<String>(this,
-//                R.layout.simple_list_item_2, R.id.text1, getTotalVals());
-
-//        ListView totalValsView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.totalVals);
-//        totalValsView.setAdapter(totalVals);
-
         List<Map<String, String>> groupData = new ArrayList<Map<String, String>>();
-        for (String val : getTotalVals()) {
+        Map<String, Float> totalVals = getTotalVals();
+        for (String currency : totalVals.keySet()) {
             Map<String, String> m = new HashMap<String, String>();
-            m.put("groupName", val);
+            m.put("currName", currency);
+            m.put("val", totalVals.get(currency).toString());
             groupData.add(m);
         }
-        String groupFrom[] = new String[] {"groupName"};
-        int groupTo[] = new int[] {android.R.id.text1};
+        String groupFrom[] = new String[] {"val", "currName"};
+        int groupTo[] = new int[] {R.id.curr_totalVal, R.id.curr_name};
 
-        String childFrom[] = new String[] {"amount"};
-        int childTo[] = new int[] {android.R.id.text1};
+        String childFrom[] = new String[] {"name", "amount", "img"};
+        int childTo[] = new int[] {R.id.child_name, R.id.child_amount};
 
         List<List<Map<String, String>>> childData = getDataForAdapter();
 
-        SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(this, groupData, android.R.layout.simple_expandable_list_item_1,
-                groupFrom, groupTo, childData, android.R.layout.simple_list_item_1,
+        SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(this, groupData, R.layout.costs_report_group_row,
+                groupFrom, groupTo, childData, R.layout.costs_report_child_row,
                 childFrom, childTo);
 
         ExpandableListView transactionsView = (ExpandableListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.transactions);
         transactionsView.setAdapter(adapter);
+
+        customizeListView(transactionsView);
     }
 
     @Override
