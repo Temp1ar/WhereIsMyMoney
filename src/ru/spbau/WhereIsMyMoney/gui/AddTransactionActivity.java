@@ -3,8 +3,10 @@ package ru.spbau.WhereIsMyMoney.gui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.BaseDataSource;
@@ -27,11 +29,19 @@ public class AddTransactionActivity extends Activity {
         int type = Transaction.DEPOSIT;
         if (delta.charAt(0) == '-') {
             type = Transaction.WITHDRAW;
-            delta = delta.substring(1);
         }
 
+        float balance = transactions.get(0).getBalance();
+
+        try {
+            balance += Float.parseFloat(delta);
+        } catch (NumberFormatException e) {
+            Log.w(getClass().getCanonicalName(), "Can't parse " + delta + " as float");
+            Toast.makeText(getApplicationContext(), "Can't parse " + delta + " as float", Toast.LENGTH_SHORT).show();
+            return;
+        }
         db.addTransaction(new Transaction(new Date(), place, cardId, delta,
-                transactions.get(transactions.size() - 1).getBalance() + Integer.parseInt(delta),
+                balance,
                 type));
         finish();
     }
