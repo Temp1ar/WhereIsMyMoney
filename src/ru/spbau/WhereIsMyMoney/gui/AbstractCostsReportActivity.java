@@ -74,6 +74,9 @@ abstract class AbstractCostsReportActivity extends Activity {
         ExpandableListView transactionsView = (ExpandableListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.transactions);
         transactionsView.setAdapter(adapter);
 
+        for(int i=0; i < adapter.getGroupCount(); i++)
+            transactionsView.expandGroup(i);
+
         customizeListView(transactionsView);
     }
 

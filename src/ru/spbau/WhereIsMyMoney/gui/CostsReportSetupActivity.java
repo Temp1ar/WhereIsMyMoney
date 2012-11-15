@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import ru.spbau.WhereIsMyMoney.R;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 
@@ -27,6 +28,10 @@ public class CostsReportSetupActivity extends Activity {
 
         final DatePicker startDate = (DatePicker) findViewById(ru.spbau.WhereIsMyMoney.R.id.startDate);
         final DatePicker endDate = (DatePicker) findViewById(ru.spbau.WhereIsMyMoney.R.id.endDate);
+
+        Date date = new Date();
+        startDate.updateDate(date.getYear() + 1900, date.getMonth(), 1);
+
         Button showReportByCards = (Button) findViewById(R.id.showReportByCards);
         Button showReportByPlaces = (Button) findViewById(R.id.showReportByPlaces);
 

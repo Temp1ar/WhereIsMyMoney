@@ -19,8 +19,8 @@
     <string name="transaction_list_header_for_cash">Транзакции с наличными
     </string>
     <string name="add_transaction_header">Ручное добавление транзакции</string>
-    <string name="costs_report_setup_header">Создать отчёт</string>
-    <string name="costs_report">Отображение отчёта</string>
+    <string name="costs_report_setup_header">Отчёт по затратам</string>
+    <string name="costs_report">Отображение затрат</string>
     <string name="cash_account">Наличные</string>
     <string name="sms">Пример СМС</string>
     <string name="parse_sms">Разбор СМС</string>
@@ -31,6 +31,7 @@
     <string name="refresh_history">Обновить историю</string>
     <string name="change">Пометить</string>
     <string name="balance_change">Изменение баланса</string>
+    <string name="transactions_for_place">места</string>
     <string-array name="field_name">
         <item>Карта</item>
         <item>Место</item>

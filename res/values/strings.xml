@@ -18,8 +18,8 @@
     <string name="transaction_list_header">Transactions of</string>
     <string name="transaction_list_header_for_cash">Cash transactions</string>
     <string name="add_transaction_header">Add cash transaction</string>
-    <string name="costs_report_setup_header">Generate report</string>
-    <string name="costs_report">Report results</string>
+    <string name="costs_report_setup_header">Generate expenses report</string>
+    <string name="costs_report">Expenses report</string>
     <string name="sms">SMS example</string>
     <string name="parse_sms">Parse SMS example</string>
     <string name="special_word">Special word</string>
@@ -30,6 +30,7 @@
     <string name="refresh_history">Refresh</string>
     <string name="change">Mark</string>
     <string name="balance_change">Change of balance</string>
+    <string name="transactions_for_place">for place</string>
     <string-array name="field_name">
         <item>Card</item>
         <item>Place</item>

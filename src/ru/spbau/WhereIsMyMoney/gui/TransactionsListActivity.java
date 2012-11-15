@@ -52,7 +52,7 @@ public class TransactionsListActivity extends Activity {
         db = new TransactionLogSource(getApplicationContext());
         db.open();
 
-        List<Transaction> transactions;
+        final List<Transaction> transactions;
 
         cardId = intent.getStringExtra(ID_PARAM);
 
@@ -82,8 +82,11 @@ public class TransactionsListActivity extends Activity {
             if (place == null)
                 return;
 
+            if (place.equals(getString(R.string.unknown_place)))
+                place = "";
+
             TextView title = (TextView) findViewById(R.id.header);
-            title.setText(getString(R.string.transaction_list_header) + " place");
+            title.setText(getString(R.string.transaction_list_header) + " " + getString(R.string.transactions_for_place));
 
             if (startTime == -1 || endTime == -1) {
                 transactions = db.getTransactionsPerPlace(place);
@@ -101,7 +104,6 @@ public class TransactionsListActivity extends Activity {
         chartView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 BalanceChartBuilder builder = new BalanceChartBuilder();
-                List<Transaction> transactions = db.getTransactionsPerCard(cardId);
                 Collections.reverse(transactions);
                 startActivity(builder.getIntent(TransactionsListActivity.this, transactions));
             }

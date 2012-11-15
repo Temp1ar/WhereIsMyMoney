@@ -72,7 +72,11 @@ public class CostsReportByPlacesActivity extends AbstractCostsReportActivity {
             for (String place : place2costs.keySet()) {
                 Float costs = place2costs.get(place);
                 Map<String, String> m = new HashMap<String, String>();
-                m.put("name", place);
+                if (place == null || place.trim().equals("")) {
+                    m.put("name", getString(R.string.unknown_place));
+                } else {
+                    m.put("name", place);
+                }
                 m.put("amount", costs.toString());
 
                 places.add(m);
