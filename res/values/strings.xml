@@ -22,13 +22,14 @@
     <string name="costs_report">Report results</string>
     <string name="sms">SMS example</string>
     <string name="parse_sms">Parse SMS example</string>
-    <string name="type">Transaction type</string>
+    <string name="special_word">Special word</string>
     <string name="choose_sms">Choose SMS to parse</string>
     <string name="cash_account">Cash</string>
     <string name="add_parser">Add parser</string>
     <string name="drop_parsers">Drop parsers</string>
     <string name="refresh_history">Refresh</string>
-    <string name="change">Mark as word</string>
+    <string name="change">Mark</string>
+    <string name="balance_change">Change of balance</string>
     <string-array name="field_name">
         <item>Card</item>
         <item>Place</item>
@@ -39,6 +40,6 @@
     <string-array name="type_name">
         <item>Withdraw</item>
         <item>Deposit</item>
-        <item>Balance not changed</item>
+        <item>Not changed</item>
     </string-array>
 </resources>

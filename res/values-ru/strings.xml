@@ -23,13 +23,14 @@
     <string name="costs_report">Отображение отчёта</string>
     <string name="cash_account">Наличные</string>
     <string name="sms">Пример СМС</string>
-    <string name="parse_sms">Пример разбора СМС</string>
-    <string name="type">Тип транзакции</string>
+    <string name="parse_sms">Разбор СМС</string>
+    <string name="special_word">Специальное слово</string>
     <string name="choose_sms">Выберите СМС для разбора</string>
     <string name="add_parser">Добавить парсер</string>
     <string name="drop_parsers">Сбросить парсеры</string>
     <string name="refresh_history">Обновить историю</string>
-    <string name="change">Пометить слово</string>
+    <string name="change">Пометить</string>
+    <string name="balance_change">Изменение баланса</string>
     <string-array name="field_name">
         <item>Карта</item>
         <item>Место</item>
@@ -40,6 +41,6 @@
     <string-array name="type_name">
         <item>Расход</item>
         <item>Пополнение</item>
-        <item>Баланс не изменился</item>
+        <item>Не изменился</item>
     </string-array>
 </resources>
