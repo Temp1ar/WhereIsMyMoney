@@ -1,6 +1,7 @@
 package ru.spbau.WhereIsMyMoney.parser;
 
 import android.content.Context;
+import android.util.Pair;
 import ru.spbau.WhereIsMyMoney.SmsEvent;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TemplatesSource;
@@ -57,8 +58,9 @@ public class SmsParser {
         if (balanceStr == null) {
             return null;
         }
-        MoneyParser parser = new MoneyParser();
-        Float balance = parser.parse(balanceStr);
+
+        Pair<Float, String> money = MoneyParser.parse(balanceStr);
+        Float balance = money.first;
         if (balance != null) {
             return new Transaction(sms.getDate(), place, card, delta, balance, type);
         }

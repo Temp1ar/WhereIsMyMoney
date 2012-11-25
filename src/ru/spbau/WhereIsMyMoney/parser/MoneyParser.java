@@ -2,27 +2,49 @@ package ru.spbau.WhereIsMyMoney.parser;
 
 
 import android.util.Log;
+import android.util.Pair;
 
-class MoneyParser {
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+final public class MoneyParser {
+    private static final String TAG = MoneyParser.class.getCanonicalName();
+
     private static final char[] SEPARATORS = {'.', ','};
     private static final char SEPARATOR = '.';
 
-    public Float parse(String str) {
+    private static final int AMOUNT_GROUP = 1;
+    private static final int CURRENCY_GROUP = 2;
+
+    private static final Pattern CURRENCY_PATTERN = Pattern.compile("([^a-zA-Z]*)(\\w*).*");
+
+    static public Pair<Float, String> parse(String str) {
         for (char sep : SEPARATORS) {
-            String num = formatWithSeparator(str, sep);
+            Pair<String, String> money = formatWithSeparator(str, sep);
             try {
-                return Float.parseFloat(num);
+                return new Pair<Float, String>(Float.parseFloat(money.first), money.second);
             } catch (Exception e) {
             }
         }
-        Log.e(getClass().getCanonicalName(), "Can't parse float from message: " + str);
+        Log.e(TAG, "Can't parse float from message: " + str);
         return null;
     }
 
-    private String formatWithSeparator(String str, char sep) {
+    static private Pair<String, String> formatWithSeparator(String str, char sep) {
+        Matcher matcher = CURRENCY_PATTERN.matcher(str);
+        String amount = "";
+        String currency = "";
+
+        if (matcher.matches()) {
+            amount = matcher.group(AMOUNT_GROUP);
+            currency = matcher.group(CURRENCY_GROUP);
+            if (currency == null)
+                currency = "";
+        }
+
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < str.length(); ++i) {
-            char c = str.charAt(i);
+        for (int i = 0; i < amount.length(); ++i) {
+            char c = amount.charAt(i);
             if (c == sep) {
                 c = SEPARATOR;
             }
@@ -30,6 +52,6 @@ class MoneyParser {
                 sb.append(c);
             }
         }
-        return sb.toString();
+        return new Pair<String, String>(sb.toString(), currency);
     }
 }
