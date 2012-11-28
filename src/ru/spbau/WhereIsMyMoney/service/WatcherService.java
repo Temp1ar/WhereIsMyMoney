@@ -63,7 +63,9 @@ public class WatcherService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand");
-        processMessage(intent.getStringExtra(SMS_EVENT));
+        if (intent != null) {
+            processMessage(intent.getStringExtra(SMS_EVENT));
+        }
         return START_STICKY;
     }
 }
