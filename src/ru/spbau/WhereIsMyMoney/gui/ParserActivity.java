@@ -39,7 +39,7 @@ public class ParserActivity extends Activity {
         TransactionLogSource db = new TransactionLogSource(getApplicationContext());
         TransactionLogHelper helper = new TransactionLogHelper(getApplicationContext());
         db.open();
-        helper.insertExistingSms(db.getDatabase(), parser);
+        helper.processExistingSmses(db.getDatabase(), parser);
         db.close();
         templatesSource.addTemplate(template);
         templatesSource.close();

@@ -74,21 +74,15 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
         Log.d(getClass().getCanonicalName(), "create " + DATABASE_NAME);
         db.execSQL(CREATE_TABLE);
         insertCash(db);
-        insertExistingSms(db, new SmsParser(context));
+        processExistingSmses(db, new SmsParser(context));
     }
 
-    public void insertExistingSms(SQLiteDatabase db, SmsParser parser) {
+    public void processExistingSmses(SQLiteDatabase db, SmsParser parser) {
         Log.d(getClass().getCanonicalName(), "inserting existing sms");
-        ArrayList<SmsEvent> array = ExistingSmsReader.getAll(context);
+        ArrayList<SmsEvent> smsEvents = ExistingSmsReader.getAll(context);
 
-        //BaltBankHelper baltBankHelper = new BaltBankHelper();
-        //Transaction transaction;
-        for (SmsEvent anArray : array) {
-            //    if ((transaction = baltBankHelper.tryParse(array.get(i).getBody())) != null) {
-            //        addTransaction(transaction, db);
-            //        continue;
-            //    }
-            Transaction trans = parser.parseSms(anArray);
+        for (SmsEvent smsEvent : smsEvents) {
+            Transaction trans = parser.parseSms(smsEvent);
             if (trans != null) {
                 addTransaction(trans, db);
             }
@@ -115,14 +109,14 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 
     public static void addTransaction(Transaction transaction, SQLiteDatabase db) {
         ContentValues dbTransaction = new ContentValues();
-        dbTransaction.put(TransactionLogHelper.COLUMN_CARD, transaction.getCard());
-        dbTransaction.put(TransactionLogHelper.COLUMN_DELTA, transaction.getDelta());
-        dbTransaction.put(TransactionLogHelper.COLUMN_DATE, transaction.getDate().getTime());
-        dbTransaction.put(TransactionLogHelper.COLUMN_BALANCE, transaction.getBalance());
-        dbTransaction.put(TransactionLogHelper.COLUMN_TYPE, transaction.getType());
-        dbTransaction.put(TransactionLogHelper.COLUMN_PLACE, transaction.getPlace());
+        dbTransaction.put(COLUMN_CARD, transaction.getCard());
+        dbTransaction.put(COLUMN_DELTA, transaction.getDelta());
+        dbTransaction.put(COLUMN_DATE, transaction.getDate().getTime());
+        dbTransaction.put(COLUMN_BALANCE, transaction.getBalance());
+        dbTransaction.put(COLUMN_TYPE, transaction.getType());
+        dbTransaction.put(COLUMN_PLACE, transaction.getPlace());
 
-        long insertId = db.insert(TransactionLogHelper.TABLE_TRANSACTION, null, dbTransaction);
+        long insertId = db.insert(TABLE_TRANSACTION, null, dbTransaction);
 
         Log.d(RegexesStorageHelper.class.getCanonicalName(), "Transaction " + transaction + " saved with id " + insertId);
     }

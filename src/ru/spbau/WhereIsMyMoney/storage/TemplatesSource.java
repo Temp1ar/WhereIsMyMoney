@@ -18,7 +18,7 @@ public class TemplatesSource extends BaseDataSource {
 
     public List<Template> getTemplates() {
         List<Template> templates = new ArrayList<Template>();
-        Cursor cursor = getDatabase().query(TemplatesHelper.TABLE_TEMPLATES,
+        Cursor cursor = getDatabase().query(TemplatesHelper.TEMPLATES_TABLE_NAME,
                 TemplatesHelper.ALL_COLUMNS, null, null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
