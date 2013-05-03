@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.Transaction;
-import ru.spbau.WhereIsMyMoney.storage.TransactionLogHelper;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
 import java.util.Collections;
@@ -58,23 +60,12 @@ public class TransactionsListActivity extends Activity {
 
         if (cardId != null) {
             TextView title = (TextView) findViewById(R.id.header);
-            if (cardId.equals(TransactionLogHelper.CASH)) {
-                title.setText(getString(R.string.transaction_list_header_for_cash));
-            } else {
-                title.setText(getString(R.string.transaction_list_header) + " *" + cardId.substring(cardId.length() - 4, cardId.length()));
-            }
+            title.setText(getString(R.string.transaction_list_header) + " *" + cardId.substring(cardId.length() - 4, cardId.length()));
 
             if (startTime == -1 || endTime == -1) {
                 transactions = db.getTransactionsPerCard(cardId);
             } else {
                 transactions = db.getTransactionsPerCardForPeriod(cardId, new Date(startTime), new Date(endTime));
-            }
-
-            Button addTransaction = (Button) findViewById(R.id.add_tr);
-            if (cardId.equals(TransactionLogHelper.CASH)) {
-                addTransaction.setVisibility(View.VISIBLE);
-            } else {
-                addTransaction.setVisibility(View.GONE);
             }
         } else {
             String place = intent.getStringExtra(PLACE);
