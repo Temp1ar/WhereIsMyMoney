@@ -40,12 +40,5 @@
                   android:screenOrientation="portrait"/>
         <activity android:name="org.achartengine.GraphicalActivity"
                   android:theme="@android:style/Theme.NoTitleBar"/>
-        <service android:name=".service.WatcherService"
-                 android:process=":remote"/>
-        <receiver android:name=".service.SmsReceiver">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
-            </intent-filter>
-        </receiver>
     </application>
 </manifest>

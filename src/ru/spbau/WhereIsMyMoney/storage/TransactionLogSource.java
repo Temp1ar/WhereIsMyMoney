@@ -25,6 +25,10 @@ public class TransactionLogSource extends BaseDataSource {
         TransactionLogHelper.addTransaction(transaction, getDatabase());
     }
 
+    public Date getLatestProcessedSmsDate() {
+        return TransactionLogHelper.getLatestProcessedSmsDate(getDatabase());
+    }
+
     /**
      * Gets transactions matched by filter from database
      *

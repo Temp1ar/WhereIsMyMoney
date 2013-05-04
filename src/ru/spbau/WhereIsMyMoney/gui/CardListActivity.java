@@ -14,6 +14,7 @@ import ru.spbau.WhereIsMyMoney.Card;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TemplatesSource;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
+import ru.spbau.WhereIsMyMoney.utils.Event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ public class CardListActivity extends Activity {
     private TransactionLogSource db;
 
     private void createCardsListView() {
+        db.open();
+
         ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.cards);
         ImageView makeReport = (ImageView) findViewById(ru.spbau.WhereIsMyMoney.R.id.makeReport);
 
@@ -58,6 +61,14 @@ public class CardListActivity extends Activity {
         });
     }
 
+    private class CreateCardsListViewEvent implements Event {
+
+        @Override
+        public void trigger() {
+            createCardsListView();
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +77,13 @@ public class CardListActivity extends Activity {
     }
 
     @Override
-    protected void onResume() {
+    protected void
+    onResume() {
         super.onResume();
-        db.open();
-        createCardsListView();
+
+        NewSmsProcessingAsyncTask newSmsProcessingAsyncTask =
+                new NewSmsProcessingAsyncTask(this, db, new CreateCardsListViewEvent());
+        newSmsProcessingAsyncTask.execute();
     }
 
     @Override

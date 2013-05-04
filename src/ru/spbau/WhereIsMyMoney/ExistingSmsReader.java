@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class ExistingSmsReader {
 
@@ -20,5 +22,17 @@ public class ExistingSmsReader {
             list.add(new SmsEvent(c.getString(0), c.getString(1), c.getLong(2)));
         }
         return list;
+    }
+
+    public static List<SmsEvent> getAfterDate(Date date, Context context) {
+        List<SmsEvent> filteredSmses = new ArrayList<SmsEvent>();
+
+        for (SmsEvent smsEvent : getAll(context)) {
+            if (smsEvent.getDate().before(date)) {
+                filteredSmses.add(smsEvent);
+            }
+        }
+
+        return filteredSmses;
     }
 }

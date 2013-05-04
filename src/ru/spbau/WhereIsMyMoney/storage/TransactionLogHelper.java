@@ -11,6 +11,7 @@ import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.parser.SmsParser;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Helper creates (updates schema) database
@@ -96,14 +97,20 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 
         long insertId = db.insert(TABLE_TRANSACTION, null, dbTransaction);
 
+        // TODO: update date of latest processed sms
+
         Log.d(RegexesStorageHelper.class.getCanonicalName(), "Transaction " + transaction + " saved with id " + insertId);
+    }
+
+    public static Date getLatestProcessedSmsDate(SQLiteDatabase db) {
+        return new Date(1900, 1, 1);
+//        throw new UnsupportedOperationException();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(getClass().getCanonicalName(), "create " + DATABASE_NAME);
         createTable(db);
-        processExistingSmses(db, new SmsParser(context));
     }
 
     @Override
@@ -113,6 +120,5 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
 
         dropTable(db);
         createTable(db);
-        processExistingSmses(db, new SmsParser(context));
     }
 }
