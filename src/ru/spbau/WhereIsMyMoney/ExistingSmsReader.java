@@ -28,7 +28,8 @@ public class ExistingSmsReader {
         List<SmsEvent> filteredSmses = new ArrayList<SmsEvent>();
 
         for (SmsEvent smsEvent : getAll(context)) {
-            if (smsEvent.getDate().before(date)) {
+            Date curSmsDate = smsEvent.getDate();
+            if (curSmsDate.after(date)) {
                 filteredSmses.add(smsEvent);
             }
         }

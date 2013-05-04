@@ -2,6 +2,7 @@ package ru.spbau.WhereIsMyMoney.storage;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -22,7 +23,7 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "transaction_log.db";
     private static final int DATABASE_VERSION = 1;
 
-    public static final String TABLE_TRANSACTION = "transactions";
+    public static final String TRANSACTIONS_TABLE_NAME = "transactions";
 
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_ID_TYPE = "integer primary key autoincrement";
@@ -50,6 +51,7 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
             COLUMN_ID, COLUMN_CARD, COLUMN_DATE, COLUMN_TYPE,
             COLUMN_BALANCE, COLUMN_DELTA, COLUMN_PLACE
     };
+
     private final Context context;
 
     public TransactionLogHelper(Context context) {
@@ -58,7 +60,7 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
     }
 
     private void createTable(SQLiteDatabase db) {
-        String createTableRequest = "create table " + TABLE_TRANSACTION + "("
+        String createTableRequest = "create table " + TRANSACTIONS_TABLE_NAME + "("
                 + COLUMN_ID + " " + COLUMN_ID_TYPE + ", "
                 + COLUMN_CARD + " " + COLUMN_CARD_TYPE + ", "
                 + COLUMN_DATE + " " + COLUMN_DATE_TYPE + ", "
@@ -83,7 +85,7 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
     }
 
     private void dropTable(SQLiteDatabase db) {
-        db.execSQL("drop table if exists " + TABLE_TRANSACTION);
+        db.execSQL("drop table if exists " + TRANSACTIONS_TABLE_NAME);
     }
 
     public static void addTransaction(Transaction transaction, SQLiteDatabase db) {
@@ -95,16 +97,28 @@ public class TransactionLogHelper extends SQLiteOpenHelper {
         dbTransaction.put(COLUMN_TYPE, transaction.getType());
         dbTransaction.put(COLUMN_PLACE, transaction.getPlace());
 
-        long insertId = db.insert(TABLE_TRANSACTION, null, dbTransaction);
-
-        // TODO: update date of latest processed sms
+        long insertId = db.insert(TRANSACTIONS_TABLE_NAME, null, dbTransaction);
 
         Log.d(RegexesStorageHelper.class.getCanonicalName(), "Transaction " + transaction + " saved with id " + insertId);
     }
 
     public static Date getLatestProcessedSmsDate(SQLiteDatabase db) {
-        return new Date(1900, 1, 1);
-//        throw new UnsupportedOperationException();
+        if (getTransactionsTableSize(db) == 0)
+            return new Date(0);
+
+        Cursor cursor = db.rawQuery("SELECT MAX(" + COLUMN_DATE + ") FROM " + TRANSACTIONS_TABLE_NAME, null);
+        cursor.moveToFirst();
+        long lastProcessedSmsDate = cursor.getLong(0);
+        cursor.close();
+        return new Date(lastProcessedSmsDate);
+    }
+
+    private static int getTransactionsTableSize(SQLiteDatabase db) {
+        Cursor cursor = db.rawQuery("SELECT count(*) FROM " + TRANSACTIONS_TABLE_NAME, null);
+        cursor.moveToFirst();
+        int size = cursor.getInt(0);
+        cursor.close();
+        return size;
     }
 
     @Override

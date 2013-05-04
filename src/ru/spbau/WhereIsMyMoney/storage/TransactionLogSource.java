@@ -37,7 +37,7 @@ public class TransactionLogSource extends BaseDataSource {
      */
     List<Transaction> getTransactions(IFilter<Transaction> filter) {
         List<Transaction> transactions = new ArrayList<Transaction>();
-        Cursor cursor = getDatabase().query(TransactionLogHelper.TABLE_TRANSACTION,
+        Cursor cursor = getDatabase().query(TransactionLogHelper.TRANSACTIONS_TABLE_NAME,
                 TransactionLogHelper.ALL_COLUMNS, null, null, null, null,
                 TransactionLogHelper.COLUMN_DATE + " DESC");
         cursor.moveToFirst();
@@ -70,7 +70,7 @@ public class TransactionLogSource extends BaseDataSource {
      */
     public Set<String> getCards() {
         Set<String> cards = new HashSet<String>();
-        Cursor cursor = getDatabase().query(TransactionLogHelper.TABLE_TRANSACTION,
+        Cursor cursor = getDatabase().query(TransactionLogHelper.TRANSACTIONS_TABLE_NAME,
                 TransactionLogHelper.ALL_COLUMNS, null, null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -88,7 +88,7 @@ public class TransactionLogSource extends BaseDataSource {
      */
     Set<String> getPlaces() {
         Set<String> places = new HashSet<String>();
-        Cursor cursor = getDatabase().query(TransactionLogHelper.TABLE_TRANSACTION,
+        Cursor cursor = getDatabase().query(TransactionLogHelper.TRANSACTIONS_TABLE_NAME,
                 TransactionLogHelper.ALL_COLUMNS, null, null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
