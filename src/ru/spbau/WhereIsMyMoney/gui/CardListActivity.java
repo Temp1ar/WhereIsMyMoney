@@ -98,10 +98,11 @@ public class CardListActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(ru.spbau.WhereIsMyMoney.R.menu.menu, menu);
+        getMenuInflater().inflate(ru.spbau.WhereIsMyMoney.R.menu.cards_activity_menu, menu);
         return true;
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case ru.spbau.WhereIsMyMoney.R.id.add_parser:
@@ -126,5 +127,4 @@ public class CardListActivity extends Activity {
 
         return (super.onOptionsItemSelected(item));
     }
-
 }

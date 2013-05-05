@@ -3,6 +3,8 @@ package ru.spbau.WhereIsMyMoney.gui;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -12,6 +14,7 @@ import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +31,7 @@ public class TransactionsListActivity extends Activity {
     private TransactionLogSource db;
     //todo drop this from class field
     private String cardId;
+    private List<Transaction> allTransactions;
 
     public void saveTransaction(View view) {
         Intent intent = new Intent(this, AddTransactionActivity.class);
@@ -54,8 +58,6 @@ public class TransactionsListActivity extends Activity {
         db = new TransactionLogSource(getApplicationContext());
         db.open();
 
-        final List<Transaction> transactions;
-
         cardId = intent.getStringExtra(ID_PARAM);
 
         if (cardId != null) {
@@ -63,9 +65,9 @@ public class TransactionsListActivity extends Activity {
             title.setText(getString(R.string.transaction_list_header) + " *" + cardId.substring(cardId.length() - 4, cardId.length()));
 
             if (startTime == -1 || endTime == -1) {
-                transactions = db.getTransactionsPerCard(cardId);
+                allTransactions = db.getTransactionsPerCard(cardId);
             } else {
-                transactions = db.getTransactionsPerCardForPeriod(cardId, new Date(startTime), new Date(endTime));
+                allTransactions = db.getTransactionsPerCardForPeriod(cardId, new Date(startTime), new Date(endTime));
             }
         } else {
             String place = intent.getStringExtra(PLACE);
@@ -80,30 +82,67 @@ public class TransactionsListActivity extends Activity {
             title.setText(getString(R.string.transaction_list_header) + " " + getString(R.string.transactions_for_place));
 
             if (startTime == -1 || endTime == -1) {
-                transactions = db.getTransactionsPerPlace(place);
+                allTransactions = db.getTransactionsPerPlace(place);
             } else {
-                transactions = db.getTransactionsPerPlaceForPeriod(place, new Date(startTime), new Date(endTime));
+                allTransactions = db.getTransactionsPerPlaceForPeriod(place, new Date(startTime), new Date(endTime));
             }
         }
 
-        ArrayAdapter<Transaction> adapter = new TransactionListAdapter(getApplicationContext(), transactions);
-
-        ListView listView = (ListView) findViewById(ru.spbau.WhereIsMyMoney.R.id.transactions);
-        listView.setAdapter(adapter);
+        showTransactions(allTransactions);
 
         ImageView chartView = (ImageView) findViewById(R.id.chart_view);
         chartView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 BalanceChartBuilder builder = new BalanceChartBuilder();
-                Collections.reverse(transactions);
-                startActivity(builder.getIntent(TransactionsListActivity.this, transactions));
+                Collections.reverse(allTransactions);
+                startActivity(builder.getIntent(TransactionsListActivity.this, allTransactions));
             }
         });
     }
 
-    @Override
+    private List<Transaction> getTransactions(int type) {
+        List<Transaction> transactions = new ArrayList<Transaction>();
+
+        for (Transaction transaction : allTransactions) {
+            if (transaction.getType() == type) {
+                transactions.add(transaction);
+            }
+        }
+
+        return transactions;
+    }
+
+    void showTransactions(List<Transaction> transactions) {
+        ArrayAdapter<Transaction> adapter = new TransactionListAdapter(getApplicationContext(), transactions);
+        ListView transactionsListView = (ListView) findViewById(R.id.transactions);
+        transactionsListView.setAdapter(adapter);
+    }
+
     protected void onStop() {
         super.onStop();
         db.close();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.transactions_activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.transactions_withdraw:
+                showTransactions(getTransactions(Transaction.WITHDRAW));
+                return true;
+            case R.id.transactions_deposit:
+                showTransactions(getTransactions(Transaction.DEPOSIT));
+                return true;
+            case R.id.transactions_all:
+                showTransactions(allTransactions);
+                return true;
+        }
+
+        return (super.onOptionsItemSelected(item));
     }
 }

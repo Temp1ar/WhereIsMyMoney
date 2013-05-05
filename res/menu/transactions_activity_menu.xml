@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/transactions_deposit"
+          android:title="@string/transactions_deposit"/>
+
+    <item android:id="@+id/transactions_withdraw"
+          android:title="@string/transactions_withdraw"/>
+
+    <item android:id="@+id/transactions_all"
+          android:title="@string/transactions_all"/>
+</menu>

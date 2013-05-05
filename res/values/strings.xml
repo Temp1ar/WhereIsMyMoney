@@ -31,6 +31,9 @@
     <string name="change">Mark</string>
     <string name="balance_change">Change of balance</string>
     <string name="transactions_for_place">for place</string>
+    <string name="transactions_deposit">Deposit</string>
+    <string name="transactions_withdraw">Withdraw</string>
+    <string name="transactions_all">All</string>
     <string-array name="field_name">
         <item>Card</item>
         <item>Place</item>
