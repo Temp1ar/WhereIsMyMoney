@@ -81,6 +81,10 @@ public class CardListActivity extends Activity {
     onResume() {
         super.onResume();
 
+        updateView();
+    }
+
+    private void updateView() {
         NewSmsProcessingAsyncTask newSmsProcessingAsyncTask =
                 new NewSmsProcessingAsyncTask(this, db, new CreateCardsListViewEvent());
         newSmsProcessingAsyncTask.execute();
@@ -109,6 +113,7 @@ public class CardListActivity extends Activity {
                 trSource.open();
                 trSource.resetDatabase();
                 trSource.close();
+                updateView();
                 return true;
             case ru.spbau.WhereIsMyMoney.R.id.drop_parsers:
                 TemplatesSource tpSource = new TemplatesSource(getApplicationContext());
