@@ -60,8 +60,8 @@
     </template>
 
     <!--Alfa bank-->
-    <template type="deposit">
-        <![CDATA[ {{card}} ; Postupleniye ; Summa: {{delta}} ; Ostatok: {{balance}} ; {{date}} ]]>
-    </template>
+    <!--<template type="deposit">-->
+        <!--<![CDATA[ {{card}} ; Postupleniye ; Summa: {{delta}} ; Ostatok: {{balance}} ; {{date}} ]]>-->
+    <!--</template>-->
 
 </resource>
