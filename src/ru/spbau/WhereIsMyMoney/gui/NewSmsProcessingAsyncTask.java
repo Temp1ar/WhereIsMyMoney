@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.view.Window;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import ru.spbau.WhereIsMyMoney.ExistingSmsReader;
 import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.SmsEvent;
@@ -26,6 +28,8 @@ public class NewSmsProcessingAsyncTask extends AsyncTask<Void, Integer, Void> {
     private TransactionLogSource db;
     private Event finishEvent;
     private Dialog dialog;
+    private ProgressBar progressBar;
+    private TextView progressBarText;
 
 
     public NewSmsProcessingAsyncTask(Context context, TransactionLogSource db, Event finishEvent) {
@@ -44,6 +48,7 @@ public class NewSmsProcessingAsyncTask extends AsyncTask<Void, Integer, Void> {
             Transaction transaction = smsParser.parseSms(smsEvents.get(i));
             if (transaction != null)
                 db.addTransaction(transaction);
+            publishProgress((int)((double)i / smsEvents.size() * 100));
         }
 
         return null;
@@ -59,6 +64,10 @@ public class NewSmsProcessingAsyncTask extends AsyncTask<Void, Integer, Void> {
         dialog.setCancelable(false);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.sms_processing_dialog);
+
+        progressBar = (ProgressBar) dialog.findViewById(R.id.smsProcessingProgressBar);
+        progressBarText = (TextView) dialog.findViewById(R.id.smsProcessingProgressBarText);
+
         dialog.show();
     }
 
@@ -70,5 +79,12 @@ public class NewSmsProcessingAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         if (finishEvent != null)
             finishEvent.trigger();
+    }
+
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+        super.onProgressUpdate(values);
+        progressBar.setProgress(values[0]);
+        progressBarText.setText(values[0] + " %");
     }
 }
