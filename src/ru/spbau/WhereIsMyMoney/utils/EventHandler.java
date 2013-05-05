@@ -1,5 +1,5 @@
 package ru.spbau.WhereIsMyMoney.utils;
 
-public interface Event {
+public interface EventHandler {
     void trigger();
 }

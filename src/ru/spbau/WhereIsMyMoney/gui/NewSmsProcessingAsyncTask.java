@@ -12,7 +12,7 @@ import ru.spbau.WhereIsMyMoney.SmsEvent;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.parser.SmsParser;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
-import ru.spbau.WhereIsMyMoney.utils.Event;
+import ru.spbau.WhereIsMyMoney.utils.EventHandler;
 
 import java.util.Date;
 import java.util.List;
@@ -26,16 +26,16 @@ public class NewSmsProcessingAsyncTask extends AsyncTask<Void, Integer, Void> {
 
     private Context context;
     private TransactionLogSource db;
-    private Event finishEvent;
+    private EventHandler finishEventHandler;
     private Dialog dialog;
     private ProgressBar progressBar;
     private TextView progressBarText;
 
 
-    public NewSmsProcessingAsyncTask(Context context, TransactionLogSource db, Event finishEvent) {
+    public NewSmsProcessingAsyncTask(Context context, TransactionLogSource db, EventHandler finishEventHandler) {
         this.context = context;
         this.db = db;
-        this.finishEvent = finishEvent;
+        this.finishEventHandler = finishEventHandler;
     }
 
     @Override
@@ -77,8 +77,8 @@ public class NewSmsProcessingAsyncTask extends AsyncTask<Void, Integer, Void> {
         db.close();
         dialog.dismiss();
 
-        if (finishEvent != null)
-            finishEvent.trigger();
+        if (finishEventHandler != null)
+            finishEventHandler.trigger();
     }
 
     @Override

@@ -14,7 +14,7 @@ import ru.spbau.WhereIsMyMoney.Card;
 import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.storage.TemplatesSource;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
-import ru.spbau.WhereIsMyMoney.utils.Event;
+import ru.spbau.WhereIsMyMoney.utils.EventHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +61,7 @@ public class CardListActivity extends Activity {
         });
     }
 
-    private class CreateCardsListViewEvent implements Event {
+    private class CreateCardsListViewEventHandler implements EventHandler {
 
         @Override
         public void trigger() {
@@ -86,7 +86,7 @@ public class CardListActivity extends Activity {
 
     private void updateView() {
         NewSmsProcessingAsyncTask newSmsProcessingAsyncTask =
-                new NewSmsProcessingAsyncTask(this, db, new CreateCardsListViewEvent());
+                new NewSmsProcessingAsyncTask(this, db, new CreateCardsListViewEventHandler());
         newSmsProcessingAsyncTask.execute();
     }
 
