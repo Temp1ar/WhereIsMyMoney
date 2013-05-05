@@ -17,10 +17,11 @@ public class ExistingSmsReader {
         ArrayList<SmsEvent> list = new ArrayList<SmsEvent>();
         Uri allMessage = Uri.parse("content://sms/inbox");
         ContentResolver cr = context.getContentResolver();
-        Cursor c = cr.query(allMessage, new String[]{"address", "body", "date"}, null, null, null);
-        while (c.moveToNext()) {
-            list.add(new SmsEvent(c.getString(0), c.getString(1), c.getLong(2)));
+        Cursor cursor = cr.query(allMessage, new String[]{"address", "body", "date"}, null, null, null);
+        while (cursor.moveToNext()) {
+            list.add(new SmsEvent(cursor.getString(0), cursor.getString(1), cursor.getLong(2)));
         }
+        cursor.close();
         return list;
     }
 

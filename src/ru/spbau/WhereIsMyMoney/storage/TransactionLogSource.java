@@ -78,6 +78,7 @@ public class TransactionLogSource extends BaseDataSource {
             cards.add(card);
             cursor.moveToNext();
         }
+        cursor.close();
         return cards;
     }
 
@@ -96,6 +97,7 @@ public class TransactionLogSource extends BaseDataSource {
             places.add(place);
             cursor.moveToNext();
         }
+        cursor.close();
         return places;
     }
 
