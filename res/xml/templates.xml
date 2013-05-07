@@ -64,4 +64,36 @@
         <!--<![CDATA[ {{card}} ; Postupleniye ; Summa: {{delta}} ; Ostatok: {{balance}} ; {{date}} ]]>-->
     <!--</template>-->
 
+    <!--Bank Moskvi -->
+    <template type="withdraw">
+        <![CDATA[ pokupka karta:{{card}} summa:{{delta:[^\.]+\.[^\s]+}} {{code}} balans:{{balance:[^\.]+\.[^\s]+\s[^\s]+}} {{place}} {{junk:\(vremya.*|Vremya}}]]>
+    </template>
+
+    <template type="withdraw">
+        <![CDATA[ vydacha nalichnih karta:{{card}} summa:{{delta:[^\.]+\.[^\s]+}} {{code}} balans:{{balance:[^\.]+\.[^\s]+\s[^\s]+}} {{place}} {{junk:\(vremya.*|Vremya}}]]>
+    </template>
+
+    <template type="deposit">
+        <![CDATA[ popolnenie scheta karta:{{card}} summa:{{delta:[^\.]+\.[^\s]+}} {{code}} balans:{{balance:[^\.]+\.[^\s]+\s[^\s]+}} {{place}} {{junk:\(vremya.*|Vremya}}]]>
+    </template>
+
+    <template type="deposit">
+        <![CDATA[ otmena pokupki karta:{{card}} summa:{{delta:[^\.]+\.[^\s]+}} {{code}} balans:{{balance:[^\.]+\.[^\s]+\s[^\s]+}} {{place}} {{junk:\(vremya.*|Vremya}}]]>
+    </template>
+
+    <template type="deposit">
+        <![CDATA[ drugie zachislenija karta:{{card}} summa:{{delta:[^\.]+\.[^\s]+}} {{code}} balans:{{balance:[^\.]+\.[^\s]+\s[^\s]+}} {{place}} {{junk:\(vremya.*|Vremya}}]]>
+    </template>
+
+    <template type="withdraw">
+        <![CDATA[ oplata karta:{{card}} summa:{{delta:[^\.]+\.[^\s]+}} {{code}} balans:{{balance:[^\.]+\.[^\s]+\s[^\s]+}} {{place}} {{junk:\(vremya.*|Vremya.*}}]]>
+    </template>
+
+    <template type="withdraw">
+        <![CDATA[ drugie spisnija karta:{{card}} summa:{{delta:[^\.]+\.[^\s]+}} {{code}} balans:{{balance:[^\.]+\.[^\s]+\s[^\s]+}} {{place}} {{junk:\(vremya.*|Vremya.*}}]]>
+    </template>
+
+    <template type="deposit">
+        <![CDATA[ otmena vydachi nalichnyh karta:{{card}} summa:{{delta:[^\.]+\.[^\s]+}} {{code}} balans:{{balance:[^\.]+\.[^\s]+\s[^\s]+}} {{place}} {{junk:\(vremya.*|Vremya}}]]>
+    </template>
 </resource>
