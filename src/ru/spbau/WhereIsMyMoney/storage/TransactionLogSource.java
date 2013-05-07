@@ -1,7 +1,9 @@
 package ru.spbau.WhereIsMyMoney.storage;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import ru.spbau.WhereIsMyMoney.Transaction;
 
 import java.util.*;
@@ -16,17 +18,42 @@ public class TransactionLogSource extends BaseDataSource {
         super(new TransactionLogHelper(context));
     }
 
+    public int getTransactionsTableSize() {
+        SQLiteDatabase db = getDatabase();
+        Cursor cursor = db.rawQuery("SELECT count(*) FROM " + TransactionLogHelper.TRANSACTIONS_TABLE_NAME, null);
+        cursor.moveToFirst();
+        int size = cursor.getInt(0);
+        cursor.close();
+        return size;
+    }
+
     /**
      * Insert new transaction into database. Database have be open for writing.
      *
      * @param transaction transaction to be inserted
      */
     public void addTransaction(Transaction transaction) {
-        TransactionLogHelper.addTransaction(transaction, getDatabase());
+        ContentValues dbTransaction = new ContentValues();
+        dbTransaction.put(TransactionLogHelper.COLUMN_CARD, transaction.getCard());
+        dbTransaction.put(TransactionLogHelper.COLUMN_DELTA, transaction.getDelta());
+        dbTransaction.put(TransactionLogHelper.COLUMN_DATE, transaction.getDate().getTime());
+        dbTransaction.put(TransactionLogHelper.COLUMN_BALANCE, transaction.getBalance());
+        dbTransaction.put(TransactionLogHelper.COLUMN_TYPE, transaction.getType());
+        dbTransaction.put(TransactionLogHelper.COLUMN_PLACE, transaction.getPlace());
+
+        getDatabase().insert(TransactionLogHelper.TRANSACTIONS_TABLE_NAME, null, dbTransaction);
     }
 
     public Date getLatestProcessedSmsDate() {
-        return TransactionLogHelper.getLatestProcessedSmsDate(getDatabase());
+        SQLiteDatabase db = getDatabase();
+        if (getTransactionsTableSize() == 0)
+            return new Date(0);
+
+        Cursor cursor = db.rawQuery("SELECT MAX(" + TransactionLogHelper.COLUMN_DATE + ") FROM " + TransactionLogHelper.TRANSACTIONS_TABLE_NAME, null);
+        cursor.moveToFirst();
+        long lastProcessedSmsDate = cursor.getLong(0);
+        cursor.close();
+        return new Date(lastProcessedSmsDate);
     }
 
     /**

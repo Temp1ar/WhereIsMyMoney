@@ -29,9 +29,6 @@
         <activity android:name=".gui.CostsReportSetupActivity"
                   android:theme="@android:style/Theme.NoTitleBar"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".gui.AddTransactionActivity"
-                  android:theme="@android:style/Theme.NoTitleBar"
-                  android:screenOrientation="portrait"/>
         <activity android:name=".gui.SmsViewActivity"
                   android:theme="@android:style/Theme.NoTitleBar"
                   android:screenOrientation="portrait"/>

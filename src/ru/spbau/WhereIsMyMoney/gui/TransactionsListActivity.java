@@ -33,12 +33,6 @@ public class TransactionsListActivity extends Activity {
     private String cardId;
     private List<Transaction> allTransactions;
 
-    public void saveTransaction(View view) {
-        Intent intent = new Intent(this, AddTransactionActivity.class);
-        intent.putExtra(TransactionsListActivity.ID_PARAM, cardId);
-        startActivity(intent);
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
