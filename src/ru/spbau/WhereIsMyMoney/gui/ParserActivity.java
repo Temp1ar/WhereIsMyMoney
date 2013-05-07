@@ -15,9 +15,6 @@ import ru.spbau.WhereIsMyMoney.Transaction;
 import ru.spbau.WhereIsMyMoney.parser.Template;
 import ru.spbau.WhereIsMyMoney.storage.TemplatesSource;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ParserActivity extends Activity {
     private String smsText;
     private int transactionType = 0;
@@ -29,9 +26,7 @@ public class ParserActivity extends Activity {
         smsText = sms.getText().toString();
         TemplatesSource templatesSource = new TemplatesSource(getApplicationContext());
         templatesSource.open();
-        List<Template> list = new ArrayList<Template>();
         Template template = new Template(smsText, transactionType);
-        list.add(template);
         templatesSource.addTemplate(template);
         templatesSource.close();
         finish();
