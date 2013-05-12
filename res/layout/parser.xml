@@ -59,7 +59,7 @@
         <Button android:id="@+id/button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/ok"
+                android:text="@string/save"
                 android:onClick="saveParser"
                 android:background="@drawable/nice_button"
                 style="@style/ShadowedText"/>

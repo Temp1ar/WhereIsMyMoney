@@ -4,7 +4,7 @@
     <string name="description">Your accounts</string>
     <string name="sum">Sum</string>
     <string name="place">Place</string>
-    <string name="ok">Save</string>
+    <string name="save">Save</string>
     <string name="add">Add Transaction</string>
     <string name="unknown_place">Unknown place</string>
     <string name="reportByPlace">by Place</string>
@@ -34,6 +34,7 @@
     <string name="transactions_deposit">Deposit</string>
     <string name="transactions_withdraw">Withdraw</string>
     <string name="transactions_all">All</string>
+    <string name="cancel">Cancel</string>
     <string-array name="field_name">
         <item>Card</item>
         <item>Place</item>

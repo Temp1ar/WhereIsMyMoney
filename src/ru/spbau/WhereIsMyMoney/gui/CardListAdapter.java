@@ -22,15 +22,15 @@ class CardListAdapter extends ArrayAdapter<Card> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int index, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.card_row, parent, false);
 
-        TextView card_id = (TextView) rowView.findViewById(R.id.card_id);
-        card_id.setText(cards.get(position).getId());
+        TextView cardId = (TextView) rowView.findViewById(R.id.card_id);
+        cardId.setText(cards.get(index).getDisplayName());
 
-        TextView card_balance = (TextView) rowView.findViewById(R.id.card_balance);
-        card_balance.setText(cards.get(position).getBalance().toString());
+        TextView cardBalance = (TextView) rowView.findViewById(R.id.card_balance);
+        cardBalance.setText(cards.get(index).getBalance().toString());
 
         return rowView;
     }

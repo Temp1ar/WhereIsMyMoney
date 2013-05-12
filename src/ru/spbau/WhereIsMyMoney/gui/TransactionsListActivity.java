@@ -2,6 +2,7 @@ package ru.spbau.WhereIsMyMoney.gui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import ru.spbau.WhereIsMyMoney.R;
 import ru.spbau.WhereIsMyMoney.Transaction;
+import ru.spbau.WhereIsMyMoney.storage.CardNameSource;
 import ru.spbau.WhereIsMyMoney.storage.TransactionLogSource;
 
 import java.util.ArrayList;
@@ -32,6 +34,14 @@ public class TransactionsListActivity extends Activity {
     //todo drop this from class field
     private String cardId;
     private List<Transaction> allTransactions;
+    private CardNameSource cardNameSource;
+    private final int CardDisplayNameMaxLength = 7;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        cardNameSource = new CardNameSource(this);
+    }
 
     @Override
     protected void onResume() {
@@ -55,8 +65,11 @@ public class TransactionsListActivity extends Activity {
         cardId = intent.getStringExtra(ID_PARAM);
 
         if (cardId != null) {
+            String displayName = getDisplayName(cardId);
+            String shortName = shortenName(displayName, CardDisplayNameMaxLength);
+
             TextView title = (TextView) findViewById(R.id.header);
-            title.setText(getString(R.string.transaction_list_header) + " *" + cardId.substring(cardId.length() - 4, cardId.length()));
+            title.setText(getString(R.string.transaction_list_header) + " " + shortName);
 
             if (startTime == -1 || endTime == -1) {
                 allTransactions = db.getTransactionsPerCard(cardId);
@@ -92,6 +105,18 @@ public class TransactionsListActivity extends Activity {
                 startActivity(builder.getIntent(TransactionsListActivity.this, allTransactions));
             }
         });
+    }
+
+    String getDisplayName(String cardId) {
+        String name = cardNameSource.getName(cardId);
+        return name != null ? name : cardId;
+    }
+
+    String shortenName(String name, int maxCharacters) {
+        if (name.length() <= maxCharacters)
+            return name;
+
+        return name.substring(0, maxCharacters) + "*";
     }
 
     private List<Transaction> getTransactions(int type) {

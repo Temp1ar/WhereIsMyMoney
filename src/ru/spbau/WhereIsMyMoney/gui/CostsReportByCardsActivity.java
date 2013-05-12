@@ -1,10 +1,12 @@
 package ru.spbau.WhereIsMyMoney.gui;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import ru.spbau.WhereIsMyMoney.R;
+import ru.spbau.WhereIsMyMoney.storage.CardNameSource;
 
 import java.util.*;
 
@@ -16,6 +18,13 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
     private Map<String, Map<String, Float>> cards2costs = null;
     private Date start = null;
     private Date end = null;
+    private CardNameSource cardNameSource;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        cardNameSource = new CardNameSource(this);
+    }
 
     @Override
     protected void init(Date start, Date end) {
@@ -73,7 +82,7 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
             for (String card : card2costs.keySet()) {
                 Float costs = card2costs.get(card);
                 Map<String, String> m = new HashMap<String, String>();
-                m.put("name", card);
+                m.put("name", getDisplayName(card));
                 m.put("amount", costs.toString());
 
                 cards.add(m);
@@ -82,5 +91,10 @@ public class CostsReportByCardsActivity extends AbstractCostsReportActivity {
         }
 
         return dataForAdapter;
+    }
+
+    String getDisplayName(String cardId) {
+        String name = cardNameSource.getName(cardId);
+        return name != null ? name : cardId;
     }
 }

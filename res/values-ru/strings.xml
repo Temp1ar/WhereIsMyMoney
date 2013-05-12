@@ -4,7 +4,7 @@
     <string name="description">Ваши счета</string>
     <string name="sum">Сумма</string>
     <string name="place">Место</string>
-    <string name="ok">Сохранить</string>
+    <string name="save">Сохранить</string>
     <string name="add">Добавить транзакцию</string>
     <string name="unknown_place">Неизвестное место</string>
     <string name="reportByPlace">По местам</string>

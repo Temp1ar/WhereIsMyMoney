@@ -86,7 +86,13 @@ abstract class AbstractCostsReportActivity extends Activity {
         super.onCreate(savedInstanceState);
         db = new TransactionLogSource(getApplicationContext());
         db.open();
+
         setContentView(ru.spbau.WhereIsMyMoney.R.layout.costs_report);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         createListView();
     }
 
