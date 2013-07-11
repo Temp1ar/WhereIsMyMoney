@@ -18,40 +18,57 @@ final public class MoneyParser {
 
     private static final Pattern CURRENCY_PATTERN = Pattern.compile("([^a-zA-Z]*)(\\w*).*");
 
-    static public Pair<Float, String> parse(String str) {
-        for (char sep : SEPARATORS) {
-            Pair<String, String> money = formatWithSeparator(str, sep);
-            try {
-                return new Pair<Float, String>(Float.parseFloat(money.first), money.second);
-            } catch (Exception e) {
+    public static Pair<Float, String> parse(String str) {
+        Matcher matcher = CURRENCY_PATTERN.matcher(str);
+
+        if (!matcher.matches()) return null;
+
+        String amount = matcher.group(AMOUNT_GROUP).replaceAll("\\s", "");
+        String currency = matcher.group(CURRENCY_GROUP);
+        if (currency == null)
+            currency = "";
+
+        Float result = null;
+        Character separatorCandidate = getSeparatorCandidate(amount);
+        if (separatorCandidate != null) {
+            result = parse(amount, separatorCandidate);
+        } else {
+            for (char sep : SEPARATORS) {
+                result = parse(amount, sep);
+                if (result != null) break;
             }
         }
-        Log.e(TAG, "Can't parse float from message: " + str);
+
+        if (result == null) {
+            Log.e(TAG, "Can't parse float from message: " + str);
+        }
+
+        return Pair.create(result, currency);
+    }
+
+    private static Character getSeparatorCandidate(String str) {
+        if (str.length() > 2) {
+            char sep = str.charAt(str.length() - 2);
+            if (!Character.isDigit(sep)) return sep;
+        }
+
+        if (str.length() > 3) {
+            char sep = str.charAt(str.length() - 3);
+            if (!Character.isDigit(sep)) return sep;
+        }
+
         return null;
     }
 
-    static private Pair<String, String> formatWithSeparator(String str, char sep) {
-        Matcher matcher = CURRENCY_PATTERN.matcher(str);
-        String amount = "";
-        String currency = "";
+    private static Float parse(String amount, char separator) {
+        amount = amount.replaceAll("[^\\d" + separator + "]", "").replace(separator, SEPARATOR);
 
-        if (matcher.matches()) {
-            amount = matcher.group(AMOUNT_GROUP);
-            currency = matcher.group(CURRENCY_GROUP);
-            if (currency == null)
-                currency = "";
+        try {
+            return Float.parseFloat(amount);
+        } catch (Exception e) {
+            Log.e(TAG, "Exception: " + e.getMessage());
         }
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < amount.length(); ++i) {
-            char c = amount.charAt(i);
-            if (c == sep) {
-                c = SEPARATOR;
-            }
-            if (Character.isDigit(c) || (c == SEPARATOR)) {
-                sb.append(c);
-            }
-        }
-        return new Pair<String, String>(sb.toString(), currency);
+        return null;
     }
 }
