@@ -96,4 +96,12 @@
     <template type="deposit">
         <![CDATA[ otmena vydachi nalichnyh karta:{{card}} summa:{{delta:[^\.]+\.[^\s]+}} {{code}} balans:{{balance:[^\.]+\.[^\s]+\s[^\s]+}} {{place}} {{junk:\(vremya.*|Vremya}}]]>
     </template>
+
+    <!-- Raiffeisen bank -->
+    <template type="deposit">
+        <![CDATA[Balans vashey karty {{card:\*\d\d\d\d}} popolnilsya {{date:\d{2}/\d{2}/\d\d\d\d}} na:{{delta}}.Dostupny Ostatok: {{balance}}. Raiffeisenbank]]>
+    </template>
+    <template type="withdraw">
+        <![CDATA[Karta {{card:\*\d\d\d\d}}; Provedena tranzakcija:{{delta}}; Data:{{date:\d{2}/\d{2}/\d\d\d\d}};Mesto: {{place}}; Dostupny Ostatok: {{balance}}. Raiffeisenbank]]>
+    </template>
 </resource>
