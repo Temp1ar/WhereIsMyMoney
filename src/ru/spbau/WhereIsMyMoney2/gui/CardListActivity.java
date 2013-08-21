@@ -106,6 +106,7 @@ public class CardListActivity extends Activity {
     protected void onStop() {
         super.onStop();
         transactionLogSource.close();
+        cardNameSource.close();
     }
 
     @Override

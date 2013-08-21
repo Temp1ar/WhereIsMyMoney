@@ -45,7 +45,7 @@
 
     <template type="withdraw">
         <![CDATA[ {{date:[^\s]*\s+[^\s]*}} {{card}} : Списание комиссии за пользование услугой SMS-Информирование {{delta}} код {{code:[^\s]*}} ; Доступно : {{balance}} ]]>
-     </template>
+    </template>
 
     <template type="withdraw">
         <![CDATA[ {{date:[^\s]*\s+[^\s]*}} {{card}} : Spisanie komissii za pol'zovanie uslugoi SMS-Informirovanie {{delta}} kod {{code:[^\s]*}} ; Dostupno : {{balance}} ]]>
@@ -58,11 +58,6 @@
     <template type="withdraw">
         <![CDATA[ {{date:[^\s]*\s+[^\s]*}} {{card}} : Oplata tovarov/uslug {{delta}} kod {{code:[^\s]*}} {{place}} ; Dostupno : {{balance}} ]]>
     </template>
-
-    <!--Alfa bank-->
-    <!--<template type="deposit">-->
-        <!--<![CDATA[ {{card}} ; Postupleniye ; Summa: {{delta}} ; Ostatok: {{balance}} ; {{date}} ]]>-->
-    <!--</template>-->
 
     <!--Bank Moskvi -->
     <template type="withdraw">
@@ -101,7 +96,23 @@
     <template type="deposit">
         <![CDATA[Balans vashey karty {{card:\*\d\d\d\d}} popolnilsya {{date:\d{2}/\d{2}/\d\d\d\d}} na:{{delta}}.Dostupny Ostatok: {{balance}}. Raiffeisenbank]]>
     </template>
+
     <template type="withdraw">
         <![CDATA[Karta {{card:\*\d\d\d\d}}; Provedena tranzakcija:{{delta}}; Data:{{date:\d{2}/\d{2}/\d\d\d\d}};Mesto: {{place}}; Dostupny Ostatok: {{balance}}. Raiffeisenbank]]>
     </template>
+
+
+    <!--Alfa bank-->
+    <template type="withdraw">
+        <![CDATA[ {{card}} ; Pokupka ; Uspeshno ; Summa: {{delta}} ; Ostatok: {{balance}} ; {{place}} ; {{date}}]]>
+    </template>
+
+    <template type="withdraw">
+        <![CDATA[ {{card}}; Vydacha nalichnyh; Uspeshno; Summa: {{delta}}; Ostatok: {{balance}}; {{place}}; {{date}}]]>
+    </template>
+
+    <template type="deposit">
+        <![CDATA[ {{card}}; Postupleniye; Summa: {{delta}}; Ostatok: {{balance}}; {{date}}]]>
+    </template>
+
 </resource>
